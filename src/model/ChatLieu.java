@@ -10,7 +10,6 @@ package model;
  */
 public class ChatLieu {
 
-    private int stt;
     private String maChatLieu;
     private String tenChatLieu;
 
@@ -18,17 +17,8 @@ public class ChatLieu {
     }
 
     public ChatLieu(int stt, String maChatLieu, String tenChatLieu) {
-        this.stt = stt;
         this.maChatLieu = maChatLieu;
         this.tenChatLieu = tenChatLieu;
-    }
-
-    public int getStt() {
-        return stt;
-    }
-
-    public void setStt(int stt) {
-        this.stt = stt;
     }
 
     public String getMaChatLieu() {
@@ -47,12 +37,7 @@ public class ChatLieu {
         this.tenChatLieu = tenChatLieu;
     }
 
-    @Override
-    public String toString() {
-        return "ChatLieu{" + "stt=" + stt + ", maChatLieu=" + maChatLieu + ", tenChatLieu=" + tenChatLieu + '}';
-    }
-
     public Object[] toDataRow() {
-        return new Object[]{this.stt,this.maChatLieu, this.tenChatLieu};
+        return new Object[]{this.maChatLieu, this.tenChatLieu};
     }
 }

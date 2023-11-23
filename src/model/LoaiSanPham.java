@@ -10,49 +10,35 @@ package model;
  */
 public class LoaiSanPham {
 
-    private int stt;
-    private String maSP;
-    private String tenSP;
+    private String maLoaiSanPham;
+    private String loaiSanPham;
 
     public LoaiSanPham() {
     }
 
-    public LoaiSanPham(int stt, String maSP, String tenSP) {
-        this.stt = stt;
-        this.maSP = maSP;
-        this.tenSP = tenSP;
+    public LoaiSanPham(String maLoaiSanPham, String loaiSanPham) {
+        this.maLoaiSanPham = maLoaiSanPham;
+        this.loaiSanPham = loaiSanPham;
     }
 
-    public int getStt() {
-        return stt;
+    public String getMaLoaiSanPham() {
+        return maLoaiSanPham;
     }
 
-    public void setStt(int stt) {
-        this.stt = stt;
+    public void setMaLoaiSanPham(String maLoaiSanPham) {
+        this.maLoaiSanPham = maLoaiSanPham;
     }
 
-    public String getMaSP() {
-        return maSP;
+    public String getLoaiSanPham() {
+        return loaiSanPham;
     }
 
-    public void setMaSP(String maSP) {
-        this.maSP = maSP;
+    public void setLoaiSanPham(String loaiSanPham) {
+        this.loaiSanPham = loaiSanPham;
     }
 
-    public String getTenSP() {
-        return tenSP;
-    }
-
-    public void setTenSP(String tenSP) {
-        this.tenSP = tenSP;
-    }
-
-    @Override
-    public String toString() {
-        return "LoaiSanPham{" + "stt=" + stt + ", maSP=" + maSP + ", tenSP=" + tenSP + '}';
-    }
 
     public Object[] toDataRow() {
-        return new Object[]{this.stt, this.maSP, this.tenSP};
+        return new Object[]{this.maLoaiSanPham, this.loaiSanPham};
     }
 }

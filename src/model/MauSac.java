@@ -10,25 +10,15 @@ package model;
  */
 public class MauSac {
 
-    private int stt;
     private String maMau;
     private String tenMau;
 
     public MauSac() {
     }
 
-    public MauSac(int stt, String maMau, String tenMau) {
-        this.stt = stt;
+    public MauSac( String maMau, String tenMau) {
         this.maMau = maMau;
         this.tenMau = tenMau;
-    }
-
-    public int getStt() {
-        return stt;
-    }
-
-    public void setStt(int stt) {
-        this.stt = stt;
     }
 
     public String getMaMau() {
@@ -47,12 +37,8 @@ public class MauSac {
         this.tenMau = tenMau;
     }
 
-    @Override
-    public String toString() {
-        return "MauSac{" + "stt=" + stt + ", maMau=" + maMau + ", tenMau=" + tenMau + '}';
-    }
 
     public Object[] toDataRow() {
-        return new Object[]{this.stt, this.maMau, this.tenMau};
+        return new Object[]{ this.maMau, this.tenMau};
     }
 }

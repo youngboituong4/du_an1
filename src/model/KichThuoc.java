@@ -10,25 +10,15 @@ package model;
  */
 public class KichThuoc {
 
-    private int stt;
     private String maKichThuoc;
     private String tenKichThuoc;
 
     public KichThuoc() {
     }
 
-    public KichThuoc(int stt, String maKichThuoc, String tenKichThuoc) {
-        this.stt = stt;
+    public KichThuoc(String maKichThuoc, String tenKichThuoc) {
         this.maKichThuoc = maKichThuoc;
         this.tenKichThuoc = tenKichThuoc;
-    }
-
-    public int getStt() {
-        return stt;
-    }
-
-    public void setStt(int stt) {
-        this.stt = stt;
     }
 
     public String getMaKichThuoc() {
@@ -47,12 +37,8 @@ public class KichThuoc {
         this.tenKichThuoc = tenKichThuoc;
     }
 
-    @Override
-    public String toString() {
-        return "KichThuoc{" + "stt=" + stt + ", maKichThuoc=" + maKichThuoc + ", tenKichThuoc=" + tenKichThuoc + '}';
-    }
 
     public Object[] toDataRow() {
-        return new Object[]{this.stt, this.maKichThuoc, this.tenKichThuoc};
+        return new Object[]{ this.maKichThuoc, this.tenKichThuoc};
     }
 }

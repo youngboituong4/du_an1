@@ -10,83 +10,92 @@ package model;
  */
 public class ChiTietSanPham {
 
-    private int stt;
-    private String ma;
-    private String ten, loai, kt, ms, cl;
-    private double gia;
-    private int sl;
+    private Integer ID;
+    private String maSP;
+    private String tenSP, maLoai, maKichThuoc, maMauSac, maChatLieu, maThuongHieu;
+    private Double gia;
+    private Integer soLuong;
     private boolean trangThai;
 
     public ChiTietSanPham() {
     }
 
-    public ChiTietSanPham(int stt, String ma, String ten, String loai, String kt, String ms, String cl, double gia, int sl, boolean trangThai) {
-        this.stt = stt;
-        this.ma = ma;
-        this.ten = ten;
-        this.loai = loai;
-        this.kt = kt;
-        this.ms = ms;
-        this.cl = cl;
+    public ChiTietSanPham(int ID, String maSP, String tenSP, String maLoai, String maKichThuoc, String maMauSac, String maChatLieu, String maThuongHieu, double gia, int soLuong, boolean trangThai) {
+        this.ID = ID;
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.maLoai = maLoai;
+        this.maKichThuoc = maKichThuoc;
+        this.maMauSac = maMauSac;
+        this.maChatLieu = maChatLieu;
+        this.maThuongHieu = maThuongHieu;
         this.gia = gia;
-        this.sl = sl;
+        this.soLuong = soLuong;
         this.trangThai = trangThai;
     }
 
-    public int getStt() {
-        return stt;
+    public int getID() {
+        return ID;
     }
 
-    public void setStt(int stt) {
-        this.stt = stt;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public String getMa() {
-        return ma;
+    public String getMaSP() {
+        return maSP;
     }
 
-    public void setMa(String ma) {
-        this.ma = ma;
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
     }
 
-    public String getTen() {
-        return ten;
+    public String getTenSP() {
+        return tenSP;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
     }
 
-    public String getLoai() {
-        return loai;
+    public String getMaLoai() {
+        return maLoai;
     }
 
-    public void setLoai(String loai) {
-        this.loai = loai;
+    public void setMaLoai(String maLoai) {
+        this.maLoai = maLoai;
     }
 
-    public String getKt() {
-        return kt;
+    public String getMaKichThuoc() {
+        return maKichThuoc;
     }
 
-    public void setKt(String kt) {
-        this.kt = kt;
+    public void setMaKichThuoc(String maKichThuoc) {
+        this.maKichThuoc = maKichThuoc;
     }
 
-    public String getMs() {
-        return ms;
+    public String getMaMauSac() {
+        return maMauSac;
     }
 
-    public void setMs(String ms) {
-        this.ms = ms;
+    public void setMaMauSac(String maMauSac) {
+        this.maMauSac = maMauSac;
     }
 
-    public String getCl() {
-        return cl;
+    public String getMaChatLieu() {
+        return maChatLieu;
     }
 
-    public void setCl(String cl) {
-        this.cl = cl;
+    public void setMaChatLieu(String maChatLieu) {
+        this.maChatLieu = maChatLieu;
+    }
+
+    public String getMaThuongHieu() {
+        return maThuongHieu;
+    }
+
+    public void setMaThuongHieu(String maThuongHieu) {
+        this.maThuongHieu = maThuongHieu;
     }
 
     public double getGia() {
@@ -97,12 +106,12 @@ public class ChiTietSanPham {
         this.gia = gia;
     }
 
-    public int getSl() {
-        return sl;
+    public int getSoLuong() {
+        return soLuong;
     }
 
-    public void setSl(int sl) {
-        this.sl = sl;
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
     }
 
     public boolean isTrangThai() {
@@ -113,26 +122,21 @@ public class ChiTietSanPham {
         this.trangThai = trangThai;
     }
 
-
-    public boolean trangThai(int sl) {
-        if(sl > 0){
+    public boolean trangThai(int soLuong) {
+        if(soLuong > 0){
             return true;
         } else {
             return false;
         }
     }
 
-    @Override
-    public String toString() {
-        return "SanPham{" + "ma=" + ma + ", ten=" + ten + ", loai=" + loai + ", kt=" + kt + ", ms=" + ms + ", cl=" + cl + ", gia=" + gia + ", sl=" + sl + ", trangThai=" + trangThai + '}';
-    }
     
     public Object[] toDataRowCTSP(){
-        return new Object[]{this.ma, this.ten, this.loai, this.kt, this.ms, this.cl, this.gia, this.sl, this.trangThai(sl)?"Còn hàng":"Hết hàng"};
+        return new Object[]{this.maSP, this.tenSP, this.maLoai, this.maKichThuoc, this.maMauSac, this.maChatLieu, this.gia, this.soLuong, this.trangThai(soLuong)?"Còn hàng":"Hết hàng"};
     }
        
     public Object[] toDataRowSP(){
-        return new Object[]{this.ma, this.ten, this.trangThai(sl)?"Còn hàng":"Hết hàng"};
+        return new Object[]{this.maSP, this.tenSP, this.trangThai(soLuong)?"Còn hàng":"Hết hàng"};
     }
     
 }
