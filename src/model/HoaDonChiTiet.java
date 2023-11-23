@@ -25,7 +25,7 @@ public class HoaDonChiTiet {
         this.donGia = donGia;
         this.soLuong = soLuong;
     }
-
+//ThinDo
     public Integer getID() {
         return ID;
     }
