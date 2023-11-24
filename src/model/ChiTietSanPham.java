@@ -132,7 +132,7 @@ public class ChiTietSanPham {
 
     
     public Object[] toDataRowCTSP(){
-        return new Object[]{this.maSP, this.tenSP, this.maLoai, this.maKichThuoc, this.maMauSac, this.maChatLieu, this.gia, this.soLuong, this.trangThai(soLuong)?"Còn hàng":"Hết hàng"};
+        return new Object[]{this.maSP, this.tenSP, this.maLoai, this.maKichThuoc, this.maMauSac, this.maChatLieu, this.maThuongHieu, this.gia, this.soLuong, this.trangThai(soLuong)?"Còn hàng":"Hết hàng"};
     }
        
     public Object[] toDataRowSP(){

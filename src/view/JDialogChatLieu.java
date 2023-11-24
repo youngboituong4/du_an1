@@ -53,7 +53,7 @@ public class JDialogChatLieu extends javax.swing.JDialog {
     ChatLieu readFormCL() {
         String ma = txtMaThuocTinh.getText();
         String ten = txtTenThuocTinh.getText();
-        return new ChatLieu(WIDTH, ma, ten);
+        return new ChatLieu(ma, ten);
     }
 
     public void clearThuocTinh() {
@@ -189,11 +189,11 @@ public class JDialogChatLieu extends javax.swing.JDialog {
 
             },
             new String [] {
-                "STT", "Mã Thuộc Tính", "Tên Thuộc Tính"
+                "Mã Thuộc Tính", "Tên Thuộc Tính"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

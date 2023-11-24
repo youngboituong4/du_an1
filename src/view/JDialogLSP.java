@@ -42,19 +42,18 @@ public class JDialogLSP extends javax.swing.JDialog {
         for (LoaiSanPham loaiSanPham : list) {
             model1.addRow(loaiSanPham.toDataRow());
         }
-
     }
 
     public void showDataLSP(int index) {
         LoaiSanPham lsp = service.getAllLSP().get(index);
-        txtMaThuocTinh.setText(lsp.getMaSP());
-        txtTenThuocTinh.setText(lsp.getTenSP());
+        txtMaThuocTinh.setText(lsp.getMaLoaiSanPham());
+        txtTenThuocTinh.setText(lsp.getLoaiSanPham());
     }
 
     LoaiSanPham readFormLSP() {
         String ma = txtMaThuocTinh.getText();
         String ten = txtTenThuocTinh.getText();
-        return new LoaiSanPham(WIDTH, ma, ten);
+        return new LoaiSanPham( ma, ten);
     }
 
     public void clearThuocTinh() {
@@ -192,11 +191,11 @@ public class JDialogLSP extends javax.swing.JDialog {
 
             },
             new String [] {
-                "STT", "Mã Thuộc Tính", "Tên Thuộc Tính"
+                "Mã Thuộc Tính", "Tên Thuộc Tính"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -271,8 +270,8 @@ public class JDialogLSP extends javax.swing.JDialog {
     private void btnThemTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemTTActionPerformed
         LoaiSanPham lsp = readFormLSP();
         if (checkTrong()) {
-            if (service.getMaLSP(lsp.getMaSP()) == null) {
-                if (service.getLSP(lsp.getTenSP()) == null) {
+            if (service.getMaLSP(lsp.getMaLoaiSanPham()) == null) {
+                if (service.getLSP(lsp.getLoaiSanPham()) == null) {
                     if (service.addLoaiSP(lsp) > 0) {
                         JOptionPane.showMessageDialog(this, "Thêm thành công !");
                         fillToTableLoaiSP(service.getAllLSP());
@@ -292,8 +291,8 @@ public class JDialogLSP extends javax.swing.JDialog {
     private void btnSuaTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTTActionPerformed
         LoaiSanPham lsp = readFormLSP();
         if (checkTrong()) {
-            if (service.getLSP(lsp.getTenSP()) == null) {
-                if (service.updateLoaiSP(lsp, lsp.getMaSP()) > 0) {
+            if (service.getLSP(lsp.getLoaiSanPham()) == null) {
+                if (service.updateLoaiSP(lsp, lsp.getMaLoaiSanPham()) > 0) {
                     JOptionPane.showMessageDialog(this, "Update thành công !");
                     fillToTableLoaiSP(service.getAllLSP());
                     sp.fillCbo();
@@ -310,10 +309,10 @@ public class JDialogLSP extends javax.swing.JDialog {
         int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn xóa loại này ?");
         if (chon == JOptionPane.YES_OPTION) {
             LoaiSanPham lsp = readFormLSP();
-            if (lsp.getMaSP().equals("")) {
+            if (lsp.getMaLoaiSanPham().equals("")) {
                 JOptionPane.showMessageDialog(this, "Mã trống !");
             } else {
-                if (service.deleteLSP(lsp.getMaSP()) > 0) {
+                if (service.deleteLSP(lsp.getMaLoaiSanPham()) > 0) {
                     JOptionPane.showMessageDialog(this, "Xóa thành công !");
                     fillToTableLoaiSP(service.getAllLSP());
                     sp.fillCbo();

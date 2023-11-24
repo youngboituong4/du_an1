@@ -11,13 +11,14 @@ import model.ChatLieu;
 import model.KichThuoc;
 import model.LoaiSanPham;
 import model.MauSac;
+import model.ThuongHieu;
 import service.SanPhamService;
 
 /**
  *
  * @author thinh
  */
-public class JDialogKichThuoc extends javax.swing.JDialog {
+public class JDialogThuongHieu extends javax.swing.JDialog {
 
     /**
      * Creates new form ThuocTinh
@@ -27,33 +28,33 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
     SanPhamForm sp = new SanPhamForm();
     int index = 0;
 
-    public JDialogKichThuoc(java.awt.Frame parent, boolean modal) {
+    public JDialogThuongHieu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
 
-        fillToTableKichThuoc(service.getAllKT());
-        showDataKichThuoc(index);
+        fillToTableThuongHieu(service.getAllTH());
+        showDataThuongHieu(index);
     }
 
-    public void fillToTableKichThuoc(List<KichThuoc> list) {
+    public void fillToTableThuongHieu(List<ThuongHieu> list) {
         model1.setRowCount(0);
         model1 = (DefaultTableModel) tblThuocTinh.getModel();
-        for (KichThuoc kichThuoc : list) {
-            model1.addRow(kichThuoc.toDataRow());
+        for (ThuongHieu thuongHieu : list) {
+            model1.addRow(thuongHieu.toDataRow());
         }
     }
 
-    public void showDataKichThuoc(int index) {
-        KichThuoc kt = service.getAllKT().get(index);
-        txtMaThuocTinh.setText(kt.getMaKichThuoc());
-        txtTenThuocTinh.setText(kt.getTenKichThuoc());
+    public void showDataThuongHieu(int index) {
+        ThuongHieu th = service.getAllTH().get(index);
+        txtMaThuocTinh.setText(th.getMaThuongHieu());
+        txtTenThuocTinh.setText(th.getTenThuongHieu());
     }
 
-    KichThuoc readFormKT() {
+    ThuongHieu readFormTH() {
         String ma = txtMaThuocTinh.getText();
         String ten = txtTenThuocTinh.getText();
-        return new KichThuoc( ma, ten);
+        return new ThuongHieu(ma, ten);
     }
 
     public void clearThuocTinh() {
@@ -96,8 +97,7 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
         tblThuocTinh = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Kích thước");
-        setBackground(new java.awt.Color(255, 255, 255));
+        setTitle("Chất liệu");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -145,25 +145,26 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnThemTT)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSuaTT)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnXoaTT))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtMaThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtTenThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtTenThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnThemTT)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnSuaTT)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnXoaTT))
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtMaThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,17 +173,15 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMaThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTenThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnThemTT)
-                            .addComponent(btnSuaTT)
-                            .addComponent(btnXoaTT))))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnThemTT)
+                    .addComponent(btnSuaTT)
+                    .addComponent(btnXoaTT))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -268,19 +267,19 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemTTActionPerformed
-        KichThuoc kt = readFormKT();
+        ThuongHieu th = readFormTH();
         if (checkTrong()) {
-            if (service.getMaKT(kt.getMaKichThuoc()) == null) {
-                if (service.getKT(kt.getTenKichThuoc()) == null) {
-                    if (service.addKichThuoc(kt) > 0) {
+            if (service.getMaCL(th.getMaThuongHieu()) == null) {
+                if (service.getCL(th.getMaThuongHieu()) == null) {
+                    if (service.addThuongHieu(th) > 0) {
                         JOptionPane.showMessageDialog(this, "Thêm thành công !");
-                        fillToTableKichThuoc(service.getAllKT());
+                        fillToTableThuongHieu(service.getAllTH());
                         sp.fillCbo();
                     } else {
                         JOptionPane.showMessageDialog(this, "Thêm thất bại !");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Đã có kích thước !");
+                    JOptionPane.showMessageDialog(this, "Đã có chất liệu !");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Trùng mã !");
@@ -289,33 +288,32 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
     }//GEN-LAST:event_btnThemTTActionPerformed
 
     private void btnSuaTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTTActionPerformed
-        KichThuoc kt = readFormKT();
+        ThuongHieu th = readFormTH();
         if (checkTrong()) {
-            if (service.getKT(kt.getTenKichThuoc()) == null) {
-                if (service.updateKichThuoc(kt, kt.getMaKichThuoc()) > 0) {
+            if (service.getCL(th.getMaThuongHieu()) == null) {
+                if (service.updateThuongHieu(th, th.getMaThuongHieu()) > 0) {
                     JOptionPane.showMessageDialog(this, "Update thành công !");
-                    fillToTableKichThuoc(service.getAllKT());
+                    fillToTableThuongHieu(service.getAllTH());
                     sp.fillCbo();
                 } else {
                     JOptionPane.showMessageDialog(this, "Update thất bại !");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Đã có kích thước !");
+                JOptionPane.showMessageDialog(this, "Đã có chất liệu !");
             }
         }
-
     }//GEN-LAST:event_btnSuaTTActionPerformed
 
     private void btnXoaTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTTActionPerformed
-        int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn xóa kích thước này ?");
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn xóa chất liệu này ?");
         if (chon == JOptionPane.YES_OPTION) {
-            KichThuoc kt = readFormKT();
-            if (kt.getMaKichThuoc().equals("")) {
+            ThuongHieu th = readFormTH();
+            if (th.getMaThuongHieu().equals("")) {
                 JOptionPane.showMessageDialog(this, "Mã trống !");
             } else {
-                if (service.deleteMau(kt.getMaKichThuoc()) > 0) {
+                if (service.deleteCL(th.getMaThuongHieu()) > 0) {
                     JOptionPane.showMessageDialog(this, "Xóa thành công !");
-                    fillToTableKichThuoc(service.getAllKT());
+                    fillToTableThuongHieu(service.getAllTH());
                     sp.fillCbo();
                     this.clearThuocTinh();
                 } else {
@@ -325,12 +323,12 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
         } else {
             return;
         }
+
     }//GEN-LAST:event_btnXoaTTActionPerformed
 
     private void tblThuocTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThuocTinhMouseClicked
         index = tblThuocTinh.getSelectedRow();
-        showDataKichThuoc(index);
-
+        showDataThuongHieu(index);
     }//GEN-LAST:event_tblThuocTinhMouseClicked
 
     /**
@@ -350,14 +348,74 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDialogKichThuoc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogThuongHieu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDialogKichThuoc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogThuongHieu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDialogKichThuoc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogThuongHieu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDialogKichThuoc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogThuongHieu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -366,7 +424,7 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDialogKichThuoc dialog = new JDialogKichThuoc(new javax.swing.JFrame(), true);
+                JDialogThuongHieu dialog = new JDialogThuongHieu(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
