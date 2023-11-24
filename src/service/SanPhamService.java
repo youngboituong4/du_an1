@@ -13,6 +13,7 @@ import model.LoaiSanPham;
 import model.MauSac;
 import model.ChiTietSanPham;
 import model.SanPham;
+import model.ThuongHieu;
 
 /**
  *
@@ -27,14 +28,14 @@ public class SanPhamService {
 
     public List<MauSac> getAllMau() {
         List<MauSac> list = new ArrayList<>();
-        sql = "SELECT * FROM MauSac";
+        sql = "SELECT Ma, TenMau FROM MauSac";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                MauSac ms = new MauSac(rs.getInt(1), rs.getString(2), rs.getString(3));
+                MauSac ms = new MauSac(rs.getString(1), rs.getString(2));
                 list.add(ms);
             }
             return list;
@@ -46,14 +47,14 @@ public class SanPhamService {
 
     public List<KichThuoc> getAllKT() {
         List<KichThuoc> list = new ArrayList<>();
-        sql = "SELECT * FROM KichThuoc";
+        sql = "SELECT Ma, KichThuoc FROM KichThuoc";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                KichThuoc kt = new KichThuoc(rs.getInt(1), rs.getString(2), rs.getString(3));
+                KichThuoc kt = new KichThuoc(rs.getString(1), rs.getString(2));
                 list.add(kt);
             }
             return list;
@@ -65,14 +66,14 @@ public class SanPhamService {
 
     public List<ChatLieu> getAllCL() {
         List<ChatLieu> list = new ArrayList<>();
-        sql = "SELECT * FROM ChatLieu";
+        sql = "SELECT Ma, ChatLieu FROM ChatLieu";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                ChatLieu cl = new ChatLieu(rs.getInt(1), rs.getString(2), rs.getString(3));
+                ChatLieu cl = new ChatLieu( rs.getString(1), rs.getString(2));
                 list.add(cl);
             }
             return list;
@@ -84,15 +85,34 @@ public class SanPhamService {
 
     public List<LoaiSanPham> getAllLSP() {
         List<LoaiSanPham> list = new ArrayList<>();
-        sql = "SELECT * FROM LoaiSanPham";
+        sql = "SELECT Ma, LoaiSanPham FROM LoaiSanPham";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                LoaiSanPham lsp = new LoaiSanPham(rs.getInt(1), rs.getString(2), rs.getString(3));
+                LoaiSanPham lsp = new LoaiSanPham(rs.getString(1), rs.getString(2));
                 list.add(lsp);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public List<ThuongHieu> getAllTH() {
+        List<ThuongHieu> list = new ArrayList<>();
+        sql = "SELECT Ma, TenThuongHieu FROM ThuongHieu";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ThuongHieu th = new ThuongHieu(rs.getString(1), rs.getString(2));
+                list.add(th);
             }
             return list;
         } catch (Exception e) {
@@ -103,7 +123,7 @@ public class SanPhamService {
 
     public MauSac getMau(String ten) {
         MauSac ms = null;
-        sql = "SELECT * FROM MauSac WHERE TenMau = ?";
+        sql = "SELECT Ma, TenMau FROM MauSac WHERE TenMau = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -111,7 +131,7 @@ public class SanPhamService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                ms = new MauSac(rs.getInt(1), rs.getString(2), rs.getString(3));
+                ms = new MauSac(rs.getString(1), rs.getString(2));
             }
             return ms;
         } catch (Exception e) {
@@ -122,7 +142,7 @@ public class SanPhamService {
 
     public KichThuoc getKT(String ten) {
         KichThuoc kt = null;
-        sql = "SELECT * FROM KichThuoc WHERE Size = ?";
+        sql = "SELECT Ma, KichThuoc FROM KichThuoc WHERE KichThuoc = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -130,7 +150,7 @@ public class SanPhamService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                kt = new KichThuoc(rs.getInt(1), rs.getString(2), rs.getString(3));
+                kt = new KichThuoc(rs.getString(1), rs.getString(2));
             }
             return kt;
         } catch (Exception e) {
@@ -141,7 +161,7 @@ public class SanPhamService {
 
     public ChatLieu getCL(String ten) {
         ChatLieu cl = null;
-        sql = "SELECT * FROM ChatLieu WHERE ChatLieu = ?";
+        sql = "SELECT Ma, ChatLieu FROM ChatLieu WHERE ChatLieu = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -149,7 +169,7 @@ public class SanPhamService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                cl = new ChatLieu(rs.getInt(1), rs.getString(2), rs.getString(3));
+                cl = new ChatLieu(rs.getString(1), rs.getString(2));
             }
             return cl;
         } catch (Exception e) {
@@ -160,7 +180,7 @@ public class SanPhamService {
 
     public LoaiSanPham getLSP(String ten) {
         LoaiSanPham lsp = null;
-        sql = "SELECT * FROM LoaiSanPham WHERE LoaiSanPham = ?";
+        sql = "SELECT Ma, LoaiSanPham FROM LoaiSanPham WHERE LoaiSanPham = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -168,9 +188,28 @@ public class SanPhamService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                lsp = new LoaiSanPham(rs.getInt(1), rs.getString(2), rs.getString(3));
+                lsp = new LoaiSanPham(rs.getString(1), rs.getString(2));
             }
             return lsp;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public ThuongHieu getTH(String ten) {
+        ThuongHieu th = null;
+        sql = "SELECT Ma, TenThuongHieu FROM ThuongHieu WHERE TenThuongHieu = ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, ten);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                th = new ThuongHieu(rs.getString(1), rs.getString(2));
+            }
+            return th;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -179,7 +218,7 @@ public class SanPhamService {
 
     public MauSac getMaMau(String ma) {
         MauSac ms = null;
-        sql = "SELECT * FROM MauSac WHERE MS = ?";
+        sql = "SELECT Ma, TenMau FROM MauSac WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -187,7 +226,7 @@ public class SanPhamService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                ms = new MauSac(rs.getInt(1), rs.getString(2), rs.getString(3));
+                ms = new MauSac(rs.getString(1), rs.getString(2));
             }
             return ms;
         } catch (Exception e) {
@@ -198,7 +237,7 @@ public class SanPhamService {
 
     public KichThuoc getMaKT(String ma) {
         KichThuoc kt = null;
-        sql = "SELECT * FROM KichThuoc WHERE KT = ?";
+        sql = "SELECT Ma, KichThuoc FROM KichThuoc WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -206,7 +245,7 @@ public class SanPhamService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                kt = new KichThuoc(rs.getInt(1), rs.getString(2), rs.getString(3));
+                kt = new KichThuoc(rs.getString(1), rs.getString(2));
             }
             return kt;
         } catch (Exception e) {
@@ -217,7 +256,7 @@ public class SanPhamService {
 
     public ChatLieu getMaCL(String ma) {
         ChatLieu cl = null;
-        sql = "SELECT * FROM ChatLieu WHERE CL = ?";
+        sql = "SELECT Ma, ChatLieu FROM ChatLieu WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -225,7 +264,7 @@ public class SanPhamService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                cl = new ChatLieu(rs.getInt(1), rs.getString(2), rs.getString(3));
+                cl = new ChatLieu(rs.getString(1), rs.getString(2));
             }
             return cl;
         } catch (Exception e) {
@@ -236,7 +275,7 @@ public class SanPhamService {
 
     public LoaiSanPham getMaLSP(String ma) {
         LoaiSanPham lsp = null;
-        sql = "SELECT * FROM LoaiSanPham WHERE LSP = ?";
+        sql = "SELECT Ma, LoaiSanPham FROM LoaiSanPham WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -244,7 +283,7 @@ public class SanPhamService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                lsp = new LoaiSanPham(rs.getInt(1), rs.getString(2), rs.getString(3));
+                lsp = new LoaiSanPham(rs.getString(1), rs.getString(2));
             }
             return lsp;
         } catch (Exception e) {
@@ -252,9 +291,28 @@ public class SanPhamService {
             return null;
         }
     }
+    
+    public ThuongHieu getMaTH(String ma) {
+        ThuongHieu th = null;
+        sql = "SELECT Ma, TenThuongHieu FROM ThuongHieu WHERE Ma = ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, ma);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                th = new ThuongHieu(rs.getString(1), rs.getString(2));
+            }
+            return th;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public int addMau(MauSac ms) {
-        sql = "INSERT INTO MauSac (MS, TenMau) VALUES (?, ?)";
+        sql = "INSERT INTO MAUSAC (Ma, TenMau) VALUES (?, ?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -269,7 +327,7 @@ public class SanPhamService {
     }
 
     public int addKichThuoc(KichThuoc kt) {
-        sql = "INSERT INTO KichThuoc (KT, Size) VALUES (?, ?)";
+        sql = "INSERT INTO KichThuoc (Ma, KichThuoc) VALUES (?, ?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -284,7 +342,7 @@ public class SanPhamService {
     }
 
     public int addChatLieu(ChatLieu cl) {
-        sql = "INSERT INTO ChatLieu (CL, ChatLieu) VALUES (?, ?)";
+        sql = "INSERT INTO ChatLieu (Ma, ChatLieu) VALUES (?, ?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -299,12 +357,27 @@ public class SanPhamService {
     }
 
     public int addLoaiSP(LoaiSanPham lsp) {
-        sql = "INSERT INTO LoaiSanPham (LSP, LoaiSanPham) VALUES (?, ?)";
+        sql = "INSERT INTO LoaiSanPham (Ma, LoaiSanPham) VALUES (?, ?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, lsp.getMaSP());
-            ps.setObject(2, lsp.getTenSP());
+            ps.setObject(1, lsp.getMaLoaiSanPham());
+            ps.setObject(2, lsp.getMaLoaiSanPham());
+
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    public int addThuongHieu(ThuongHieu th) {
+        sql = "INSERT INTO ThuongHieu (Ma, TenThuongHieu) VALUES (?,?)";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, th.getMaThuongHieu());
+            ps.setObject(2, th.getTenThuongHieu());
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -314,7 +387,7 @@ public class SanPhamService {
     }
 
     public int updateMau(MauSac ms, String ma) {
-        sql = "UPDATE MauSac SET TenMau = ? WHERE MS = ?";
+        sql = "UPDATE MauSac SET TenMau = ? WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -329,7 +402,7 @@ public class SanPhamService {
     }
 
     public int updateKichThuoc(KichThuoc kt, String ma) {
-        sql = "UPDATE KichThuoc SET Size = ? WHERE KT = ?";
+        sql = "UPDATE KichThuoc SET Size = ? WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -344,7 +417,7 @@ public class SanPhamService {
     }
 
     public int updateChatLieu(ChatLieu cl, String ma) {
-        sql = "UPDATE ChatLieu SET ChatLieu = ? WHERE CL = ?";
+        sql = "UPDATE ChatLieu SET ChatLieu = ? WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -359,11 +432,26 @@ public class SanPhamService {
     }
 
     public int updateLoaiSP(LoaiSanPham lsp, String ma) {
-        sql = "UPDATE LoaiSanPham SET LoaiSanPham = ? WHERE LSP = ?";
+        sql = "UPDATE LoaiSanPham SET LoaiSanPham = ? WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, lsp.getTenSP());
+            ps.setObject(1, lsp.getLoaiSanPham());
+            ps.setObject(2, ma);
+
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    public int updateThuongHieu(ThuongHieu th, String ma) {
+        sql = "UPDATE ThuongHieu SET TenThuongHieu = ? WHERE Ma = ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, th.getMaThuongHieu());
             ps.setObject(2, ma);
 
             return ps.executeUpdate();
@@ -374,7 +462,7 @@ public class SanPhamService {
     }
 
     public int deleteMau(String ma) {
-        sql = "DELETE MauSac WHERE MS = ?";
+        sql = "DELETE MauSac WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -388,7 +476,7 @@ public class SanPhamService {
     }
 
     public int deleteKT(String ma) {
-        sql = "DELETE KichThuoc WHERE KT = ?";
+        sql = "DELETE KichThuoc WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -402,7 +490,7 @@ public class SanPhamService {
     }
 
     public int deleteCL(String ma) {
-        sql = "DELETE ChatLieu WHERE CL = ?";
+        sql = "DELETE ChatLieu WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -416,7 +504,21 @@ public class SanPhamService {
     }
 
     public int deleteLSP(String ma) {
-        sql = "DELETE LoaiSanPham WHERE LSP = ?";
+        sql = "DELETE LoaiSanPham WHERE Ma = ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, ma);
+
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    public int deleteTH(String ma) {
+        sql = "DELETE ThuongHieu WHERE Ma = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -499,7 +601,7 @@ public class SanPhamService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                ChiTietSanPham ctsp = new ChiTietSanPham(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), rs.getInt(9), rs.getBoolean(10));
+                ChiTietSanPham ctsp = new ChiTietSanPham(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getDouble(9), rs.getInt(10), rs.getBoolean(11));
                 list.add(ctsp);
             }
             return list;
@@ -515,11 +617,11 @@ public class SanPhamService {
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, "%" + ma + "%");
+            ps.setObject(1, "%"+ma+"%");
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                ChiTietSanPham ctsp = new ChiTietSanPham(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), rs.getInt(9), rs.getBoolean(10));
+                ChiTietSanPham ctsp = new ChiTietSanPham(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getDouble(9), rs.getInt(10), rs.getBoolean(11));
                 list.add(ctsp);
             }
             return list;
@@ -530,20 +632,21 @@ public class SanPhamService {
     }
 
     public int addCTSP(ChiTietSanPham ctsp) {
-        sql = "INSERT INTO ChiTietSanPham (MaSP, TenSP, LoaiSP, KT, MS, CL, Gia, SoLuong, TrangThai)\n"
-                + "VALUES (?,?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO ChiTietSanPham (MaSP, TenSP, LoaiSanPham, KichThuoc, TenMau, ChatLieu,TenThuongHieu, Gia, SoLuong, TrangThai)\n"
+                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, ctsp.getMa());
-            ps.setObject(2, ctsp.getTen());
-            ps.setObject(3, ctsp.getLoai());
-            ps.setObject(4, ctsp.getKt());
-            ps.setObject(5, ctsp.getMs());
-            ps.setObject(6, ctsp.getCl());
-            ps.setObject(7, ctsp.getGia());
-            ps.setObject(8, ctsp.getSl());
-            ps.setObject(9, ctsp.isTrangThai());
+            ps.setObject(1, ctsp.getMaSP());
+            ps.setObject(2, ctsp.getTenSP());
+            ps.setObject(3, ctsp.getMaLoai());
+            ps.setObject(4, ctsp.getMaKichThuoc());
+            ps.setObject(5, ctsp.getMaMauSac());
+            ps.setObject(6, ctsp.getMaChatLieu());
+            ps.setObject(7, ctsp.getMaThuongHieu());
+            ps.setObject(8, ctsp.getGia());
+            ps.setObject(9, ctsp.getSoLuong());
+            ps.setObject(10, ctsp.isTrangThai());
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -553,7 +656,7 @@ public class SanPhamService {
     }
 
     public int addSPCTSP(String maSP, String tenSP) {
-        sql = "INSERT INTO ChiTietSanPham (MaSP, TenSP, LoaiSP, KT, MS, CL) VALUES (?,?,'','','','')";
+        sql = "INSERT INTO ChiTietSanPham (MaSP, TenSP, LoaiSanPham, KichThuoc, TenMau, ChatLieu, TenThuongHieu) VALUES (?,?,' ',' ',' ',' ',' ')";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -567,21 +670,22 @@ public class SanPhamService {
         }
     }
 
-    public int updateSP(ChiTietSanPham ctsp, int stt) {
-        sql = "UPDATE ChiTietSanPham SET MaSP = ?, TenSP = ?, LoaiSP = ?, KT = ?, MS = ?, CL = ?, Gia = ?, SoLuong = ?, TrangThai = ? WHERE STT = ?";
+    public int updateSP(ChiTietSanPham ctsp, int id) {
+        sql = "UPDATE ChiTietSanPham SET MaSP = ?, TenSP = ?, LoaiSanPham = ?, KichThuoc = ?, TenMau = ?, ChatLieu = ?,TenThuongHieu = ?, Gia = ?, SoLuong = ?, TrangThai = ? WHERE ID = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, ctsp.getMa());
-            ps.setObject(2, ctsp.getTen());
-            ps.setObject(3, ctsp.getLoai());
-            ps.setObject(4, ctsp.getKt());
-            ps.setObject(5, ctsp.getMs());
-            ps.setObject(6, ctsp.getCl());
-            ps.setObject(7, ctsp.getGia());
-            ps.setObject(8, ctsp.getSl());
-            ps.setObject(9, ctsp.isTrangThai());
-            ps.setObject(10, stt);
+            ps.setObject(1, ctsp.getMaSP());
+            ps.setObject(2, ctsp.getTenSP());
+            ps.setObject(3, ctsp.getMaLoai());
+            ps.setObject(4, ctsp.getMaKichThuoc());
+            ps.setObject(5, ctsp.getMaMauSac());
+            ps.setObject(6, ctsp.getMaChatLieu());
+            ps.setObject(7, ctsp.getMaThuongHieu());
+            ps.setObject(8, ctsp.getGia());
+            ps.setObject(9, ctsp.getSoLuong());
+            ps.setObject(10, ctsp.isTrangThai());
+            ps.setObject(11, id);
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -590,15 +694,15 @@ public class SanPhamService {
         }
     }
     
-    public int updateSLGIASP(ChiTietSanPham ctsp, int stt) {
-        sql = "UPDATE ChiTietSanPham SET Gia = ?, SoLuong = ?, TrangThai = ? WHERE STT = ?";
+    public int updateSLGIASP(ChiTietSanPham ctsp, int id) {
+        sql = "UPDATE ChiTietSanPham SET Gia = ?, SoLuong = ?, TrangThai = ? WHERE ID = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, ctsp.getGia());
-            ps.setObject(2, ctsp.getSl());
+            ps.setObject(2, ctsp.getSoLuong());
             ps.setObject(3, ctsp.isTrangThai());
-            ps.setObject(4, stt);
+            ps.setObject(4, id);
 
             return ps.executeUpdate();
         } catch (Exception e) {
