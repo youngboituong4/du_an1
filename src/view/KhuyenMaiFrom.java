@@ -90,7 +90,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         Double DK = Double.parseDouble(txtDK.getText());
 
         if (HTG != null) {
-            return new KhuyenMai(ma, ten, HTG, Gia, NBD, NKT, Gia, TT);
+            return new KhuyenMai(ma, ten, HTG, DK, NBD, NKT, Gia, TT);
         } else {
 
             return null;
@@ -552,9 +552,9 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
          String MaKM = tbKM.getValueAt(index, 0).toString();
-
         KhuyenMai km = readFrom();
-        if (service.updateKM(MaKM, km) > 0) {
+        if (checkTrong()) { 
+             if (service.updateKM(MaKM, km) > 0) {
             JOptionPane.showMessageDialog(this, "UpDate TC");
             fillTable(service.getAllKM());
             
@@ -562,6 +562,8 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "UpDate TB");
 
         }
+        }
+       
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void txtMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaActionPerformed
