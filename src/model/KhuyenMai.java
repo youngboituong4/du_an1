@@ -13,7 +13,7 @@ import java.util.Date;
 public class KhuyenMai {
 
     private Integer ID;
-    private String ma, tenKhuyenMai;
+    private String ma, tenKhuyenMai, trangThai;
     private Integer loaiKhuyenMai;
     private Double DonGiamToiThieu;
     private Date ngayBatDau, ngayKetThuc;
@@ -22,7 +22,7 @@ public class KhuyenMai {
     public KhuyenMai() {
     }
 
-    public KhuyenMai(Integer ID, String ma, String tenKhuyenMai, Integer loaiKhuyenMai, Double DonGiamToiThieu, Date ngayBatDau, Date ngayKetThuc, Double giaTri) {
+    public KhuyenMai(Integer ID, String ma, String tenKhuyenMai, Integer loaiKhuyenMai, Double DonGiamToiThieu, Date ngayBatDau, Date ngayKetThuc, Double giaTri, String trangThai) {
         this.ID = ID;
         this.ma = ma;
         this.tenKhuyenMai = tenKhuyenMai;
@@ -31,6 +31,18 @@ public class KhuyenMai {
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
         this.giaTri = giaTri;
+        this.trangThai = trangThai;
+    }
+
+    public KhuyenMai(String ma, String tenKhuyenMai, Integer loaiKhuyenMai, Double DonGiamToiThieu, Date ngayBatDau, Date ngayKetThuc, Double giaTri, String trangThai) {
+        this.ma = ma;
+        this.tenKhuyenMai = tenKhuyenMai;
+        this.loaiKhuyenMai = loaiKhuyenMai;
+        this.DonGiamToiThieu = DonGiamToiThieu;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.giaTri = giaTri;
+        this.trangThai = trangThai;
     }
 
     public Integer getID() {
@@ -57,7 +69,15 @@ public class KhuyenMai {
         this.tenKhuyenMai = tenKhuyenMai;
     }
 
-    public Integer getLoaiKhuyenMai() {
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public Integer getLoaiKhuyenMai(Integer loaiKhuyenMai1) {
         return loaiKhuyenMai;
     }
 
@@ -96,8 +116,17 @@ public class KhuyenMai {
     public void setGiaTri(Double giaTri) {
         this.giaTri = giaTri;
     }
+    
+    String getKhuyenMai(Integer loaiKhuyenMai){
+        if (loaiKhuyenMai == 0) {
+            return "Giảm Bằng %";
+        }else {
+            return "Giảm Bằng Tiền";
+        }
+    }
+    
 
-    public Object[] toDataRow() {
-        return new Object[]{this.ma, this.tenKhuyenMai, this.loaiKhuyenMai, this.DonGiamToiThieu, this.ngayBatDau, this.ngayKetThuc, this.giaTri};
+    public Object[] toDataRow() {  
+        return new Object[]{this.ma, this.tenKhuyenMai, this.getKhuyenMai(loaiKhuyenMai), this.DonGiamToiThieu, this.ngayBatDau, this.ngayKetThuc, this.giaTri, this.trangThai};
     }
 }
