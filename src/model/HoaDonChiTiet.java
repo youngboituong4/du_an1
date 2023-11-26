@@ -25,6 +25,12 @@ public class HoaDonChiTiet {
         this.donGia = donGia;
         this.soLuong = soLuong;
     }
+    
+    public HoaDonChiTiet(Integer ID, Integer IDHoaDon, Integer IDChiTietSanPham) {
+        this.ID = ID;
+        this.IDHoaDon = IDHoaDon;
+        this.IDChiTietSanPham = IDChiTietSanPham;
+    }
 //ThinDo
     public Integer getID() {
         return ID;
@@ -66,9 +72,12 @@ public class HoaDonChiTiet {
         this.soLuong = soLuong;
     }
 
-    
+    public Double tongTien(Double donGia, Integer soLuong){
+        Double tongTien = donGia * soLuong;
+        return tongTien;
+    }
     
     public Object[] toDataRow(){
-        return new Object[]{this.IDHoaDon, this.IDChiTietSanPham, this.donGia, this.soLuong};
+        return new Object[]{this.ID, this.IDHoaDon, this.IDChiTietSanPham, this.donGia, this.soLuong, tongTien(donGia, soLuong)};
     }
 }
