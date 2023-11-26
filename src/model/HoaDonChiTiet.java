@@ -14,9 +14,9 @@ public class HoaDonChiTiet {
     private Integer IDChiTietSanPham;
     private Double donGia;
     private Integer soLuong;
-
+    
     public HoaDonChiTiet() {
-    }
+}
 
     public HoaDonChiTiet(Integer ID, Integer IDHoaDon, Integer IDChiTietSanPham, Double donGia, Integer soLuong) {
         this.ID = ID;
