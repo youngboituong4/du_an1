@@ -5,6 +5,7 @@
 package view;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +17,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
     private KhuyenMaiservice service = new KhuyenMaiservice();
     private DefaultTableModel model = new DefaultTableModel();
     private int index = -1;
+    private HashSet<Long> timeData;
 
     /**
      * Creates new form KhuyenMai
@@ -28,13 +30,13 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         cbFindTT.removeAllItems();
         cbHT.addItem("Giảm Bằng %");
         cbHT.addItem("Giảm Bằng Tiền");
-        cbTT.addItem("Đang Diễn Ra");
-        cbTT.addItem("Sắp Diễn Ra");
-        cbTT.addItem("Kết Thúc");
+        cbTT.addItem("Áp Dụng");
+        cbTT.addItem("Không Áp Dụng");
+
         cbFindTT.addItem("Tất Cả");
-        cbFindTT.addItem("Đang Diễn Ra");
-        cbFindTT.addItem("Sắp Diễn Ra");
-        cbFindTT.addItem("Kết Thúc");
+        cbFindTT.addItem("Áp Dụng");
+        cbFindTT.addItem("Không Áp Dụng");
+
         fillTable(service.getAllKM());
     }
 
@@ -54,7 +56,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         txtDK.setText(Double.toString(km.getDonGiamToiThieu()));
         Date.setDate(km.getNgayBatDau());
         Date2.setDate(km.getNgayKetThuc());
-        cbHT.setSelectedIndex(km.getLoaiKhuyenMai(1));
+        cbHT.setSelectedIndex(km.getLoaiKhuyenMai(0));
         cbTT.setSelectedItem(km.getTrangThai());
         tbKM.setRowSelectionInterval(index, index);
     }
@@ -76,7 +78,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         try {
             if (HTGStr.equals("Giảm Bằng %")) {
                 HTG = 0;
-            }else {
+            } else {
                 HTG = 1;
             }
         } catch (NumberFormatException e) {
@@ -132,10 +134,24 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         txtMa.setText(null);
         txtGia.setText(null);
         cbHT.setSelectedIndex(0);
-        Date.setDate(null);
-        Date2.setDate(null);
+        Date.setDate(new Date());
+        Date2.setDate(new Date());
         txtDK.setText(null);
         cbTT.setSelectedIndex(0);
+    }
+
+    public void TimeCheck() {
+        timeData = new HashSet<Long>();
+    }
+
+    public boolean addTime(Date time) {
+        long timeInMilliseconds = time.getTime();
+        if (timeData.contains(timeInMilliseconds)) {
+            return false; // Thời gian đã tồn tại trong dữ liệu
+        } else {
+            timeData.add(timeInMilliseconds);
+            return true; // Thời gian đã được thêm vào dữ liệu
+        }
     }
 
     /**
@@ -176,6 +192,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         btnHuy = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
+        btnHuy1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -420,7 +437,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnHuy.setText("HỦY");
+        btnHuy.setText("MỚI");
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyActionPerformed(evt);
@@ -438,6 +455,13 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
+            }
+        });
+
+        btnHuy1.setText("HỦY");
+        btnHuy1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuy1ActionPerformed(evt);
             }
         });
 
@@ -460,7 +484,10 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                                 .addComponent(btnSua)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnHuy))
-                            .addComponent(btnAdd))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAdd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnHuy1)))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -471,7 +498,9 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(btnAdd)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnAdd)
+                                .addComponent(btnHuy1))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnHuy)
@@ -551,19 +580,19 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-         String MaKM = tbKM.getValueAt(index, 0).toString();
+        String MaKM = tbKM.getValueAt(index, 0).toString();
         KhuyenMai km = readFrom();
-        if (checkTrong()) { 
-             if (service.updateKM(MaKM, km) > 0) {
-            JOptionPane.showMessageDialog(this, "UpDate TC");
-            fillTable(service.getAllKM());
-            
-        } else {
-            JOptionPane.showMessageDialog(this, "UpDate TB");
+        if (checkTrong()) {
+            if (service.updateKM(MaKM, km) > 0) {
+                JOptionPane.showMessageDialog(this, "UpDate TC");
+                fillTable(service.getAllKM());
 
+            } else {
+                JOptionPane.showMessageDialog(this, "UpDate TB");
+
+            }
         }
-        }
-       
+
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void txtMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaActionPerformed
@@ -604,11 +633,32 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         // TODO add your handling code here:
         index = tbKM.getSelectedRow();
         ShowData(index);
+        Object selectedData = tbKM.getValueAt(index, 0); // Thay đổi 0 thành chỉ số cột tương ứng
+        Object selectedData1 = tbKM.getValueAt(index, 1);
+        Object selectedData2 = tbKM.getValueAt(index, 2);
+        Object selectedData3 = tbKM.getValueAt(index, 3);
+        Object selectedData4 = tbKM.getValueAt(index, 4);
+        Object selectedData5 = tbKM.getValueAt(index, 5);
+        Object selectedData6 = tbKM.getValueAt(index, 6);
+        Object selectedData7 = tbKM.getValueAt(index, 7);
+        txtMa.setText(selectedData.toString());
+        txtTen.setText(selectedData1.toString());
+        cbHT.setSelectedItem(selectedData2.toString());
+        txtDK.setText(String.valueOf(selectedData3.toString()));
+        txtGia.setText(String.valueOf(selectedData6));
+        Date.setDate((Date) selectedData4); 
+        Date2.setDate((Date) selectedData5);
+        cbTT.setSelectedItem(String.valueOf(selectedData7));
+
     }//GEN-LAST:event_tbKMMouseClicked
 
     private void txtFind2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFind2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFind2ActionPerformed
+
+    private void btnHuy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuy1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHuy1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -653,6 +703,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser Date2;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnHuy;
+    private javax.swing.JButton btnHuy1;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTK;
     private javax.swing.JComboBox<String> cbFindTT;
