@@ -29,7 +29,7 @@ public class HoaDonService {
         String sql = """
                  SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.ThanhTien, HD.MaNhanVien, KH.TenKH, HD.TrangThai
                  FROM HoaDon HD
-                 JOIN KhachHang KH
+                 LEFT JOIN KhachHang KH
                  ON HD.MaKhachHang = KH.MaKH
                  """;
         try {
@@ -53,7 +53,7 @@ public class HoaDonService {
     public ArrayList<HDCTResponse> getAllHDCT(String MaHD) {
         ArrayList<HDCTResponse> list = new ArrayList<>();
         String sql = """
-                SELECT SPCT.MaSP, SPCT.TenSP, SPCT.MaThuongHieu, SPCT.MaMauSac, SPCT.MaKichThuoc, 
+                SELECT SPCT.MaSP, SPCT.TenSP, SPCT.ThuongHieu, SPCT.TenMau, SPCT.KichThuoc, 
                  HDCT.SoLuong, HDCT.DonGia, HD.TienGiamGia, HD.ThanhTien
                  FROM HoaDonChiTiet HDCT
                  JOIN ChiTietSanPham SPCT
@@ -114,7 +114,7 @@ public class HoaDonService {
         String sql = """
                  SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.ThanhTien, HD.MaNhanVien, KH.TenKH, HD.TrangThai
                                   FROM HoaDon HD
-                                  JOIN KhachHang KH
+                                  LEFT JOIN KhachHang KH
                                   ON HD.MaKhachHang = KH.MaKH
                         WHERE (? IS NULL OR ? LIKE '' OR 
                         HD.MaHoaDon LIKE ? OR HD.ThanhTien LIKE ? OR HD.MaNhanVien LIKE ? OR KH.TenKH LIKE ?) AND

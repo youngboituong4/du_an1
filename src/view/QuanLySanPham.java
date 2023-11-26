@@ -62,6 +62,10 @@ public class QuanLySanPham extends javax.swing.JFrame {
                     view = new BanHangForm();
                     setView();
                     break;
+                case "HoaDon":
+                    view = new HoaDonForm();
+                    setView();
+                    break;
                 default:
                     break;
             }
@@ -533,7 +537,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNhanVienMouseClicked
 
     private void btnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseClicked
- 
+        tenMenu = "HoaDon";
+        this.setMenu();
     }//GEN-LAST:event_btnHoaDonMouseClicked
 
     private void btnBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBanHangMouseClicked
