@@ -16,10 +16,14 @@ import java.util.logging.Logger;
 
 public class DBConnect {//ket noi vs SQLSERVER
     private static final String USERNAME = "sa";
+<<<<<<< HEAD
     private static final String PASSWORD = "thinh113";//thinh113
+=======
+    private static final String PASSWORD = "sa";
+>>>>>>> ThaoThanh
     private static final String SERVER = "localhost";
     private static final String PORT = "1433";
-    private static final String DATABASE_NAME = "DA1";
+    private static final String DATABASE_NAME = "DuAn1";
     private static final boolean USING_SSL = false;
    
     private static String CONNECT_STRING;

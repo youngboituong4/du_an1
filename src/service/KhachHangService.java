@@ -4,12 +4,14 @@
  */
 package service;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import model.HoaDon;
 import model.KhachHang;
 import model.LichSuGiaoDich;
 
@@ -41,7 +43,6 @@ public class KhachHangService {
         }
         return null;
     }
-
 
     public int add(KhachHang kh) {
         sql = """
@@ -84,7 +85,6 @@ public class KhachHangService {
             return null;
         }
     }
-
 
     public boolean update(KhachHang kh) {
         int check = 0;
@@ -176,8 +176,13 @@ public class KhachHangService {
 
     public ArrayList<LichSuGiaoDich> getAllLSGD(String maKH) {
         ArrayList<LichSuGiaoDich> list = new ArrayList<>();
-        String sql = "SELECT TenKH, MaHD, NgayGD, TongTien, TrangThaiHD FROM LichSuGiaoDich\n"
-                + "WHERE MaKH = ?";
+        String sql = """
+                     SELECT KH.TenKH, HD.MaHoaDon, HD.NgayThanhToan, HD.ThanhTien, HD.TrangThai
+                     FROM KhachHang KH
+                     JOIN HoaDon HD
+                     ON KH.MaKH = HD.MaKhachHang
+                     WHERE MaKH = ?
+                     """;
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -189,10 +194,10 @@ public class KhachHangService {
 
             while (rs.next()) {
                 String ten = rs.getString("TenKH");
-                String mahd = rs.getString("MaHD");
-                Date ngaygd = rs.getDate("NgayGD");
-                Float tongtien = rs.getFloat("TongTien");
-                String tt = rs.getString("TrangThaiHD");
+                String mahd = rs.getString("MaHoaDon");
+                Date ngaygd = rs.getDate("NgayThanhToan");
+                Float tongtien = rs.getFloat("ThanhTien");
+                String tt = rs.getString("TrangThai");
 
                 LichSuGiaoDich lsu = new LichSuGiaoDich(ten, mahd, tt, ngaygd, tongtien);
                 list.add(lsu);

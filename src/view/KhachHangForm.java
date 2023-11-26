@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.HoaDon;
 import model.KhachHang;
 import model.LichSuGiaoDich;
 import service.KhachHangService;
