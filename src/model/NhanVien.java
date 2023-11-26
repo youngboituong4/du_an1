@@ -11,12 +11,12 @@ package model;
 public class NhanVien {
 
     private String maNV, hoVaTen, matKhau, diaChi, email, sdt;
-    private boolean gioiTinh, vaiTro;
+    private boolean gioiTinh, vaiTro, trangThai;
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String hoVaTen, String matKhau, String diaChi, String email, String sdt, boolean gioiTinh, boolean vaiTro) {
+    public NhanVien(String maNV, String hoVaTen, String matKhau, String diaChi, String email, String sdt, boolean gioiTinh, boolean vaiTro, boolean trangThai) {
         this.maNV = maNV;
         this.hoVaTen = hoVaTen;
         this.matKhau = matKhau;
@@ -25,6 +25,7 @@ public class NhanVien {
         this.sdt = sdt;
         this.gioiTinh = gioiTinh;
         this.vaiTro = vaiTro;
+        this.trangThai = trangThai;
     }
 
     public String getMaNV() {
@@ -67,11 +68,11 @@ public class NhanVien {
         this.email = email;
     }
 
-    public String getsdt() {
+    public String getSdt() {
         return sdt;
     }
 
-    public void setsdt(String sdt) {
+    public void setSdt(String sdt) {
         this.sdt = sdt;
     }
 
@@ -91,12 +92,21 @@ public class NhanVien {
         this.vaiTro = vaiTro;
     }
 
-    @Override
-    public String toString() {
-        return "NhanVien{" + "maNV=" + maNV + ", hoVaTen=" + hoVaTen + ", matKhau=" + matKhau + ", diaChi=" + diaChi + ", email=" + email + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh + ", vaiTro=" + vaiTro + '}';
+    public boolean isTrangThai() {
+        return trangThai;
     }
 
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    @Override
+    public String toString() {
+        return "NhanVien{" + "maNV=" + maNV + ", hoVaTen=" + hoVaTen + ", matKhau=" + matKhau + ", diaChi=" + diaChi + ", email=" + email + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh + ", vaiTro=" + vaiTro + ", trangThai=" + trangThai + '}';
+    }
+
+    
     public Object[] toDataRow() {
-        return new Object[]{this.maNV, this.hoVaTen, this.matKhau, this.diaChi, this.email, this.sdt, this.gioiTinh ? "Nam" : "Nữ", this.vaiTro ? "Quản lý" : "Nhân viên",};
+        return new Object[]{this.maNV, this.hoVaTen, this.matKhau, this.diaChi, this.email, this.sdt, this.gioiTinh ? "Nam" : "Nữ", this.vaiTro ? "Quản lý" : "Nhân viên",this.trangThai ?"Đang làm" : "Nghỉ làm"};
     }
 }

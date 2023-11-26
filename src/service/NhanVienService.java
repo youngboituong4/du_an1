@@ -22,14 +22,14 @@ public class NhanVienService {
     String sql = null;
 
     public List<NhanVien> getAll() {
-        sql = "Select MaNV, HoVaTen, MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro from NhanVien";
+        sql = "Select MaNV, HoVaTen, MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro,TrangThai from NhanVien";
         List<NhanVien> list = new ArrayList<>();
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8));
+                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
                 list.add(nv);
             }
             return list;
@@ -40,7 +40,7 @@ public class NhanVienService {
     }
 
     public int AddNV(NhanVien nv) {
-        sql = "insert into NhanVien(MaNV,HoVaTen,MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro) values (?,?,?,?,?,?,?,?)";
+        sql = "insert into NhanVien(MaNV,HoVaTen,MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro,TrangThai) values (?,?,?,?,?,?,?,?,?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -49,9 +49,10 @@ public class NhanVienService {
             ps.setObject(3, nv.getMatKhau());
             ps.setObject(4, nv.getDiaChi());
             ps.setObject(5, nv.getEmail());
-            ps.setObject(6, nv.getsdt());
+            ps.setObject(6, nv.getSdt());
             ps.setObject(7, nv.isVaiTro());
             ps.setObject(8, nv.isGioiTinh());
+            ps.setObject(9, nv.isTrangThai());
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,7 +61,7 @@ public class NhanVienService {
     }
 
     public NhanVien getNV(String MaNV) {
-        sql = "SELECT MaNV,HoVaTen,MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro from NhanVien where MaNV = ?";
+        sql = "SELECT MaNV,HoVaTen,MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro,TrangThai from NhanVien where MaNV = ?";
         NhanVien nv = null;
         try {
             con = DBConnect.getConnection();
@@ -68,7 +69,7 @@ public class NhanVienService {
             ps.setObject(1, MaNV);
             rs = ps.executeQuery();
             while (rs.next()) {
-                nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8));
+                nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
             }
             return nv;
         } catch (Exception e) {
@@ -79,14 +80,14 @@ public class NhanVienService {
 
     public List<NhanVien> FindNV(int MaNV) {
         List<NhanVien> list = new ArrayList<>();
-        sql = "SELECT MaNV,HoVaTen,MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro FROM NhanVien WHERE MaNV = ?";
+        sql = "SELECT MaNV,HoVaTen,MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro,TrangThai FROM NhanVien WHERE MaNV = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, MaNV);
             rs = ps.executeQuery();
             while (rs.next()) {
-                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8));
+                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
                 list.add(nv);
             }
             return list;
@@ -110,7 +111,7 @@ public class NhanVienService {
     }
 
     public int updateNV(NhanVien nv, String ma) {
-        String sql = "UPDATE NhanVien SET MaNV = ?,HoVaTen = ?,MatKhau = ?,DiaChi = ?,Email = ?,sdt = ?, VaiTro = ?,GioiTinh = ? WHERE MaNV = ?";
+        String sql = "UPDATE NhanVien SET MaNV = ?,HoVaTen = ?,MatKhau = ?,DiaChi = ?,Email = ?,sdt = ?, VaiTro = ?,GioiTinh = ?,TrangThai = ? WHERE MaNV = ?";
         try {
             Connection con = DBConnect.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -119,10 +120,11 @@ public class NhanVienService {
             ps.setString(3, nv.getMatKhau());
             ps.setString(4, nv.getDiaChi());
             ps.setString(5, nv.getEmail());
-            ps.setString(6, nv.getsdt());
+            ps.setString(6, nv.getSdt());
             ps.setBoolean(7, nv.isVaiTro());
             ps.setBoolean(8, nv.isGioiTinh());
-            ps.setString(9, ma);
+            ps.setBoolean(9, nv.isTrangThai());
+            ps.setString(10, ma);
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,7 +141,7 @@ public class NhanVienService {
             ps.setObject(1, "%" + maNV + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8));
+                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
                 list.add(nv);
             }
             return list;
@@ -149,5 +151,30 @@ public class NhanVienService {
         }
     }
 
-   
+    public ArrayList<NhanVien> timTheoDieuKien(String tim, boolean vaiTro, boolean trangThai) {
+        ArrayList<NhanVien> list = new ArrayList<>();
+        sql = "SELECT * FROM NhanVien WHERE (MaNV LIKE ? OR HoVaTen LIKE ? OR MatKhau LIKE ? OR DiaChi LIKE ? OR Email LIKE ? OR SDT LIKE ? OR VaiTro = ?) AND TrangThai = ? AND Vaitro = ? ORDER BY MaNV";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, "%" + tim + "%");
+            ps.setObject(2, "%" + tim + "%");
+            ps.setObject(3, "%" + tim + "%");
+            ps.setObject(4, "%" + tim + "%");
+            ps.setObject(5, "%" + tim + "%");
+            ps.setObject(6, "%" + tim + "%");
+            ps.setObject(7, vaiTro);
+            ps.setObject(8, trangThai);
+            ps.setObject(9, vaiTro);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
+                list.add(nv);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

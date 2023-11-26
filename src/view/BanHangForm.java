@@ -239,6 +239,9 @@ public class BanHangForm extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         lblTenNhanVien = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Giỏ hàng"));
 
         tblGioHang.setModel(new javax.swing.table.DefaultTableModel(
@@ -321,6 +324,7 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Sản phẩm"));
 
         tblChiTietSanPham.setModel(new javax.swing.table.DefaultTableModel(
@@ -363,6 +367,7 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addGap(77, 77, 77))
         );
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Hóa đơn"));
 
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
@@ -450,6 +455,7 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Hóa đơn"));
 
         jLabel1.setText("Mã hóa đơn");
