@@ -129,4 +129,8 @@ public class KhuyenMai {
     public Object[] toDataRow() {  
         return new Object[]{this.ma, this.tenKhuyenMai, this.getKhuyenMai(loaiKhuyenMai), this.DonGiamToiThieu, this.ngayBatDau, this.ngayKetThuc, this.giaTri, this.trangThai};
     }
+
+    
+
+    
 }

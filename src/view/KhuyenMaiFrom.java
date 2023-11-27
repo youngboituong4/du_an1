@@ -4,9 +4,13 @@
  */
 package view;
 
+import dailycheck.DailyCheckingKhuyenMai;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.KhuyenMai;
@@ -17,7 +21,8 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
     private KhuyenMaiservice service = new KhuyenMaiservice();
     private DefaultTableModel model = new DefaultTableModel();
     private int index = -1;
-    private HashSet<Long> timeData;
+    private JComboBox<String> comboBox;
+    private DailyCheckingKhuyenMai daily = new DailyCheckingKhuyenMai();
 
     /**
      * Creates new form KhuyenMai
@@ -32,12 +37,12 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         cbHT.addItem("Giảm Bằng Tiền");
         cbTT.addItem("Áp Dụng");
         cbTT.addItem("Không Áp Dụng");
-
         cbFindTT.addItem("Tất Cả");
         cbFindTT.addItem("Áp Dụng");
         cbFindTT.addItem("Không Áp Dụng");
-
         fillTable(service.getAllKM());
+        // daily.run();
+         new Thread(daily::run).start();
     }
 
     void fillTable(List<KhuyenMai> lst) {
@@ -57,7 +62,12 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         Date.setDate(km.getNgayBatDau());
         Date2.setDate(km.getNgayKetThuc());
         cbHT.setSelectedIndex(km.getLoaiKhuyenMai(0));
-        cbTT.setSelectedItem(km.getTrangThai());
+        if (km.getTrangThai().equals("Áp Dụng")) {
+            cbTT.setSelectedIndex(0);
+        }else {
+            cbTT.setSelectedIndex(1);
+        }
+       // cbTT.setSelectedItem(km.getTrangThai());
         tbKM.setRowSelectionInterval(index, index);
     }
 
@@ -140,20 +150,6 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         cbTT.setSelectedIndex(0);
     }
 
-    public void TimeCheck() {
-        timeData = new HashSet<Long>();
-    }
-
-    public boolean addTime(Date time) {
-        long timeInMilliseconds = time.getTime();
-        if (timeData.contains(timeInMilliseconds)) {
-            return false; // Thời gian đã tồn tại trong dữ liệu
-        } else {
-            timeData.add(timeInMilliseconds);
-            return true; // Thời gian đã được thêm vào dữ liệu
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,9 +175,9 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        cbTT = new javax.swing.JComboBox<>();
         Date = new com.toedter.calendar.JDateChooser();
         Date2 = new com.toedter.calendar.JDateChooser();
-        cbTT = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnTK = new javax.swing.JButton();
         cbFindTT = new javax.swing.JComboBox<>();
@@ -189,7 +185,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         txtFind2 = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbKM = new javax.swing.JTable();
-        btnHuy = new javax.swing.JButton();
+        btnNew = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnHuy1 = new javax.swing.JButton();
@@ -309,11 +305,11 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
 
         jLabel7.setText("Trạng Thái:");
 
+        cbTT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         Date.setDateFormatString("yyyy-MM-dd");
 
         Date2.setDateFormatString("yyyy-MM-dd");
-
-        cbTT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -322,15 +318,15 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbTT, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Date2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addGap(0, 50, Short.MAX_VALUE))
-                    .addComponent(cbTT, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Date2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -338,17 +334,17 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(4, 4, 4)
                 .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
-                .addGap(12, 12, 12)
+                .addGap(8, 8, 8)
                 .addComponent(Date2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addComponent(cbTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -437,10 +433,10 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnHuy.setText("MỚI");
-        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+        btnNew.setText("MỚI");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHuyActionPerformed(evt);
+                btnNewActionPerformed(evt);
             }
         });
 
@@ -482,31 +478,30 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnSua)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnHuy))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNew))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnAdd)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnHuy1)))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnAdd)
-                                .addComponent(btnHuy1))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnHuy)
-                                .addComponent(btnSua))
-                            .addGap(5, 5, 5)))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAdd)
+                            .addComponent(btnHuy1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNew)
+                            .addComponent(btnSua))
+                        .addGap(5, 5, 5))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -536,10 +531,10 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDKActionPerformed
 
-    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
         clear();
-    }//GEN-LAST:event_btnHuyActionPerformed
+    }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
@@ -580,9 +575,10 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        String MaKM = tbKM.getValueAt(index, 0).toString();
-        KhuyenMai km = readFrom();
+
         if (checkTrong()) {
+            String MaKM = tbKM.getValueAt(index, 0).toString();
+            KhuyenMai km = readFrom();
             if (service.updateKM(MaKM, km) > 0) {
                 JOptionPane.showMessageDialog(this, "UpDate TC");
                 fillTable(service.getAllKM());
@@ -646,7 +642,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         cbHT.setSelectedItem(selectedData2.toString());
         txtDK.setText(String.valueOf(selectedData3.toString()));
         txtGia.setText(String.valueOf(selectedData6));
-        Date.setDate((Date) selectedData4); 
+        Date.setDate((Date) selectedData4);
         Date2.setDate((Date) selectedData5);
         cbTT.setSelectedItem(String.valueOf(selectedData7));
 
@@ -658,6 +654,15 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
 
     private void btnHuy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuy1ActionPerformed
         // TODO add your handling code here:
+        String MaKM = tbKM.getValueAt(index, 0).toString();
+        String trangThai = tbKM.getValueAt(index, 7).toString();
+        String newTrangThai = trangThai.equals("Áp Dụng") ? "Không Áp Dụng" : "Áp Dụng";
+        if (service.HuyKM(MaKM, newTrangThai) > 0) {
+            JOptionPane.showMessageDialog(this, "Hủy Thành Công");
+            fillTable(service.getAllKM());
+        } else {
+            JOptionPane.showMessageDialog(this, "Hủy Thất Bại");
+        }
     }//GEN-LAST:event_btnHuy1ActionPerformed
 
     /**
@@ -702,8 +707,8 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser Date;
     private com.toedter.calendar.JDateChooser Date2;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnHuy1;
+    private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTK;
     private javax.swing.JComboBox<String> cbFindTT;
