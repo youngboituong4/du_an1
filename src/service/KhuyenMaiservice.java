@@ -157,4 +157,25 @@ public class KhuyenMaiservice {
             return 0;
         }
     }
+    public List<KhuyenMai> PhanTrang( int page) {
+        sql = "select Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai \n"
+                + "order by Ma\n"
+                + "offset ? rows\n"
+                + "fetch next 5 rows only";
+        List<KhuyenMai> lst = new ArrayList<>();
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, page);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+               KhuyenMai km = new KhuyenMai(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getDate(5), rs.getDate(6), rs.getDouble(7), rs.getString(8));
+                lst.add(km);
+            }
+            return lst;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -5,6 +5,7 @@
 package view;
 
 import dailycheck.DailyCheckingKhuyenMai;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -19,10 +20,15 @@ import service.KhuyenMaiservice;
 public class KhuyenMaiFrom extends javax.swing.JFrame {
 
     private KhuyenMaiservice service = new KhuyenMaiservice();
+    ArrayList<KhuyenMai> lsst = new ArrayList<>();
     private DefaultTableModel model = new DefaultTableModel();
     private int index = -1;
     private JComboBox<String> comboBox;
     private DailyCheckingKhuyenMai daily = new DailyCheckingKhuyenMai();
+    int page = 0;
+    int demsotrang = 1;
+    double tongtrang  = Math.ceil((double) service.getAllKM().size() / 5);
+    int sotrang  = (int) tongtrang;
 
     /**
      * Creates new form KhuyenMai
@@ -42,7 +48,8 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         cbFindTT.addItem("Không Áp Dụng");
         fillTable(service.getAllKM());
         // daily.run();
-         new Thread(daily::run).start();
+        new Thread(daily::run).start();
+        JBtext.setText(String.valueOf(demsotrang + " / " + sotrang));
     }
 
     void fillTable(List<KhuyenMai> lst) {
@@ -64,10 +71,10 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         cbHT.setSelectedIndex(km.getLoaiKhuyenMai(0));
         if (km.getTrangThai().equals("Áp Dụng")) {
             cbTT.setSelectedIndex(0);
-        }else {
+        } else {
             cbTT.setSelectedIndex(1);
         }
-       // cbTT.setSelectedItem(km.getTrangThai());
+        // cbTT.setSelectedItem(km.getTrangThai());
         tbKM.setRowSelectionInterval(index, index);
     }
 
@@ -150,6 +157,10 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         cbTT.setSelectedIndex(0);
     }
 
+    public String LayThongTin() {
+        return "RECORD: " + (index + 1) + " of " + lsst.size();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -185,10 +196,14 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         txtFind2 = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbKM = new javax.swing.JTable();
+        btnPRE = new javax.swing.JButton();
+        JBtext = new javax.swing.JLabel();
+        btnNEXT = new javax.swing.JButton();
         btnNew = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnHuy1 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -401,20 +416,43 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tbKM);
 
+        btnPRE.setText("PRE");
+        btnPRE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPREActionPerformed(evt);
+            }
+        });
+
+        JBtext.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        JBtext.setText("1");
+
+        btnNEXT.setText("NEX");
+        btnNEXT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNEXTActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel34)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtFind2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnTK, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(205, 205, 205)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPRE, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JBtext, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNEXT)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cbFindTT, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -424,10 +462,13 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTK)
                     .addComponent(cbFindTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFind2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel34))
+                    .addComponent(jLabel34)
+                    .addComponent(btnTK, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPRE)
+                    .addComponent(JBtext)
+                    .addComponent(btnNEXT))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -461,6 +502,13 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("KÍCH HOẠT");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -483,7 +531,8 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnAdd)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnHuy1)))))
+                                .addComponent(btnHuy1))
+                            .addComponent(jButton1))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -493,6 +542,8 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd)
                             .addComponent(btnHuy1))
@@ -538,7 +589,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        KhuyenMai km = readFrom();
+
 //        if (checkTrong()) {
 //            if (service.FindKM(km.getMa()) != null) {
 //                JOptionPane.showMessageDialog(this, "Mã Trùng Không Thêm Được");
@@ -552,20 +603,19 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
 //                }
 //            }
 //        }
-
-        if (km != null) {
-            if (checkTrong()) {
-                if (service.FindKM(km.getMa()) != null) {
-                    JOptionPane.showMessageDialog(this, "Mã Trùng Không Thêm Được");
+        if (checkTrong()) {
+            KhuyenMai km = readFrom();
+            if (service.FindKM(km.getMa()) != null) {
+                JOptionPane.showMessageDialog(this, "Mã Trùng Không Thêm Được");
+            } else {
+                if (service.addKM(km) > 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm Thành Công");
+                    fillTable(service.getAllKM());
                 } else {
-                    if (service.addKM(km) > 0) {
-                        JOptionPane.showMessageDialog(this, "Thêm Thành Công");
-                        fillTable(service.getAllKM());
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Thêm Thất Bại");
-                    }
+                    JOptionPane.showMessageDialog(this, "Thêm Thất Bại");
                 }
             }
+
         } else {
             // Xử lý trường hợp 'km' là null
         }
@@ -656,7 +706,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         // TODO add your handling code here:
         String MaKM = tbKM.getValueAt(index, 0).toString();
         String trangThai = tbKM.getValueAt(index, 7).toString();
-        String newTrangThai = trangThai.equals("Áp Dụng") ? "Không Áp Dụng" : "Áp Dụng";
+        String newTrangThai = "Không Áp Dụng";
         if (service.HuyKM(MaKM, newTrangThai) > 0) {
             JOptionPane.showMessageDialog(this, "Hủy Thành Công");
             fillTable(service.getAllKM());
@@ -664,6 +714,44 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Hủy Thất Bại");
         }
     }//GEN-LAST:event_btnHuy1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String MaKM = tbKM.getValueAt(index, 0).toString();
+        String trangThai = tbKM.getValueAt(index, 7).toString();
+        String newTrangThai = "Áp Dụng";
+        if (service.HuyKM(MaKM, newTrangThai) > 0) {
+            JOptionPane.showMessageDialog(this, "Kích Hoạt Thành Công");
+            fillTable(service.getAllKM());
+        } else {
+            JOptionPane.showMessageDialog(this, "Kích Hoạt Thất Bại");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnPREActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPREActionPerformed
+        // TODO add your handling code here:
+        if (demsotrang > 1) {
+            page -= 5;
+            demsotrang -= 1;
+            tongtrang = Math.ceil((double) service.getAllKM().size() / 5);
+            sotrang = (int) tongtrang;
+            JBtext.setText(String.valueOf(demsotrang + " / " + sotrang));
+            fillTable(service.PhanTrang(page));
+        }
+    }//GEN-LAST:event_btnPREActionPerformed
+
+    private void btnNEXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNEXTActionPerformed
+        // TODO add your handling code here:
+        if (demsotrang < sotrang) {
+            page += 5;
+            demsotrang += 1;
+            tongtrang = Math.ceil((double) service.getAllKM().size() / 5);
+            sotrang = (int) tongtrang;
+            JBtext.setText(String.valueOf(demsotrang + " / " + sotrang));
+            fillTable(service.PhanTrang(page));
+        }
+
+    }//GEN-LAST:event_btnNEXTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -706,14 +794,18 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Date;
     private com.toedter.calendar.JDateChooser Date2;
+    private javax.swing.JLabel JBtext;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnHuy1;
+    private javax.swing.JButton btnNEXT;
     private javax.swing.JButton btnNew;
+    private javax.swing.JButton btnPRE;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTK;
     private javax.swing.JComboBox<String> cbFindTT;
     private javax.swing.JComboBox<String> cbHT;
     private javax.swing.JComboBox<String> cbTT;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
