@@ -151,9 +151,9 @@ public class NhanVienService {
         }
     }
 
-    public ArrayList<NhanVien> timTheoDieuKien(String tim, boolean vaiTro, boolean trangThai) {
+    public ArrayList<NhanVien> timTheoDieuKien(String tim, Boolean vaiTro, Boolean trangThai) {
         ArrayList<NhanVien> list = new ArrayList<>();
-        sql = "SELECT * FROM NhanVien WHERE (MaNV LIKE ? OR HoVaTen LIKE ? OR MatKhau LIKE ? OR DiaChi LIKE ? OR Email LIKE ? OR SDT LIKE ? OR VaiTro = ?) AND TrangThai = ? AND Vaitro = ? ORDER BY MaNV";
+        sql = "SELECT * FROM NhanVien WHERE (MaNV LIKE ? OR HoVaTen LIKE ? OR MatKhau LIKE ? OR DiaChi LIKE ? OR Email LIKE ? OR SDT LIKE ?)And VaiTro Like ? AND TrangThai like ? ORDER BY MaNV";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -163,9 +163,16 @@ public class NhanVienService {
             ps.setObject(4, "%" + tim + "%");
             ps.setObject(5, "%" + tim + "%");
             ps.setObject(6, "%" + tim + "%");
-            ps.setObject(7, vaiTro);
-            ps.setObject(8, trangThai);
-            ps.setObject(9, vaiTro);
+            if (vaiTro != null) {
+                ps.setBoolean(7, vaiTro);
+            } else {
+                ps.setNull(7, Types.BOOLEAN);
+            }
+            if (trangThai != null) {
+                ps.setBoolean(8, trangThai);
+            } else {
+                ps.setNull(8, Types.BOOLEAN);
+            }
             rs = ps.executeQuery();
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
