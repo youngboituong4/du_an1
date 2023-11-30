@@ -15,9 +15,25 @@ public class HoaDon {
     private String maKhachHang,maNhanVien,maHoaDon;
     private Date ngayTao, ngayThanhToan;
     private Double tienKhachTra, tienKhachChuyenKhoan,tienThua, tienGiamGia, thanhTien;
-    private Integer trangThai;
+    private Integer trangThai, hinhThucThanhToan;
 
     public HoaDon() {
+    }
+
+    public HoaDon(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, Integer hinhThucThanhToan) {
+        this.ID = ID;
+        this.maKhachHang = maKhachHang;
+        this.maNhanVien = maNhanVien;
+        this.maHoaDon = maHoaDon;
+        this.ngayTao = ngayTao;
+        this.ngayThanhToan = ngayThanhToan;
+        this.tienKhachTra = tienKhachTra;
+        this.tienKhachChuyenKhoan = tienKhachChuyenKhoan;
+        this.tienThua = tienThua;
+        this.tienGiamGia = tienGiamGia;
+        this.thanhTien = thanhTien;
+        this.trangThai = trangThai;
+        this.hinhThucThanhToan = hinhThucThanhToan;
     }
 
     public HoaDon(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai) {

@@ -8,7 +8,11 @@ package service;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.NhanVien;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 /**
  *
@@ -39,24 +43,78 @@ public class NhanVienService {
         }
     }
 
-    public int AddNV(NhanVien nv) {
-        sql = "insert into NhanVien(MaNV,HoVaTen,MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro,TrangThai) values (?,?,?,?,?,?,?,?,?)";
+    private void updateMaNV(int id) {
+        // Cập nhật MaNV dựa trên ID
+        sql = "UPDATE NhanVien SET MaNV = CONCAT('NV', RIGHT('00' + CAST(? AS VARCHAR(2)), 2)) WHERE ID = ?";
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, nv.getMaNV());
-            ps.setObject(2, nv.getHoVaTen());
-            ps.setObject(3, nv.getMatKhau());
-            ps.setObject(4, nv.getDiaChi());
-            ps.setObject(5, nv.getEmail());
-            ps.setObject(6, nv.getSdt());
-            ps.setObject(7, nv.isVaiTro());
-            ps.setObject(8, nv.isGioiTinh());
-            ps.setObject(9, nv.isTrangThai());
-            return ps.executeUpdate();
+
+            ps.setInt(1, id);
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng PreparedStatement và Connection trong khối finally để đảm bảo luôn được đóng
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public int AddNV(NhanVien nv) {
+        // Thay đổi câu lệnh SQL để không chèn trực tiếp giá trị cho cột MaNV
+        sql = "INSERT INTO NhanVien (HoVaTen, MatKhau, DiaChi, Email, SDT, GioiTinh, VaiTro, TrangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            // Chèn giá trị cho các cột khác (không bao gồm MaNV)
+            ps.setObject(1, nv.getHoVaTen());
+            ps.setObject(2, nv.getMatKhau());
+            ps.setObject(3, nv.getDiaChi());
+            ps.setObject(4, nv.getEmail());
+            ps.setObject(5, nv.getSdt());
+            ps.setBoolean(6, nv.isGioiTinh());
+            ps.setBoolean(7, nv.isVaiTro());
+            ps.setBoolean(8, nv.isTrangThai());
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet generatedKeys = ps.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                    // Cập nhật MaNV sau khi có ID được sinh tự động
+                    updateMaNV(id);
+                }
+            }
+
+            return affectedRows;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        } finally {
+            // Đóng PreparedStatement và Connection trong khối finally để đảm bảo luôn được đóng
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -151,9 +209,9 @@ public class NhanVienService {
         }
     }
 
-    public ArrayList<NhanVien> timTheoDieuKien(String tim, boolean vaiTro, boolean trangThai) {
+    public ArrayList<NhanVien> timTheoDieuKien(String tim, Boolean vaiTro, Boolean trangThai) {
         ArrayList<NhanVien> list = new ArrayList<>();
-        sql = "SELECT * FROM NhanVien WHERE (MaNV LIKE ? OR HoVaTen LIKE ? OR MatKhau LIKE ? OR DiaChi LIKE ? OR Email LIKE ? OR SDT LIKE ? OR VaiTro = ?) AND TrangThai = ? AND Vaitro = ? ORDER BY MaNV";
+        sql = "SELECT * FROM NhanVien WHERE (MaNV LIKE ? OR HoVaTen LIKE ? OR MatKhau LIKE ? OR DiaChi LIKE ? OR Email LIKE ? OR SDT LIKE ?)And VaiTro Like ? AND TrangThai like ? ORDER BY MaNV";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -163,9 +221,16 @@ public class NhanVienService {
             ps.setObject(4, "%" + tim + "%");
             ps.setObject(5, "%" + tim + "%");
             ps.setObject(6, "%" + tim + "%");
-            ps.setObject(7, vaiTro);
-            ps.setObject(8, trangThai);
-            ps.setObject(9, vaiTro);
+            if (vaiTro != null) {
+                ps.setBoolean(7, vaiTro);
+            } else {
+                ps.setNull(7, Types.BOOLEAN);
+            }
+            if (trangThai != null) {
+                ps.setBoolean(8, trangThai);
+            } else {
+                ps.setNull(8, Types.BOOLEAN);
+            }
             rs = ps.executeQuery();
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
@@ -175,6 +240,103 @@ public class NhanVienService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private boolean maNVExistsInDatabase(String maNVValue) {
+        String checkQuery = "SELECT COUNT(*) FROM NhanVien WHERE MaNV = ?";
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement checkPs = con.prepareStatement(checkQuery)) {
+            checkPs.setString(1, maNVValue);
+            ResultSet rs = checkPs.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0; // Trả về true nếu mã nhân viên đã tồn tại
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ theo ý của bạn
+        }
+
+        return false;
+    }
+
+    public void importDataFromExcelToDatabase(XSSFSheet sheet) {
+        String insertQuery = "INSERT INTO NhanVien (MaNV, HoVaTen, MatKhau, DiaChi, Email,SDT,  GioiTinh, VaiTro, TrangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        Connection con = DBConnect.getConnection();
+
+        try (PreparedStatement ps = con.prepareStatement(insertQuery)) {
+            for (int row = 1; row < sheet.getPhysicalNumberOfRows(); row++) {
+                XSSFRow excelRow = sheet.getRow(row);
+
+                XSSFCell MaNV = excelRow.getCell(0);
+                XSSFCell HoVaTen = excelRow.getCell(1);
+                XSSFCell MatKhau = excelRow.getCell(2);
+                XSSFCell SDT = excelRow.getCell(5);
+                XSSFCell Email = excelRow.getCell(4);
+                XSSFCell DiaChi = excelRow.getCell(3);
+                XSSFCell GioiTinh = excelRow.getCell(6);
+                XSSFCell VaiTro = excelRow.getCell(7);
+                XSSFCell TrangThai = excelRow.getCell(8);
+
+                String maNVValue = (MaNV != null) ? MaNV.toString() : "";
+                String hoVaTenValue = (HoVaTen != null) ? HoVaTen.toString() : "";
+                String matKhauValue = (MatKhau != null) ? MatKhau.toString() : "";
+                String sdtValue = (SDT != null) ? SDT.toString() : "";
+                String emailValue = (Email != null) ? Email.toString() : "";
+                String diaChiValue = (DiaChi != null) ? DiaChi.toString() : "";
+                String gioiTinhValue = (GioiTinh != null) ? GioiTinh.toString() : "";
+                String vaiTroValue = (VaiTro != null) ? VaiTro.toString() : "";
+                String trangThaiValue = (TrangThai != null) ? TrangThai.toString() : "";
+
+                // Kiểm tra xem mã nhân viên đã tồn tại hay chưa
+                if (maNVExistsInDatabase(maNVValue)) {
+                    // Thực hiện xử lý khi mã nhân viên đã tồn tại (ví dụ: thông báo, bỏ qua, hoặc cập nhật)
+                    continue; // Bỏ qua dòng hiện tại và chuyển đến dòng tiếp theo
+                }
+
+                ps.setString(1, maNVValue);
+                ps.setString(2, hoVaTenValue);
+                ps.setString(3, matKhauValue);
+                ps.setString(4, diaChiValue);
+                ps.setString(5, emailValue);
+                ps.setString(6, sdtValue);
+
+                // Xử lý cột có kiểu dữ liệu bit (boolean)
+                ps.setBoolean(7, "Nam".equals(gioiTinhValue));
+
+                ps.setBoolean(8, "Quản lý".equals(vaiTroValue));
+
+                // Xử lý cột có kiểu dữ liệu bit (boolean)
+                ps.setBoolean(9, "Active".equals(trangThaiValue));
+
+                // Thực hiện câu truy vấn
+                ps.executeUpdate();
+            }
+
+            JOptionPane.showMessageDialog(null, "Dữ liệu đã được thêm vào cơ sở dữ liệu thành công!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại: " + e.getMessage());
+        }
+    }
+
+    public void updateMaNVForImportedData() {
+        try {
+            con = DBConnect.getConnection();
+            String sql = "UPDATE NhanVien SET MaNV = CONCAT('NV', RIGHT('00' + CAST(ID AS VARCHAR(2)), 2)) WHERE MaNV IS NULL OR MaNV = ''";
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

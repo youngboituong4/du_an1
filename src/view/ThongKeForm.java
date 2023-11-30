@@ -116,7 +116,7 @@ public class ThongKeForm extends javax.swing.JFrame {
         int amount = service.DoanhThu();
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         String formattedAmount = decimalFormat.format(amount);
-        jLabel9.setText(formattedAmount + "" + " " + "VNĐ");
+        jLabel9.setText(formattedAmount + "" + "" +",000"+ "VNĐ");
         jLabel10.setText(service.HoaDonDaThanhToan() + "");
     }
 
@@ -529,6 +529,7 @@ public class ThongKeForm extends javax.swing.JFrame {
                 jComboBox2.setBackground(Color.WHITE);
                 namm = Integer.parseInt(selectedValue);
                 jLabel1.setText("Doanh thu năm " + namm);
+                jLabel9.setText(service.DoanhThuNam(namm)+"");
                 for (int i = 1; i <= 12; i++) {
                     thang = i;
                     BarChartData.setValue(service.DoanhThuThangTrongNam(thang, namm), "Doanh thu", i + "");
