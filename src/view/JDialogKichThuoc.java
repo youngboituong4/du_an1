@@ -53,7 +53,7 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
     KichThuoc readFormKT() {
         String ma = txtMaThuocTinh.getText();
         String ten = txtTenThuocTinh.getText();
-        return new KichThuoc(WIDTH, ma, ten);
+        return new KichThuoc( ma, ten);
     }
 
     public void clearThuocTinh() {
@@ -191,11 +191,11 @@ public class JDialogKichThuoc extends javax.swing.JDialog {
 
             },
             new String [] {
-                "STT", "Mã Thuộc Tính", "Tên Thuộc Tính"
+                "Mã Thuộc Tính", "Tên Thuộc Tính"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

@@ -14,18 +14,19 @@ public class HoaDonResponse {
 
     private String maHD, maNV, tenKH;
     private Float thanhTien;
-    private int trangThai;
+    private int trangThai, HinhThucThanhToan;
     private Date ngayTao, ngayThanhToan;
 
     public HoaDonResponse() {
     }
 
-    public HoaDonResponse(String maHD, String maNV, String tenKH, Float thanhTien, int trangThai, Date ngayTao, Date ngayThanhToan) {
+    public HoaDonResponse(String maHD, String maNV, String tenKH, Float thanhTien, int HinhThucThanhToan, int trangThai, Date ngayTao, Date ngayThanhToan) {
         this.maHD = maHD;
         this.maNV = maNV;
         this.tenKH = tenKH;
         this.thanhTien = thanhTien;
         this.trangThai = trangThai;
+        this.HinhThucThanhToan = HinhThucThanhToan;
         this.ngayTao = ngayTao;
         this.ngayThanhToan = ngayThanhToan;
     }
@@ -86,4 +87,13 @@ public class HoaDonResponse {
         this.ngayThanhToan = ngayThanhToan;
     }
 
+    public int getHinhThucThanhToan() {
+        return HinhThucThanhToan;
+    }
+
+    public void setHinhThucThanhToan(int HinhThucThanhToan) {
+        this.HinhThucThanhToan = HinhThucThanhToan;
+    }
+
+    
 }

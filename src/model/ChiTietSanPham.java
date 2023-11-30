@@ -33,6 +33,15 @@ public class ChiTietSanPham {
         this.soLuong = soLuong;
         this.trangThai = trangThai;
     }
+    
+    public ChiTietSanPham(int ID,String maSP, String tenSP, double gia, int soLuong) {
+        this.ID = ID;
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.gia = gia;
+        this.soLuong = soLuong;       
+    }
+    
 
     public int getID() {
         return ID;
@@ -132,9 +141,13 @@ public class ChiTietSanPham {
 
     
     public Object[] toDataRowCTSP(){
-        return new Object[]{this.maSP, this.tenSP, this.maLoai, this.maKichThuoc, this.maMauSac, this.maChatLieu, this.gia, this.soLuong, this.trangThai(soLuong)?"Còn hàng":"Hết hàng"};
+        return new Object[]{this.maSP, this.tenSP, this.maLoai, this.maKichThuoc, this.maMauSac, this.maChatLieu, this.maThuongHieu, this.gia, this.soLuong, this.trangThai(soLuong)?"Còn hàng":"Hết hàng"};
     }
        
+    public Object[] toDataRowCTSPBanHang(){
+        return new Object[]{this.ID, this.maSP, this.tenSP, this.maLoai, this.maKichThuoc, this.maMauSac, this.maChatLieu, this.maThuongHieu, this.gia, this.soLuong};
+    }
+    
     public Object[] toDataRowSP(){
         return new Object[]{this.maSP, this.tenSP, this.trangThai(soLuong)?"Còn hàng":"Hết hàng"};
     }

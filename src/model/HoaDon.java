@@ -35,6 +35,19 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
+    public HoaDon(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai) {
+        this.ID = ID;
+        this.maHoaDon = maHoaDon;
+        this.ngayTao = ngayTao;
+        this.maNhanVien = maNhanVien;        
+        this.trangThai = trangThai;
+    }
+    
+    public HoaDon(String maNhanVien, Integer trangThai) {
+        this.maNhanVien = maNhanVien;        
+        this.trangThai = trangThai;
+    }
+    
     public Integer getID() {
         return ID;
     }
@@ -130,9 +143,19 @@ public class HoaDon {
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
+    
+    public boolean trangThaiTT(Integer trangThai){
+        if(trangThai == 0){
+            return false;
+        }
+        else if (trangThai == 1){
+            return true;
+        }
+        return false;
+    }
 
-    public Object[] toDataRow() {
-        return new Object[]{this.maHoaDon, this.maKhachHang, this.maNhanVien, this.ngayTao, this.ngayThanhToan, this.tienKhachTra, this.tienKhachChuyenKhoan, this.tienThua, this.tienGiamGia, this.thanhTien, this.trangThai};
+    public Object[] toDataRowHoaDon() {
+        return new Object[]{this.ID, this.maHoaDon, this.ngayTao, this.maNhanVien, this.trangThaiTT(trangThai)?"Đã thanh toán":"Chờ thanh toán"};
     }
     
 }
