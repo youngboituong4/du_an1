@@ -13,6 +13,7 @@ import model.HoaDon;
 import model.KhachHang;
 import model.LichSuGiaoDich;
 import service.KhachHangService;
+
 /**
  *
  * @author thinh
@@ -22,7 +23,6 @@ public class KhachHangForm extends javax.swing.JPanel {
     /**
      * Creates new form KhachHangForm
      */
-    
     DefaultTableModel model;
     DefaultTableModel model2;
     KhachHangService service = new KhachHangService();
@@ -33,6 +33,7 @@ public class KhachHangForm extends javax.swing.JPanel {
     private Integer size = 2;
     private String gioiTinh = null;
     private String trangThai = null;
+    private String maKHSelected = null;
 
     public KhachHangForm() {
         initComponents();
@@ -166,7 +167,7 @@ public class KhachHangForm extends javax.swing.JPanel {
             return null;
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -310,6 +311,9 @@ public class KhachHangForm extends javax.swing.JPanel {
         jPanel24.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel11.setText("Mã khách hàng:");
+
+        maTxt.setEditable(false);
+        maTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jLabel12.setText("Tên khách hàng:");
 
@@ -751,6 +755,11 @@ public class KhachHangForm extends javax.swing.JPanel {
         String ma = String.valueOf(khTable.getValueAt(row, 0));
         getMa(ma);       
         System.out.println(ma);
+        //String tim = timkiemTxt.getText();
+        getIndex(row);
+        KhachHang kh = list.get(row);
+        //maKHSelected = kh.getMa();
+        //System.out.println(kh.getMa());
         try {
             listLSGD = service.getAllLSGD(ma);
             showLSGD(listLSGD);
@@ -814,7 +823,8 @@ public class KhachHangForm extends javax.swing.JPanel {
         }
         page = page - 1;
         currentPage.setText(page + "");
-        showData(service.tim(timkiemTxt.getText(), page - 1, gioiTinh, trangThai));
+        list = service.tim(timkiemTxt.getText(), page - 1, gioiTinh, trangThai);
+        showData(list);
     }//GEN-LAST:event_prevBtnActionPerformed
 
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
@@ -823,7 +833,8 @@ public class KhachHangForm extends javax.swing.JPanel {
         }
         page = page + 1;
         currentPage.setText(page + "");
-        showData(service.tim(timkiemTxt.getText(), page - 1, gioiTinh, trangThai));
+        list = service.tim(timkiemTxt.getText(), page - 1, gioiTinh, trangThai);
+        showData(list);
     }//GEN-LAST:event_nextBtnActionPerformed
 
 

@@ -219,7 +219,7 @@ public class BanHangService {
 
     public HoaDon getHoaDonTheoID(int id) {
         HoaDon hd = null;
-        sql = "SELECT * FROM HoaDon WHERE ID = ?";
+        sql = "SELECT ID, MaKhachHang, MaNhanVien, MaHoaDon, NgayTao, NgayThanhToan, TienKhachTra, TienKhachChuyenKhoan, TienThua, TienGiamGia, ThanhTien, TrangThai FROM HoaDon WHERE ID = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -273,13 +273,14 @@ public class BanHangService {
         }
     }
 
-    public int addHoaDon(HoaDon hd) {
-        sql = "INSERT INTO HoaDon (MaKhachHang, MaNhanVien, NgayTao, NgayThanhToan, TienKhachTra, TienKhachChuyenKhoan, TienThua, TienGiamGia, ThanhTien, TrangThai) VALUES \n"
-                + "       ('', ?, GETDATE(), '', 0, 0, 0, 0, 0, 0)";
+    public int addHoaDon(HoaDon hd, int idKM) {
+        sql = "INSERT INTO HoaDon (MaKhachHang, MaNhanVien, IdKM, NgayTao, NgayThanhToan, TienKhachTra, TienKhachChuyenKhoan, TienThua, TienGiamGia, ThanhTien, HinhThucThanhToan, TrangThai) VALUES \n"
+                + "       ('', ?, ?, GETDATE(), '', 0, 0, 0, 0, 0, 0, 0)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, hd.getMaNhanVien());
+            ps.setObject(2, idKM);
 
             return ps.executeUpdate();
         } catch (Exception e) {
