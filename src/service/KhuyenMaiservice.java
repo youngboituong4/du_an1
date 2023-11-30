@@ -39,13 +39,13 @@ public class KhuyenMaiservice {
     }
 
     public ArrayList<KhuyenMai> getKM(String TrangThai) {
-         ArrayList<KhuyenMai> lst = new ArrayList<>();
+        ArrayList<KhuyenMai> lst = new ArrayList<>();
         sql = "select Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai where TrangThai = ?";
         if (TrangThai == "Tất Cả") {
             TrangThai = "";
             sql = "select Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai where TrangThai <>?";
         }
-        
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -62,6 +62,7 @@ public class KhuyenMaiservice {
         }
 
     }
+
     public List<KhuyenMai> timKM(String MaKM) {
         List<KhuyenMai> lst = new ArrayList<>();
         sql = "select Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai where Ma LIke ?";
@@ -80,8 +81,9 @@ public class KhuyenMaiservice {
             return null;
         }
     }
-     public int addKM(KhuyenMai km) {
-        sql = "INSERT INTO KhuyenMai (Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai) VALUES values (?,?,?,?,?,?,?,?)";
+
+    public int addKM(KhuyenMai km) {
+        sql = "INSERT INTO KhuyenMai (Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai) VALUES (?,?,?,?,?,?,?,?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -100,7 +102,8 @@ public class KhuyenMaiservice {
             return 0;
         }
     }
-      public KhuyenMai FindKM(String MaKM) {
+
+    public KhuyenMai FindKM(String MaKM) {
         sql = "select Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai where Ma = ?";
         KhuyenMai km = null;
         try {
@@ -118,7 +121,8 @@ public class KhuyenMaiservice {
             return null;
         }
     }
-        public int updateKM(String MaKM, KhuyenMai km) {
+
+    public int updateKM(String MaKM, KhuyenMai km) {
         sql = "Update KhuyenMai set TenKhuyenMai = ?,LoaiKhuyenMai = ?,DonGiaToiThieu = ?,NgayBatDau = ?,NgayKetThuc = ?,GiaTri = ?,TrangThai = ? Where Ma = ?";
         try {
             con = DBConnect.getConnection();
@@ -137,6 +141,41 @@ public class KhuyenMaiservice {
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public int HuyKM(String ma, String trangThai) {
+        sql = "Update KhuyenMai set TrangThai = ? where Ma = ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, trangThai);
+            ps.setObject(2, ma);
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    public List<KhuyenMai> PhanTrang( int page) {
+        sql = "select Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai \n"
+                + "order by Ma\n"
+                + "offset ? rows\n"
+                + "fetch next 5 rows only";
+        List<KhuyenMai> lst = new ArrayList<>();
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, page);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+               KhuyenMai km = new KhuyenMai(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getDate(5), rs.getDate(6), rs.getDouble(7), rs.getString(8));
+                lst.add(km);
+            }
+            return lst;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
