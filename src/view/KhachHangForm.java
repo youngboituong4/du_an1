@@ -751,18 +751,15 @@ public class KhachHangForm extends javax.swing.JPanel {
 
     private void khTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_khTableMouseClicked
         int row = khTable.getSelectedRow();
-<<<<<<< HEAD
         String tim = timkiemTxt.getText();
         String ma = String.valueOf(khTable.getValueAt(row, 0));
         getMa(ma);       
         System.out.println(ma);
-=======
         //String tim = timkiemTxt.getText();
         getIndex(row);
         KhachHang kh = list.get(row);
         //maKHSelected = kh.getMa();
         //System.out.println(kh.getMa());
->>>>>>> ThaoThanh
         try {
             listLSGD = service.getAllLSGD(ma);
             showLSGD(listLSGD);

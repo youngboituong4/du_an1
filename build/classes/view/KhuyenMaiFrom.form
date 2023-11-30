@@ -431,14 +431,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbFindTT" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFind2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnTK" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="btnPRE" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="JBtext" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnNEXT" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cbFindTT" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtFind2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="JBtext" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnNEXT" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="110" max="-2" attributes="0"/>
