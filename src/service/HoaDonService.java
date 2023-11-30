@@ -54,13 +54,13 @@ public class HoaDonService {
         ArrayList<HDCTResponse> list = new ArrayList<>();
         String sql = """
                 SELECT SPCT.MaSP, SPCT.TenSP, SPCT.ThuongHieu, SPCT.TenMau, SPCT.KichThuoc, 
-                 HDCT.SoLuong, HDCT.DonGia, HD.TienGiamGia, HD.ThanhTien
-                 FROM HoaDonChiTiet HDCT
-                 JOIN ChiTietSanPham SPCT
-                 ON HDCT.IDChiTietSanPham = SPCT.ID
-                 JOIN HoaDon HD
-                 ON HD.ID = HDCT.IDHoaDon
-                 WHERE HD.MaHoaDon = ?
+                                 HDCT.SoLuong, HDCT.DonGia, HD.TienGiamGia, (HDCT.SoLuong * HDCT.DonGia) - HD.TienGiamGia as ThanhTien
+                                 FROM HoaDonChiTiet HDCT
+                                 JOIN ChiTietSanPham SPCT
+                                 ON HDCT.IDChiTietSanPham = SPCT.ID
+                                 JOIN HoaDon HD
+                                 ON HD.ID = HDCT.IDHoaDon
+                                 WHERE HD.MaHoaDon = ?
                 """;
         try {
             con = DBConnect.getConnection();
@@ -73,8 +73,8 @@ public class HoaDonService {
 
             while (rs.next()) {
                 HDCTResponse hdct = new HDCTResponse(
-                        rs.getString("MaSP"), rs.getString("TenSP"), rs.getString("MaThuongHieu"),
-                        rs.getString("MaMauSac"), rs.getString("MaKichThuoc"), rs.getInt("SoLuong"),
+                        rs.getString("MaSP"), rs.getString("TenSP"), rs.getString("ThuongHieu"),
+                        rs.getString("TenMau"), rs.getString("KichThuoc"), rs.getInt("SoLuong"),
                         rs.getFloat("DonGia"), rs.getFloat("TienGiamGia"), rs.getFloat("ThanhTien"));
 
                 list.add(hdct);

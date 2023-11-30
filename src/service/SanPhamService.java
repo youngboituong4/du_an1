@@ -362,7 +362,7 @@ public class SanPhamService {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, lsp.getMaLoaiSanPham());
-            ps.setObject(2, lsp.getMaLoaiSanPham());
+            ps.setObject(2, lsp.getLoaiSanPham());
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -451,7 +451,7 @@ public class SanPhamService {
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, th.getMaThuongHieu());
+            ps.setObject(1, th.getTenThuongHieu());
             ps.setObject(2, ma);
 
             return ps.executeUpdate();
@@ -632,7 +632,7 @@ public class SanPhamService {
     }
 
     public int addCTSP(ChiTietSanPham ctsp) {
-        sql = "INSERT INTO ChiTietSanPham (MaSP, TenSP, LoaiSanPham, KichThuoc, TenMau, ChatLieu,TenThuongHieu, Gia, SoLuong, TrangThai)\n"
+        sql = "INSERT INTO ChiTietSanPham (MaSP, TenSP, LoaiSanPham, KichThuoc, TenMau, ChatLieu,ThuongHieu, Gia, SoLuong, TrangThai)\n"
                 + "VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
             con = DBConnect.getConnection();
@@ -656,7 +656,7 @@ public class SanPhamService {
     }
 
     public int addSPCTSP(String maSP, String tenSP) {
-        sql = "INSERT INTO ChiTietSanPham (MaSP, TenSP, LoaiSanPham, KichThuoc, TenMau, ChatLieu, TenThuongHieu) VALUES (?,?,' ',' ',' ',' ',' ')";
+        sql = "INSERT INTO ChiTietSanPham (MaSP, TenSP, LoaiSanPham, KichThuoc, TenMau, ChatLieu, ThuongHieu) VALUES (?,?,' ',' ',' ',' ',' ')";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -671,7 +671,7 @@ public class SanPhamService {
     }
 
     public int updateSP(ChiTietSanPham ctsp, int id) {
-        sql = "UPDATE ChiTietSanPham SET MaSP = ?, TenSP = ?, LoaiSanPham = ?, KichThuoc = ?, TenMau = ?, ChatLieu = ?,TenThuongHieu = ?, Gia = ?, SoLuong = ?, TrangThai = ? WHERE ID = ?";
+        sql = "UPDATE ChiTietSanPham SET MaSP = ?, TenSP = ?, LoaiSanPham = ?, KichThuoc = ?, TenMau = ?, ChatLieu = ?,ThuongHieu = ?, Gia = ?, SoLuong = ?, TrangThai = ? WHERE ID = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);

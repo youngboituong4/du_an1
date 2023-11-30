@@ -46,7 +46,7 @@ public class HoaDonForm extends javax.swing.JPanel {
         ngayBD = null;
         ngayKT = null;
         try {
-            list = service.loc("", 0, null, null, null);
+            list = service.getAll();
             showData(list);
         } catch (Exception e) {
         }
