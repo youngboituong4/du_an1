@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JComboBox;
@@ -27,8 +28,9 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
     private DailyCheckingKhuyenMai daily = new DailyCheckingKhuyenMai();
     int page = 0;
     int demsotrang = 1;
-    double tongtrang  = Math.ceil((double) service.getAllKM().size() / 5);
-    int sotrang  = (int) tongtrang;
+    double tongtrang = Math.ceil((double) service.getAllKM().size() / 5);
+    int sotrang = (int) tongtrang;
+    private Set<String> times;
 
     /**
      * Creates new form KhuyenMai
@@ -300,7 +302,7 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtDK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cbHT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -334,13 +336,13 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbTT, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addGap(0, 50, Short.MAX_VALUE))
+                    .addComponent(Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Date2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -349,17 +351,17 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addGap(8, 8, 8)
+                .addGap(10, 10, 10)
                 .addComponent(Date2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addComponent(cbTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -606,6 +608,18 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
 //        }
         if (checkTrong()) {
             KhuyenMai km = readFrom();
+            List<KhuyenMai> lstt = service.getAllKM();
+            for (KhuyenMai khuyenMai : lstt) {
+                if (khuyenMai.getNgayBatDau() != null && khuyenMai.getNgayKetThuc() != null && km.getNgayBatDau() != null && km.getNgayKetThuc() != null) {
+                    if (km.getNgayBatDau().before(khuyenMai.getNgayKetThuc()) && km.getNgayKetThuc().after(khuyenMai.getNgayBatDau())) {
+                        JOptionPane.showMessageDialog(this, "Thời gian của khuyến mại hiện tại không được chồng lên thời gian của khuyến mại trước đó");
+                        return; // Dừng thực thi hàm tại đây
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không Thêm Được");
+                    return; // Dừng thực thi hàm tại đây
+                }
+            }
             if (service.FindKM(km.getMa()) != null) {
                 JOptionPane.showMessageDialog(this, "Mã Trùng Không Thêm Được");
             } else {
@@ -616,9 +630,6 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Thêm Thất Bại");
                 }
             }
-
-        } else {
-            // Xử lý trường hợp 'km' là null
         }
 
 
@@ -630,6 +641,19 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         if (checkTrong()) {
             String MaKM = tbKM.getValueAt(index, 0).toString();
             KhuyenMai km = readFrom();
+            List<KhuyenMai> lstt = service.getAllKM();
+            for (KhuyenMai khuyenMai : lstt) {
+                if (khuyenMai.getNgayBatDau() != null && khuyenMai.getNgayKetThuc() != null && km.getNgayBatDau() != null && km.getNgayKetThuc() != null) {
+                    if (km.getNgayBatDau().before(khuyenMai.getNgayKetThuc()) && km.getNgayKetThuc().after(khuyenMai.getNgayBatDau())) {
+                        JOptionPane.showMessageDialog(this, "Thời gian của khuyến mại hiện tại không được chồng lên thời gian của khuyến mại trước đó");
+                        return; // Dừng thực thi hàm tại đây
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không Thêm Được");
+                    return; // Dừng thực thi hàm tại đây
+                }
+            }
+
             if (service.updateKM(MaKM, km) > 0) {
                 JOptionPane.showMessageDialog(this, "UpDate TC");
                 fillTable(service.getAllKM());
@@ -768,16 +792,24 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(KhuyenMaiFrom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KhuyenMaiFrom.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(KhuyenMaiFrom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KhuyenMaiFrom.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(KhuyenMaiFrom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KhuyenMaiFrom.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KhuyenMaiFrom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KhuyenMaiFrom.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
