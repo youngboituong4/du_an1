@@ -95,13 +95,13 @@ public class JDialogKhachHang extends javax.swing.JDialog {
             nuRB.setSelected(true);
         }
         sdtTxt.setText(kh.getSdt());
-        emailTxt.setText(kh.getEmail());
-        diachiTP.setText(kh.getDiachi());
+        emailTxt1.setText(kh.getEmail());
+        diachiTP1.setText(kh.getDiachi());
         String tt = kh.getTrangthai();
         if (tt.equals("Còn hoạt động")) {
-            conhdRB.setSelected(true);
+            conhdRB1.setSelected(true);
         } else {
-            ngunghdRB.setSelected(true);
+            ngunghdRB1.setSelected(true);
         }
     }
     
@@ -234,7 +234,15 @@ public class JDialogKhachHang extends javax.swing.JDialog {
             new String [] {
                 "Mã KH", "Tên KH", "Giới tính", "SĐT", "Email", "Địa chỉ", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         khTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 khTableMouseClicked(evt);
@@ -244,6 +252,9 @@ public class JDialogKhachHang extends javax.swing.JDialog {
 
         jLabel1.setText("Tìm kiếm");
 
+        search.setBackground(new java.awt.Color(0, 102, 255));
+        search.setForeground(new java.awt.Color(255, 255, 255));
+        search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/timkiem.png"))); // NOI18N
         search.setText("Search");
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,6 +262,9 @@ public class JDialogKhachHang extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(0, 102, 255));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgmain/khachhang.png"))); // NOI18N
         jButton1.setText("Chọn");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,7 +304,7 @@ public class JDialogKhachHang extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(timkiemTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(search))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
@@ -332,6 +346,7 @@ public class JDialogKhachHang extends javax.swing.JDialog {
         themBtn1.setBackground(new java.awt.Color(0, 102, 255));
         themBtn1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         themBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        themBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/them.png"))); // NOI18N
         themBtn1.setText("Thêm");
         themBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,7 +433,7 @@ public class JDialogKhachHang extends javax.swing.JDialog {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addComponent(themBtn1)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Thêm khách hàng", jPanel1);
@@ -436,7 +451,7 @@ public class JDialogKhachHang extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -542,11 +557,8 @@ public class JDialogKhachHang extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JRadioButton conhdRB;
     private javax.swing.JRadioButton conhdRB1;
-    private javax.swing.JTextPane diachiTP;
     private javax.swing.JTextPane diachiTP1;
-    private javax.swing.JTextField emailTxt;
     private javax.swing.JTextField emailTxt1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -554,32 +566,22 @@ public class JDialogKhachHang extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel23;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable khTable;
     private javax.swing.JTextField maTxt;
-    private javax.swing.JButton moiBtn;
     private javax.swing.JRadioButton namRB;
-    private javax.swing.JRadioButton ngunghdRB;
     private javax.swing.JRadioButton ngunghdRB1;
     private javax.swing.JRadioButton nuRB;
     private javax.swing.JTextField sdtTxt;
     private javax.swing.JButton search;
-    private javax.swing.JButton suaBtn;
     private javax.swing.JTextField tenTxt;
-    private javax.swing.JButton themBtn;
     private javax.swing.JButton themBtn1;
     private javax.swing.JTextField timkiemTxt;
     // End of variables declaration//GEN-END:variables

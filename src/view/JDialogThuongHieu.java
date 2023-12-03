@@ -269,8 +269,8 @@ public class JDialogThuongHieu extends javax.swing.JDialog {
     private void btnThemTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemTTActionPerformed
         ThuongHieu th = readFormTH();
         if (checkTrong()) {
-            if (service.getMaCL(th.getMaThuongHieu()) == null) {
-                if (service.getCL(th.getMaThuongHieu()) == null) {
+            if (service.getMaTH(th.getMaThuongHieu()) == null) {
+                if (service.getTH(th.getTenThuongHieu()) == null) {
                     if (service.addThuongHieu(th) > 0) {
                         JOptionPane.showMessageDialog(this, "Thêm thành công !");
                         fillToTableThuongHieu(service.getAllTH());
@@ -279,7 +279,7 @@ public class JDialogThuongHieu extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(this, "Thêm thất bại !");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Đã có chất liệu !");
+                    JOptionPane.showMessageDialog(this, "Đã có thương hiệu !");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Trùng mã !");
@@ -290,7 +290,7 @@ public class JDialogThuongHieu extends javax.swing.JDialog {
     private void btnSuaTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTTActionPerformed
         ThuongHieu th = readFormTH();
         if (checkTrong()) {
-            if (service.getCL(th.getMaThuongHieu()) == null) {
+            if (service.getTH(th.getTenThuongHieu()) == null) {
                 if (service.updateThuongHieu(th, th.getMaThuongHieu()) > 0) {
                     JOptionPane.showMessageDialog(this, "Update thành công !");
                     fillToTableThuongHieu(service.getAllTH());
@@ -305,13 +305,13 @@ public class JDialogThuongHieu extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSuaTTActionPerformed
 
     private void btnXoaTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTTActionPerformed
-        int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn xóa chất liệu này ?");
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn xóa thương hiệu này ?");
         if (chon == JOptionPane.YES_OPTION) {
             ThuongHieu th = readFormTH();
             if (th.getMaThuongHieu().equals("")) {
                 JOptionPane.showMessageDialog(this, "Mã trống !");
             } else {
-                if (service.deleteCL(th.getMaThuongHieu()) > 0) {
+                if (service.deleteTH(th.getMaThuongHieu()) > 0) {
                     JOptionPane.showMessageDialog(this, "Xóa thành công !");
                     fillToTableThuongHieu(service.getAllTH());
                     sp.fillCbo();

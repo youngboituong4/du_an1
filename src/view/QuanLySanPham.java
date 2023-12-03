@@ -600,7 +600,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_lblTrangChuMouseClicked
 
     private void btnSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanPhamMouseEntered
-        btnSanPham.setBackground(Color.cyan);
+        btnSanPham.setBackground(Color.WHITE);
         lblSanPham.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnSanPhamMouseEntered
 
@@ -610,7 +610,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSanPhamMouseExited
 
     private void btnKhachHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMouseEntered
-        btnKhachHang.setBackground(Color.cyan);
+        btnKhachHang.setBackground(Color.WHITE);
         lblKhachHang.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnKhachHangMouseEntered
 
@@ -620,7 +620,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKhachHangMouseExited
 
     private void lblKhachHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhachHangMouseEntered
-        btnKhachHang.setBackground(Color.cyan);
+        btnKhachHang.setBackground(Color.WHITE);
         lblKhachHang.setForeground(Color.BLACK);
     }//GEN-LAST:event_lblKhachHangMouseEntered
 
@@ -630,7 +630,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_lblKhachHangMouseExited
 
     private void btnBanHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBanHangMouseEntered
-        btnBanHang.setBackground(Color.cyan);
+        btnBanHang.setBackground(Color.WHITE);
         lblBanHang.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnBanHangMouseEntered
 
@@ -640,7 +640,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBanHangMouseExited
 
     private void btnHoaDonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseEntered
-        btnHoaDon.setBackground(Color.cyan);
+        btnHoaDon.setBackground(Color.WHITE);
         lblHoaDon.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnHoaDonMouseEntered
 
@@ -650,7 +650,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHoaDonMouseExited
 
     private void btnNhanVienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseEntered
-        btnNhanVien.setBackground(Color.cyan);
+        btnNhanVien.setBackground(Color.WHITE);
         lblNhanVien.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnNhanVienMouseEntered
 
@@ -660,7 +660,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNhanVienMouseExited
 
     private void btnKhuyenMaiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhuyenMaiMouseEntered
-        btnKhuyenMai.setBackground(Color.cyan);
+        btnKhuyenMai.setBackground(Color.WHITE);
         lblKhuyenmai.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnKhuyenMaiMouseEntered
 
