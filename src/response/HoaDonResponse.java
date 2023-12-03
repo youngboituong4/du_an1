@@ -13,18 +13,19 @@ import java.util.Date;
 public class HoaDonResponse {
 
     private String maHD, maNV, tenKH;
-    private Float thanhTien;
+    private Float thanhTien, GiamGiaKM;
     private int trangThai, HinhThucThanhToan;
     private Date ngayTao, ngayThanhToan;
 
     public HoaDonResponse() {
     }
 
-    public HoaDonResponse(String maHD, String maNV, String tenKH, Float thanhTien, int HinhThucThanhToan, int trangThai, Date ngayTao, Date ngayThanhToan) {
+    public HoaDonResponse(String maHD, String maNV, String tenKH, Float thanhTien, Float GiamGiaKM, int trangThai, int HinhThucThanhToan, Date ngayTao, Date ngayThanhToan) {
         this.maHD = maHD;
         this.maNV = maNV;
         this.tenKH = tenKH;
         this.thanhTien = thanhTien;
+        this.GiamGiaKM = GiamGiaKM;
         this.trangThai = trangThai;
         this.HinhThucThanhToan = HinhThucThanhToan;
         this.ngayTao = ngayTao;
@@ -71,6 +72,14 @@ public class HoaDonResponse {
         this.thanhTien = thanhTien;
     }
 
+    public Float getGiamGiaKM() {
+        return GiamGiaKM;
+    }
+
+    public void setGiamGiaKM(Float GiamGiaKM) {
+        this.GiamGiaKM = GiamGiaKM;
+    }
+
     public Date getNgayTao() {
         return ngayTao;
     }
@@ -95,5 +104,4 @@ public class HoaDonResponse {
         this.HinhThucThanhToan = HinhThucThanhToan;
     }
 
-    
 }

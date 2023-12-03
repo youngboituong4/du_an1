@@ -64,6 +64,7 @@ public class JDialogCTHD extends javax.swing.JDialog {
         if (obj.getTrangThai() == 1) {
             trangthaiTxt.setText("Đã thanh toán");
         }
+        tienKhachTraTxt.setText(obj.getTienKhachTra()+"");
     }
 
     /**
@@ -104,6 +105,8 @@ public class JDialogCTHD extends javax.swing.JDialog {
         sdtTxt = new javax.swing.JLabel();
         tienGiamTtx = new javax.swing.JLabel();
         trangthaiTxt = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        tienKhachTraTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -166,6 +169,10 @@ public class JDialogCTHD extends javax.swing.JDialog {
 
         trangthaiTxt.setText("jLabel29");
 
+        jLabel3.setText("Tiền khách trả:");
+
+        tienKhachTraTxt.setText("jLabel17");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,7 +198,8 @@ public class JDialogCTHD extends javax.swing.JDialog {
                             .addComponent(jLabel13)
                             .addComponent(jLabel14)
                             .addComponent(jLabel15)
-                            .addComponent(jLabel16))
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(maHDTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -207,7 +215,8 @@ public class JDialogCTHD extends javax.swing.JDialog {
                             .addComponent(dchiTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(sdtTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tienGiamTtx, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(trangthaiTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(trangthaiTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tienKhachTraTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
@@ -241,6 +250,10 @@ public class JDialogCTHD extends javax.swing.JDialog {
                     .addComponent(tienkhachCKTxt))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tienKhachTraTxt))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(tienThuaTxt))
                 .addGap(18, 18, 18)
@@ -271,7 +284,7 @@ public class JDialogCTHD extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(trangthaiTxt))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -331,6 +344,7 @@ public class JDialogCTHD extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -345,6 +359,7 @@ public class JDialogCTHD extends javax.swing.JDialog {
     private javax.swing.JLabel tenKhTxt;
     private javax.swing.JLabel tenNvTxt;
     private javax.swing.JLabel tienGiamTtx;
+    private javax.swing.JLabel tienKhachTraTxt;
     private javax.swing.JLabel tienThuaTxt;
     private javax.swing.JLabel tienkhachCKTxt;
     private javax.swing.JLabel tongTienTxt;

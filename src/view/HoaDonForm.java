@@ -14,11 +14,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -29,6 +31,7 @@ import response.HDCTResponse;
 import response.HoaDonResponse;
 import response.XemCTHDResponse;
 import service.HoaDonService;
+import util.ExportPDFHoaDon;
 
 public class HoaDonForm extends javax.swing.JPanel {
 
@@ -39,6 +42,7 @@ public class HoaDonForm extends javax.swing.JPanel {
     DefaultTableModel model2;
     ArrayList<HoaDonResponse> list = new ArrayList<>();
     ArrayList<HDCTResponse> listCT = new ArrayList<>();
+    ArrayList<XemCTHDResponse> listxemCT = new ArrayList<>();
     HoaDonService service = new HoaDonService();
     private Integer trangthai = null;
     private Date ngayBD = null;
@@ -77,6 +81,7 @@ public class HoaDonForm extends javax.swing.JPanel {
                 hds.getNgayTao(),
                 hds.getNgayThanhToan(),
                 hds.getThanhTien(),
+                hds.getGiamGiaKM(),
                 (hds.getHinhThucThanhToan() == 0 ? "Tiền mặt"
                 : (hds.getHinhThucThanhToan() == 1 ? "Chuyển khoản" : "Kết hợp")),
                 hds.getMaNV(),
@@ -97,7 +102,6 @@ public class HoaDonForm extends javax.swing.JPanel {
                 hdct.getSize(),
                 hdct.getSoLuong(),
                 hdct.getDonGia(),
-                hdct.getGiamGiaKM(),
                 hdct.getTongTien()
             };
             model2.addRow(data);
@@ -171,17 +175,17 @@ public class HoaDonForm extends javax.swing.JPanel {
 
         TbHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã hóa đơn", "Ngày tạo", "Ngày thanh toán", "Tổng tiền", "Hình thức thanh toán", "Mã NV", "Tên KH", "Trạng thái"
+                "Mã hóa đơn", "Ngày tạo", "Ngày thanh toán", "Tổng tiền", "Tiền giảm giá", "Hình thức thanh toán", "Mã NV", "Tên KH", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -195,7 +199,7 @@ public class HoaDonForm extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TbHoaDon);
         if (TbHoaDon.getColumnModel().getColumnCount() > 0) {
-            TbHoaDon.getColumnModel().getColumn(4).setResizable(false);
+            TbHoaDon.getColumnModel().getColumn(5).setResizable(false);
         }
 
         prevBtn.setText("Prev");
@@ -226,6 +230,11 @@ public class HoaDonForm extends javax.swing.JPanel {
         });
 
         inBtn.setText("In hoá đơn");
+        inBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inBtnActionPerformed(evt);
+            }
+        });
 
         xuatFileBtn.setText("Xuất file Excel");
         xuatFileBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -338,13 +347,13 @@ public class HoaDonForm extends javax.swing.JPanel {
 
         HDCTtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Hãng", "Màu", "Size", "Số lượng", "Đơn giá", "Giảm giá KM", "Tổng tiền"
+                "Mã sản phẩm", "Tên sản phẩm", "Hãng", "Màu", "Size", "Số lượng", "Đơn giá", "Tổng tiền"
             }
         ));
         jScrollPane2.setViewportView(HDCTtable);
@@ -475,7 +484,7 @@ public class HoaDonForm extends javax.swing.JPanel {
 
     private void chitietBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chitietBtnActionPerformed
         int row = TbHoaDon.getSelectedRow();
-        if(row<0){
+        if (row < 0) {
             JOptionPane.showMessageDialog(this, "Chưa chọn hoá đơn để xem chi tiết");
             return;
         }
@@ -490,6 +499,7 @@ public class HoaDonForm extends javax.swing.JPanel {
     }//GEN-LAST:event_chitietBtnActionPerformed
 
     private void xuatFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xuatFileBtnActionPerformed
+
         try {
             JFileChooser FileChooser = new JFileChooser();
             FileChooser.showSaveDialog(this);
@@ -497,21 +507,107 @@ public class HoaDonForm extends javax.swing.JPanel {
 
             if (saveFile != null) {
                 saveFile = new File(saveFile.toString());
-                Workbook wb = new XSSFWorkbook(); 
-                Sheet sheet = wb.createSheet("customer");
+                Workbook wb = new XSSFWorkbook();
+                Sheet sheet = wb.createSheet("DanhSachHoaDon");
                 Row rowCol = sheet.createRow(0);
-                for (int i = 0; i < TbHoaDon.getColumnCount(); i++) {
-                    Cell cell = rowCol.createCell(i);
-                    cell.setCellValue(TbHoaDon.getColumnName(i));
-                }
-                for (int j = 0; j < TbHoaDon.getRowCount(); j++) {
-                    Row row = sheet.createRow(j + 1);
-                    for (int k = 0; k < TbHoaDon.getColumnCount(); k++) {
-                        Cell cell = row.createCell(k);
-                        if (TbHoaDon.getValueAt(j, k) != null) {
-                            cell.setCellValue(TbHoaDon.getValueAt(j, k).toString());
-                        }
-                    }
+                Cell cell = rowCol.createCell(0);
+                cell.setCellValue("Mã hoá đơn");
+
+                cell = rowCol.createCell(1);
+                cell.setCellValue("Ngày tạo");
+
+                cell = rowCol.createCell(2);
+                cell.setCellValue("Ngày thanh toán");
+
+                cell = rowCol.createCell(3);
+                cell.setCellValue("Hình thức thanh toán");
+
+                cell = rowCol.createCell(4);
+                cell.setCellValue("Tổng tiền");
+
+                cell = rowCol.createCell(5);
+                cell.setCellValue("Tiền khách chuyển khoản");
+
+                cell = rowCol.createCell(6);
+                cell.setCellValue("Tiền khách trả");
+
+                cell = rowCol.createCell(7);
+                cell.setCellValue("Tiền thừa");
+
+                cell = rowCol.createCell(8);
+                cell.setCellValue("Mã nhân viên");
+
+                cell = rowCol.createCell(9);
+                cell.setCellValue("Tên nhân viên");
+
+                cell = rowCol.createCell(10);
+                cell.setCellValue("Tên khách hàng");
+
+                cell = rowCol.createCell(11);
+                cell.setCellValue("Địa chỉ");
+
+                cell = rowCol.createCell(12);
+                cell.setCellValue("SĐT (Khách hàng)");
+
+                cell = rowCol.createCell(13);
+                cell.setCellValue("Tiền giảm giá");
+
+                cell = rowCol.createCell(14);
+                cell.setCellValue("Trạng thái");
+
+                int rowNum = 1; // Bắt đầu từ dòng 1 vì dòng 0 là tiêu đề
+                listxemCT = service.xuatDSHD();
+                SimpleDateFormat setDate = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
+
+                for (XemCTHDResponse xemhoaDon : listxemCT) {
+                    Row row = sheet.createRow(rowNum++);
+
+                    cell = row.createCell(0);
+                    cell.setCellValue(xemhoaDon.getMaHD());
+
+                    cell = row.createCell(1);
+                    cell.setCellValue(setDate.format(xemhoaDon.getNgayTao()));
+
+                    cell = row.createCell(2);
+                    cell.setCellValue(setDate.format(xemhoaDon.getNgayThanhToan()));
+
+                    cell = row.createCell(3);
+                    cell.setCellValue((xemhoaDon.getHTthanhtoan() == 0 ? "Tiền mặt"
+                            : (xemhoaDon.getHTthanhtoan() == 1 ? "Chuyển khoản" : "Kết hợp")));
+
+                    cell = row.createCell(4);
+                    cell.setCellValue(xemhoaDon.getTongTien());
+
+                    cell = row.createCell(5);
+                    cell.setCellValue(xemhoaDon.getTienkhachCK());
+
+                    cell = row.createCell(6);
+                    cell.setCellValue(xemhoaDon.getTienKhachTra());
+
+                    cell = row.createCell(7);
+                    cell.setCellValue(xemhoaDon.getTienThua());
+
+                    cell = row.createCell(8);
+                    cell.setCellValue(xemhoaDon.getMaNV());
+
+                    cell = row.createCell(9);
+                    cell.setCellValue(xemhoaDon.getTenNV());
+
+                    cell = row.createCell(10);
+                    cell.setCellValue(xemhoaDon.getTenKH());
+
+                    cell = row.createCell(11);
+                    cell.setCellValue(xemhoaDon.getDiaChi());
+
+                    cell = row.createCell(12);
+                    cell.setCellValue(xemhoaDon.getSdt());
+
+                    cell = row.createCell(13);
+                    cell.setCellValue(xemhoaDon.getTienGiam());
+
+                    cell = row.createCell(14);
+                    cell.setCellValue((xemhoaDon.getTrangThai() == 0 ? "Chưa thanh toán" : "Đã thanh toán"));
+
                 }
                 FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
                 wb.write(out);
@@ -521,12 +617,41 @@ public class HoaDonForm extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(null, "Đã hủy xuất file");
             }
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        } catch (IOException io) {
-            System.out.println(io);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_xuatFileBtnActionPerformed
+
+    private void inBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inBtnActionPerformed
+        int row = TbHoaDon.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(this, "Chưa chọn hoá đơn để in");
+            return;
+        }
+        HoaDonResponse hd = list.get(row);
+        maHoaDonSelected = hd.getMaHD();
+        XemCTHDResponse xemCT = service.xemchitiet(maHoaDonSelected);
+        listCT = service.getAllHDCT(hd.getMaHD());
+        maHoaDonSelected = hd.getMaHD();
+        JFileChooser avatarChooser = new JFileChooser("D:\\");
+        avatarChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //Giới hạn chỉ chọn đc thư mục
+        FileNameExtensionFilter avatarFilter = new FileNameExtensionFilter("Danh sách hoá đơn", "xlsx");
+        avatarChooser.setFileFilter(avatarFilter);
+        avatarChooser.setAcceptAllFileFilterUsed(false);
+        int selectFileCheck = avatarChooser.showOpenDialog(this);
+        File selectedFile = avatarChooser.getSelectedFile();
+        if (!(selectFileCheck == JFileChooser.APPROVE_OPTION)) {
+            return;
+        }
+        //Muốn lấy đường dẫn và để vào export PDF thì 
+        String path = selectedFile.getAbsolutePath();
+
+        ExportPDFHoaDon export = new ExportPDFHoaDon();
+        export.exportBill(xemCT, listCT, path);
+
+        JOptionPane.showMessageDialog(this, "In hóa đơn thành công");
+    }//GEN-LAST:event_inBtnActionPerformed
 
     public void openFile(String file) {
         try {
