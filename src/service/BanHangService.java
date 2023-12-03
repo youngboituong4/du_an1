@@ -18,6 +18,7 @@ import model.KichThuoc;
 import model.LoaiSanPham;
 import model.MauSac;
 import model.ThuongHieu;
+import response.LayRaKhuyenMai;
 
 /**
  *
@@ -201,7 +202,7 @@ public class BanHangService {
 
     public List<HoaDon> getAllShowHoaDon() {
         List<HoaDon> list = new ArrayList<>();
-        sql = "SELECT * FROM HoaDon";
+        sql = "SELECT ID, MaKhachHang, MaNhanVien, MaHoaDon, NgayTao, NgayThanhToan, TienKhachTra, TienKhachChuyenKhoan, TienThua, TienGiamGia, ThanhTien, TrangThai FROM HoaDon";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -413,8 +414,8 @@ public class BanHangService {
         }
     }
 
-    public int updateHoaDon(Double tienTra, Double tienCK, Double tienThua, Double thanhTien, int id, String makh) {
-        sql = "UPDATE HOADON SET TrangThai = 1, TienKhachTra = ?, TienKhachChuyenKhoan = ?, TienThua = ?, NgayThanhToan = GETDATE(), ThanhTien = ?, MaKhachHang = ? WHERE ID = ?";
+    public int updateHoaDon(Double tienTra, Double tienCK, Double tienThua, Double thanhTien, int id, String makh, int httt, Double tienGG) {
+        sql = "UPDATE HOADON SET TrangThai = 1, TienKhachTra = ?, TienKhachChuyenKhoan = ?, TienThua = ?, NgayThanhToan = GETDATE(), ThanhTien = ?, MaKhachHang = ?, HinhThucThanhToan = ?, TienGiamGia = ? WHERE ID = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -423,7 +424,9 @@ public class BanHangService {
             ps.setObject(3, tienThua);
             ps.setObject(4, thanhTien);
             ps.setObject(5, makh);
-            ps.setObject(6, id);
+            ps.setObject(6, httt);
+            ps.setObject(7, tienGG);
+            ps.setObject(8, id);
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -571,4 +574,20 @@ public class BanHangService {
         }
     }
 
+    public LayRaKhuyenMai LayKM() {
+        sql = "select Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai WHERE NgayBatDau <= GETDATE() AND NgayKetThuc >= GETDATE() AND TrangThai = N'Áp Dụng';";
+        LayRaKhuyenMai lrkm = null;
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                lrkm = new LayRaKhuyenMai(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getDate(5), rs.getDate(6), rs.getDouble(7), rs.getString(8));
+            }
+            return lrkm;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

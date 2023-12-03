@@ -269,7 +269,7 @@ public class JDialogChatLieu extends javax.swing.JDialog {
         ChatLieu cl = readFormCL();
         if (checkTrong()) {
             if (service.getMaCL(cl.getMaChatLieu()) == null) {
-                if (service.getCL(cl.getMaChatLieu()) == null) {
+                if (service.getCL(cl.getTenChatLieu()) == null) {
                     if (service.addChatLieu(cl) > 0) {
                         JOptionPane.showMessageDialog(this, "Thêm thành công !");
                         fillToTableChatLieu(service.getAllCL());
@@ -289,7 +289,7 @@ public class JDialogChatLieu extends javax.swing.JDialog {
     private void btnSuaTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTTActionPerformed
         ChatLieu cl = readFormCL();
         if (checkTrong()) {
-            if (service.getCL(cl.getMaChatLieu()) == null) {
+            if (service.getCL(cl.getTenChatLieu()) == null) {
                 if (service.updateChatLieu(cl, cl.getMaChatLieu()) > 0) {
                     JOptionPane.showMessageDialog(this, "Update thành công !");
                     fillToTableChatLieu(service.getAllCL());
