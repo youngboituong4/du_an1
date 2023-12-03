@@ -15,6 +15,7 @@ import model.KichThuoc;
 import model.LoaiSanPham;
 import model.MauSac;
 import model.SanPham;
+import response.LayRaNhanVien;
 import service.SanPhamService;
 
 /**
@@ -26,55 +27,64 @@ public class QuanLySanPham extends javax.swing.JFrame {
     DefaultTableModel model = new DefaultTableModel();
     DefaultTableModel model1 = new DefaultTableModel();
     SanPhamService service = new SanPhamService();
+    static LayRaNhanVien nhanVien = new LayRaNhanVien();
     int index = 0;
     JPanel view;
     String tenMenu;
 
-    public QuanLySanPham() {
+    public QuanLySanPham(LayRaNhanVien nv) {
         initComponents();
         setLocationRelativeTo(null);
+
+        nhanVien = nv;
         
+        view = new ThongKeForm();
+        setView();
     }
 
     private void setView() {
-            jPanel1.removeAll();
-            jPanel1.setLayout(new BorderLayout());
-            jPanel1.add(view);
-            jPanel1.validate();
-            jPanel1.repaint();
-        }
-    
+        jPanel1.removeAll();
+        jPanel1.setLayout(new BorderLayout());
+        jPanel1.add(view);
+        jPanel1.validate();
+        jPanel1.repaint();
+    }
+
     public void setMenu() {
-            switch (tenMenu) {
-                case "SanPham":
-                    view = new SanPhamForm();
-                    setView();
-                    break;
-                case "KhachHang":
-                    view = new KhachHangForm();
-                    setView();
-                    break;
-                case "NhanVien":
-                    view = new NhanVienForm();
-                    setView();
-                    break;
-                case "BanHang":
-                    view = new BanHangForm();
-                    setView();
-                    break;
-                case "HoaDon":
-                    view = new HoaDonForm();
-                    setView();
-                    break;
-                case "KhuyenMai":
-                    view = new KhuyenMaiForm();
-                    setView();
-                    break;
-                default:
-                    break;
-            }
+        switch (tenMenu) {
+            case "SanPham":
+                view = new SanPhamForm();
+                setView();
+                break;
+            case "KhachHang":
+                view = new KhachHangForm();
+                setView();
+                break;
+            case "NhanVien":
+                view = new NhanVienForm();
+                setView();
+                break;
+            case "BanHang":
+                view = new BanHangForm(nhanVien);
+                setView();
+                break;
+            case "HoaDon":
+                view = new HoaDonForm();
+                setView();
+                break;
+            case "KhuyenMai":
+                view = new KhuyenMaiForm();
+                setView();
+                break;
+            case "ThongKe":
+                view = new ThongKeForm();
+                setView();
+                break;
+            default:
+                break;
         }
-    
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,6 +153,12 @@ public class QuanLySanPham extends javax.swing.JFrame {
         btnThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThongKeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThongKeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThongKeMouseExited(evt);
             }
         });
 
@@ -553,7 +569,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked
-
+        tenMenu = "ThongKe";
+        this.setMenu();
     }//GEN-LAST:event_btnThongKeMouseClicked
 
     private void btnSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanPhamMouseClicked
@@ -669,40 +686,50 @@ public class QuanLySanPham extends javax.swing.JFrame {
         lblKhuyenmai.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnKhuyenMaiMouseExited
 
+    private void btnThongKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseEntered
+        btnThongKe.setBackground(Color.WHITE);
+        lblThongKe.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnThongKeMouseEntered
+
+    private void btnThongKeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseExited
+        btnThongKe.setBackground(new java.awt.Color(0, 102, 255));
+        lblThongKe.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnThongKeMouseExited
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QuanLySanPham().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new QuanLySanPham(nhanVien).setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnBanHang;

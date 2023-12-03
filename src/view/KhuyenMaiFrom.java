@@ -641,8 +641,8 @@ public class KhuyenMaiFrom extends javax.swing.JFrame {
         if (checkTrong()) {
             String MaKM = tbKM.getValueAt(index, 0).toString();
             KhuyenMai km = readFrom();
-            List<KhuyenMai> lstt = service.getAllKM();
-            for (KhuyenMai khuyenMai : lstt) {
+            List<KhuyenMai> kmTG = service.getAllKMUD(MaKM); 
+                for (KhuyenMai khuyenMai : kmTG) {
                 if (khuyenMai.getNgayBatDau() != null && khuyenMai.getNgayKetThuc() != null && km.getNgayBatDau() != null && km.getNgayKetThuc() != null) {
                     if (km.getNgayBatDau().before(khuyenMai.getNgayKetThuc()) && km.getNgayKetThuc().after(khuyenMai.getNgayBatDau())) {
                         JOptionPane.showMessageDialog(this, "Thời gian của khuyến mại hiện tại không được chồng lên thời gian của khuyến mại trước đó");

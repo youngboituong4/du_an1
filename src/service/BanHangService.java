@@ -18,7 +18,10 @@ import model.KichThuoc;
 import model.LoaiSanPham;
 import model.MauSac;
 import model.ThuongHieu;
+import response.BanHangResponse;
+import response.HoaDonResponse;
 import response.LayRaKhuyenMai;
+import response.LayRaNhanVien;
 
 /**
  *
@@ -181,9 +184,10 @@ public class BanHangService {
         return null;
     }
 
-    public HoaDon showLocHoaDon(int trangThai, int id) {
-        HoaDon hd = null;
-        sql = "SELECT ID, MaHoaDon, NgayTao, MaNhanVien, TrangThai FROM HOADON WHERE TrangThai = ? AND ID = ?";
+    public BanHangResponse showLocHoaDon(int trangThai, int id) {
+        BanHangResponse bh = null;
+        sql = "SELECT ID, MaHoaDon, NgayTao, MaNhanVien, A.TrangThai,  MaKhachHang, TenKH FROM HOADON A JOIN KhachHang B ON A.MaKhachHang = b.MaKH\n" +
+"WHERE A.TrangThai = ? AND ID = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -191,9 +195,9 @@ public class BanHangService {
             ps.setObject(2, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                hd = new HoaDon(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5));
+                bh = new BanHangResponse(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7));
             }
-            return hd;
+            return bh;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -588,6 +592,39 @@ public class BanHangService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public LayRaNhanVien layNhanVien(String email){
+        LayRaNhanVien lrnv = null;
+        sql = "Select MaNV, HoVaTen, MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro,TrangThai from NhanVien WHERE Email = ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                lrnv = new LayRaNhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
+            }
+            return lrnv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public int updateHoaDonTenKH(int id, String makh) {
+        sql = "UPDATE HOADON SET MaKhachHang = ? WHERE ID = ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, makh);
+            ps.setObject(2, id);
+
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 }

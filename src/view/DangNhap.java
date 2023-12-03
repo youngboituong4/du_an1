@@ -17,6 +17,9 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 import javax.mail.internet.MimeMessage;
+import model.NhanVien;
+import response.LayRaNhanVien;
+import service.BanHangService;
 
 /**
  *
@@ -25,7 +28,7 @@ import javax.mail.internet.MimeMessage;
 public class DangNhap extends javax.swing.JFrame {
 
     private Connection connection;
-
+    BanHangService service = new BanHangService();
     /**
      * Creates new form NewJFrame
      */
@@ -206,7 +209,7 @@ public class DangNhap extends javax.swing.JFrame {
             return false;
         }
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -372,9 +375,16 @@ public class DangNhap extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
 
                         // Mở form QuanLySanPham
-                        QuanLySanPham quanLySanPhamForm = new QuanLySanPham();
-                        quanLySanPhamForm.setVisible(true);
 
+                        String email = txtTaiKhoan.getText();
+                        LayRaNhanVien nv = service.layNhanVien(email);
+                        
+                        
+    
+                        QuanLySanPham quanLySanPhamForm = new QuanLySanPham(nv);
+                        quanLySanPhamForm.setVisible(true);
+                        
+                        //BanHangForm banhangForm = new BanHangForm(nv);
                         // Đóng form đăng nhập (nếu bạn muốn)
                         dispose();
                     } else {

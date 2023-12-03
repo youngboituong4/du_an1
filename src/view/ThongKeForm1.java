@@ -1,13 +1,9 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
 
-/**
- *
- * @author thinh
- */
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,11 +41,12 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import service.ThongKeService;
 
-public class ThongKeForm extends javax.swing.JPanel {
+/**
+ *
+ * @author PC
+ */
+public class ThongKeForm1 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ThongKeFormm
-     */
     DefaultTableModel model = new DefaultTableModel();
     ThongKeService service = new ThongKeService();
     int index = -1;
@@ -61,9 +58,12 @@ public class ThongKeForm extends javax.swing.JPanel {
     int tu = 0;
     int den = 0;
     String ngayy = null;
-    public ThongKeForm() {
+    /**
+     * Creates new form ThongKeForm
+     */
+    public ThongKeForm1() {
         initComponents();
-        
+        setLocationRelativeTo(null);
         BDThongKe();
         HienThi();
         ThongKe0();
@@ -74,6 +74,7 @@ public class ThongKeForm extends javax.swing.JPanel {
         jButton3.setBackground(Color.LIGHT_GRAY);
         themNamCbo();
         themThangCbo();
+
     }
 
     public void themNamCbo() {
@@ -152,7 +153,7 @@ public class ThongKeForm extends javax.swing.JPanel {
             model.addRow(thongKe1.toData());
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,6 +194,8 @@ public class ThongKeForm extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -214,7 +217,7 @@ public class ThongKeForm extends javax.swing.JPanel {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 121, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -328,7 +331,7 @@ public class ThongKeForm extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
@@ -428,7 +431,7 @@ public class ThongKeForm extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jButton1.setText("DT hôm nay");
@@ -470,9 +473,6 @@ public class ThongKeForm extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jTabbedPane1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
@@ -484,10 +484,19 @@ public class ThongKeForm extends javax.swing.JPanel {
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3)
-                            .addComponent(jButton4)))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(804, 804, 804))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jTabbedPane1)))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -519,8 +528,10 @@ public class ThongKeForm extends javax.swing.JPanel {
                 .addContainerGap(85, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel5, jPanel6});
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -531,6 +542,8 @@ public class ThongKeForm extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel11AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel11AncestorAdded
@@ -567,44 +580,78 @@ public class ThongKeForm extends javax.swing.JPanel {
                 jComboBox2.setBackground(Color.LIGHT_GRAY);
             } else {
                 if(selectedValue != "5 năm gần nhất"){
-                    jComboBox2.setEnabled(true);
-                    jComboBox2.setBackground(Color.WHITE);
+                jComboBox2.setEnabled(true);
+                jComboBox2.setBackground(Color.WHITE);
+                
+                namm = Integer.parseInt(selectedValue);
+                jLabel1.setText("Doanh thu năm " + namm);
 
-                    namm = Integer.parseInt(selectedValue);
-                    jLabel1.setText("Doanh thu năm " + namm);
+                int amount = service.DoanhThuNam(namm);
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                String formattedAmount = decimalFormat.format(amount);
+                jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
+                jLabel10.setText("" + service.HoaDonNam(namm));
+                System.out.println(selectedValue);
+                for (int i = 1; i <= 12; i++) {
+                    thang = i;
+                    BarChartData.setValue(service.DoanhThuThangTrongNam(thang, namm), "Doanh thu", i + "");
 
-                    int amount = service.DoanhThuNam(namm);
-                    DecimalFormat decimalFormat = new DecimalFormat("#,##0");
-                    String formattedAmount = decimalFormat.format(amount);
-                    jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
-                    jLabel10.setText("" + service.HoaDonNam(namm));
-                    System.out.println(selectedValue);
-                    for (int i = 1; i <= 12; i++) {
-                        thang = i;
-                        BarChartData.setValue(service.DoanhThuThangTrongNam(thang, namm), "Doanh thu", i + "");
+                }
+                JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Tháng", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
+                CategoryPlot barchrt = barChart.getCategoryPlot();
+                barchrt.setRangeGridlinePaint(getBackground());
 
-                    }
-                    JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Tháng", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
-                    CategoryPlot barchrt = barChart.getCategoryPlot();
-                    barchrt.setRangeGridlinePaint(getBackground());
-
-                    ChartPanel barPanel = new ChartPanel(barChart);
-                    PanelChart.removeAll();
-                    PanelChart.add(barPanel);
-                    PanelChart.validate();
-                    jComboBox2.setSelectedIndex(0);
+                ChartPanel barPanel = new ChartPanel(barChart);
+                PanelChart.removeAll();
+                PanelChart.add(barPanel);
+                PanelChart.validate();
+                jComboBox2.setSelectedIndex(0);
                 }
             }
 
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Date.setDate(null);
+        Date2.setDate(null);
+        jButton3.setEnabled(true);
+        jButton3.setBackground(Color.WHITE);
+        LocalDate currentDateTime = LocalDate.now();
+        LocalDate ngay = currentDateTime;
+        service.DoanhThuHomNay(ngay);
+        int amount = service.DoanhThuHomNay(ngay);
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+        String formattedAmount = decimalFormat.format(amount);
+        jLabel1.setText("Doanh thu hôm nay");
+        
+        jLabel9.setText(formattedAmount + "" + " " + "VNĐ");
+        jLabel10.setText(service.HoaDonDaThanhToanHomNay(ngay)+"");
+        jLabel11.setText(service.HoaDonDaThanhToanHomNay(ngay)+"");
+        
+        DefaultCategoryDataset BarChartData = new DefaultCategoryDataset();
+
+        BarChartData.setValue(service.DoanhThuHomNay(ngay), "Doanh thu", ngay);
+             
+
+        JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Năm", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
+        CategoryPlot barchrt = barChart.getCategoryPlot();
+        barchrt.setRangeGridlinePaint(getBackground());
+
+        ChartPanel barPanel = new ChartPanel(barChart);
+        PanelChart.removeAll();
+        PanelChart.add(barPanel);
+        PanelChart.validate();    
+        ;
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         String selectedValue = (String) jComboBox1.getSelectedItem();
         String selectedValues = (String) jComboBox2.getSelectedItem();
         DefaultCategoryDataset BarChartData = new DefaultCategoryDataset();
         if (selectedValue != "5 năm gần nhất") {
-
+            
             if (jComboBox2.getSelectedItem().equals("Tất cả các tháng")) {
                 namm = Integer.parseInt(selectedValue);
                 jLabel1.setText("Doanh thu năm " + namm);
@@ -629,11 +676,13 @@ public class ThongKeForm extends javax.swing.JPanel {
                 PanelChart.validate();
 
             } else {
-
+                
+                
+                
                 namm = Integer.parseInt(selectedValue);
                 thang = Integer.parseInt(selectedValues);
                 jLabel1.setText("Doanh thu tháng " + thang + " " + "năm " + namm + "");
-
+                
                 int amount = service.DoanhThuThangTrongNam(thang, namm);
                 DecimalFormat decimalFormat = new DecimalFormat("#,##0");
                 String formattedAmount = decimalFormat.format(amount);
@@ -648,46 +697,15 @@ public class ThongKeForm extends javax.swing.JPanel {
                 JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Ngày", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
                 CategoryPlot barchrt = barChart.getCategoryPlot();
                 barchrt.setRangeGridlinePaint(getBackground());
-
+                
                 ChartPanel barPanel = new ChartPanel(barChart);
                 PanelChart.removeAll();
                 PanelChart.add(barPanel);
                 PanelChart.validate();
             }
         }
+
     }//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Date.setDate(null);
-        Date2.setDate(null);
-        jButton3.setEnabled(true);
-        jButton3.setBackground(Color.WHITE);
-        LocalDate currentDateTime = LocalDate.now();
-        LocalDate ngay = currentDateTime;
-        service.DoanhThuHomNay(ngay);
-        int amount = service.DoanhThuHomNay(ngay);
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
-        String formattedAmount = decimalFormat.format(amount);
-        jLabel1.setText("Doanh thu hôm nay");
-
-        jLabel9.setText(formattedAmount + "" + " " + "VNĐ");
-        jLabel10.setText(service.HoaDonDaThanhToanHomNay(ngay)+"");
-        jLabel11.setText(service.HoaDonDaThanhToanHomNay(ngay)+"");
-
-        DefaultCategoryDataset BarChartData = new DefaultCategoryDataset();
-
-        BarChartData.setValue(service.DoanhThuHomNay(ngay), "Doanh thu", ngay);
-
-        JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Năm", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
-        CategoryPlot barchrt = barChart.getCategoryPlot();
-        barchrt.setRangeGridlinePaint(getBackground());
-
-        ChartPanel barPanel = new ChartPanel(barChart);
-        PanelChart.removeAll();
-        PanelChart.add(barPanel);
-        PanelChart.validate();
-        ;
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (Date.getDate() == null) {
@@ -754,12 +772,54 @@ public class ThongKeForm extends javax.swing.JPanel {
                 PanelChart.validate();
             }
         }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ThongKeForm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ThongKeForm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ThongKeForm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ThongKeForm1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ThongKeForm1().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Date;
@@ -793,4 +853,5 @@ public class ThongKeForm extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tblThongKe;
     // End of variables declaration//GEN-END:variables
+
 }

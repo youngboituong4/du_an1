@@ -55,7 +55,7 @@ public class HoaDonService {
         ArrayList<HDCTResponse> list = new ArrayList<>();
         String sql = """
                 SELECT SPCT.MaSP, SPCT.TenSP, SPCT.ThuongHieu, SPCT.TenMau, SPCT.KichThuoc, 
-                                 HDCT.SoLuong, HDCT.DonGia, HD.TienGiamGia, (HDCT.SoLuong * HDCT.DonGia) - HD.TienGiamGia as ThanhTien
+                                 HDCT.SoLuong, HDCT.DonGia, HD.TienGiamGia, (HDCT.SoLuong * HDCT.DonGia) as ThanhTien
                                  FROM HoaDonChiTiet HDCT
                                  JOIN ChiTietSanPham SPCT
                                  ON HDCT.IDChiTietSanPham = SPCT.ID
@@ -152,7 +152,7 @@ public class HoaDonService {
             while (rs.next()) {
                 HoaDonResponse hd = new HoaDonResponse(rs.getString("MaHoaDon"),
                         rs.getString("MaNhanVien"), rs.getString("TenKH"),
-                        rs.getFloat("ThanhTien"), rs.getFloat("TienGiamGia"), rs.getInt("HinhThucThanhToan"), rs.getInt("TrangThai"), rs.getDate("NgayTao"), rs.getDate("NgayThanhToan"));
+                        rs.getFloat("ThanhTien"), rs.getFloat("TienGiamGia"), rs.getInt("TrangThai"), rs.getInt("HinhThucThanhToan"), rs.getDate("NgayTao"), rs.getDate("NgayThanhToan"));
                 list.add(hd);
             }
         } catch (Exception e) {

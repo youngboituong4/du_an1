@@ -77,7 +77,7 @@ public class KhachHangForm extends javax.swing.JPanel {
                 lsu.getMaHD(),
                 lsu.getNgayGD(),
                 lsu.getTongtien(),
-                lsu.getTrangthaiHD()
+                (Integer.valueOf(lsu.getTrangthaiHD()) == 1 ? "Đã thanh toán" : "Chờ thanh toán")
             };
             model2.addRow(dataGD);
         }

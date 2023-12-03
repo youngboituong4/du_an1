@@ -86,7 +86,7 @@ public class HoaDonForm extends javax.swing.JPanel {
                 : (hds.getHinhThucThanhToan() == 1 ? "Chuyển khoản" : "Kết hợp")),
                 hds.getMaNV(),
                 hds.getTenKH(),
-                (hds.getTrangThai() == 1) ? "Đã thanh toán" : "Chưa thanh toán",};
+                (hds.getTrangThai() == 1 ? "Đã thanh toán" : "Chưa thanh toán")};
             model.addRow(data);
         }
     }

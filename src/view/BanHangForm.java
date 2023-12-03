@@ -22,8 +22,11 @@ import model.HoaDonChiTiet;
 import model.KichThuoc;
 import model.LoaiSanPham;
 import model.MauSac;
+import model.NhanVien;
 import model.ThuongHieu;
+import response.BanHangResponse;
 import response.LayRaKhuyenMai;
+import response.LayRaNhanVien;
 import service.BanHangService;
 
 public class BanHangForm extends javax.swing.JPanel {
@@ -44,16 +47,21 @@ public class BanHangForm extends javax.swing.JPanel {
     private String chatLieu = "";
     private String thuongHieu = "";
     private String regex = "\\d+";
-
-    public BanHangForm() {
+    private LayRaNhanVien nhanVien = new LayRaNhanVien();
+    
+    public BanHangForm(LayRaNhanVien nv) {
         initComponents();
-
+        nhanVien = nv;
+        
         fillToTableHoaDon(service.LocHoaDon(0));
         fillToTableChiTietSanPham(service.getAllCTSP());
         fillCbo();
         anDuLieu();
         tinhTongTien();
         layKhuyenMai();
+        
+        DangNhap dialogDN = new DangNhap();
+        this.setMANV(nv.getMaNV());
         //       showDataHoaDon(0);
         //       tblHoaDon.setRowSelectionInterval(index, index);
 //        int ma = Integer.valueOf(txtIdHoaDon.getText());
@@ -62,7 +70,6 @@ public class BanHangForm extends javax.swing.JPanel {
         txtTienChuyenKhoan.setText("0.0");
         txtGiamGia.setText("0.0");
         txtTienThua.setText("0.0");
-
         tblChiTietSanPham.addMouseListener(new MouseAdapter() {
             private int clickCount = 0;
 
@@ -190,19 +197,21 @@ public class BanHangForm extends javax.swing.JPanel {
         }
     }
 
-    public void showDataLocHoaDon(int id, int trangThai) {
+    public void showDataLocHoaDon(int trangThai, int id) {
 //        Double tongTien = Double.valueOf(hd.getThanhTien());
 //        Double tienDua = Double.valueOf(hd.getTienKhachTra());
 //        Double tienCK = Double.valueOf(hd.getTienKhachChuyenKhoan());
 //        Double tienGiamGia = Double.valueOf(hd.getTienGiamGia());
 //       Double tienThua = Double.valueOf(hd.getTienThua());
-        HoaDon hd = service.showLocHoaDon(trangThai, id);
+        BanHangResponse hd = service.showLocHoaDon(trangThai, id);
         if (hd.getTrangThai() == 0) {
             txtIdHoaDon.setText(hd.getID() + "");
             txtMaHoaDon.setText(hd.getMaHoaDon());
             txtNgayTao.setText(String.valueOf(hd.getNgayTao()));
             txtTenNhanVien.setText(hd.getMaNhanVien());
+            System.out.println(hd.getMaKhachHang());
             txtMaKhachHang.setText(hd.getMaKhachHang());
+            lblKhachHang.setText(hd.getTenKH());
             txtTongTien.setText("0.0");
             txtGiamGia.setText("0.0");
             txtTienKhachDua.setText("0.0");
@@ -348,6 +357,9 @@ public class BanHangForm extends javax.swing.JPanel {
         txtTienThua.setText("");
     }
 
+    public void setMANV(String ma){
+        lblTenNhanVien.setText(ma);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -983,7 +995,7 @@ public class BanHangForm extends javax.swing.JPanel {
         if (rdoCho.isSelected()) {
             Integer maHD = Integer.valueOf(tblHoaDon.getValueAt(index, 0) + "");
             
-            showDataLocHoaDon(maHD, 0);
+            showDataLocHoaDon( 0, maHD);
             
 
             fillToTableGioHang(service.getAllGioHang(maHD));
@@ -1301,14 +1313,20 @@ public class BanHangForm extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
+        Integer id = Integer.valueOf(txtIdHoaDon.getText());
+        String maKH = service.getHoaDonTheoMa(id).getMaKhachHang();
         JDialogKhachHang dialogKH = new JDialogKhachHang((Frame) SwingUtilities.getWindowAncestor(this), true);
         dialogKH.setVisible(true);
 
         String ma = dialogKH.maKhachHang();
         String ten = dialogKH.tenKhachHang();
-
+        
+        service.updateHoaDonTenKH(id, ma);
+        
         txtMaKhachHang.setText(ma);
         lblKhachHang.setText(ten);
+        
+        
     }//GEN-LAST:event_btnKhachHangActionPerformed
 
     private void cboHinhThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboHinhThucActionPerformed

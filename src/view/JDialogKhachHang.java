@@ -28,7 +28,6 @@ public class JDialogKhachHang extends javax.swing.JDialog {
     DefaultTableModel model2;
     KhachHangService service = new KhachHangService();
     BanHangService serviceBH = new BanHangService();
-    BanHangForm banHang = new BanHangForm();
     ArrayList<KhachHang> list = new ArrayList<>();
     private Integer page = null;
     private Integer totalPages = null;
@@ -40,6 +39,7 @@ public class JDialogKhachHang extends javax.swing.JDialog {
     public JDialogKhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
 
         model = (DefaultTableModel) khTable.getModel();
 
@@ -507,7 +507,6 @@ public class JDialogKhachHang extends javax.swing.JDialog {
         int row = khTable.getSelectedRow();
         String ma = String.valueOf(khTable.getValueAt(row, 0));
         String ten = String.valueOf(khTable.getValueAt(row, 1));
-
         JOptionPane.showMessageDialog(this, "OK ");
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

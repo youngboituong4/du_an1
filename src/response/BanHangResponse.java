@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package response;
 
 import java.util.Date;
 
@@ -10,17 +10,19 @@ import java.util.Date;
  *
  * @author thinh
  */
-public class HoaDon {
-    private Integer ID;
-    private String maKhachHang,maNhanVien,maHoaDon;
-    private Date ngayTao, ngayThanhToan;
-    private Double tienKhachTra, tienKhachChuyenKhoan,tienThua, tienGiamGia, thanhTien;
-    private Integer trangThai, hinhThucThanhToan;
+public class BanHangResponse {
 
-    public HoaDon() {
+    private Integer ID;
+    private String maKhachHang, maNhanVien, maHoaDon;
+    private Date ngayTao, ngayThanhToan;
+    private Double tienKhachTra, tienKhachChuyenKhoan, tienThua, tienGiamGia, thanhTien;
+    private Integer trangThai, hinhThucThanhToan;
+    private String tenKH;
+
+    public BanHangResponse() {
     }
 
-    public HoaDon(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, Integer hinhThucThanhToan) {
+    public BanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, Integer hinhThucThanhToan) {
         this.ID = ID;
         this.maKhachHang = maKhachHang;
         this.maNhanVien = maNhanVien;
@@ -36,7 +38,7 @@ public class HoaDon {
         this.hinhThucThanhToan = hinhThucThanhToan;
     }
 
-    public HoaDon(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai) {
+    public BanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai) {
         this.ID = ID;
         this.maKhachHang = maKhachHang;
         this.maNhanVien = maNhanVien;
@@ -51,28 +53,29 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
-    public HoaDon(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai) {
+    public BanHangResponse(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai) {
         this.ID = ID;
         this.maHoaDon = maHoaDon;
         this.ngayTao = ngayTao;
-        this.maNhanVien = maNhanVien;        
+        this.maNhanVien = maNhanVien;
         this.trangThai = trangThai;
     }
-    
-    public HoaDon(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai, String maKhachHang) {
+
+    public BanHangResponse(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai, String maKhachHang, String tenKH) {
         this.ID = ID;
         this.maHoaDon = maHoaDon;
         this.maKhachHang = maKhachHang;
         this.ngayTao = ngayTao;
-        this.maNhanVien = maNhanVien;        
+        this.maNhanVien = maNhanVien;
+        this.trangThai = trangThai;
+        this.tenKH = tenKH;
+    }
+
+    public BanHangResponse(String maNhanVien, Integer trangThai) {
+        this.maNhanVien = maNhanVien;
         this.trangThai = trangThai;
     }
-    
-    public HoaDon(String maNhanVien, Integer trangThai) {
-        this.maNhanVien = maNhanVien;        
-        this.trangThai = trangThai;
-    }
-    
+
     public Integer getID() {
         return ID;
     }
@@ -168,19 +171,28 @@ public class HoaDon {
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
+
+    public String getTenKH() {
+        return tenKH;
+    }
+
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
+    }
     
-    public boolean trangThaiTT(Integer trangThai){
-        if(trangThai == 0){
+    
+
+    public boolean trangThaiTT(Integer trangThai) {
+        if (trangThai == 0) {
             return false;
-        }
-        else if (trangThai == 1){
+        } else if (trangThai == 1) {
             return true;
         }
         return false;
     }
 
     public Object[] toDataRowHoaDon() {
-        return new Object[]{this.ID, this.maHoaDon, this.ngayTao, this.maNhanVien, this.trangThaiTT(trangThai)?"Đã thanh toán":"Chờ thanh toán"};
+        return new Object[]{this.ID, this.maHoaDon, this.ngayTao, this.maNhanVien, this.trangThaiTT(trangThai) ? "Đã thanh toán" : "Chờ thanh toán"};
     }
-    
+
 }
