@@ -227,6 +227,7 @@ public class DangNhap extends javax.swing.JFrame {
         btnOut = new javax.swing.JButton();
         lblQuenMK = new javax.swing.JLabel();
         txtMatKhau = new javax.swing.JPasswordField();
+        cboPass = new javax.swing.JCheckBox();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -268,6 +269,13 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
+        cboPass.setText("Hiện mật khẩu");
+        cboPass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboPassMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -291,7 +299,8 @@ public class DangNhap extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(txtMatKhau))))
+                            .addComponent(txtMatKhau)))
+                    .addComponent(cboPass))
                 .addGap(41, 41, 41))
         );
 
@@ -310,13 +319,15 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cboPass)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(btnOut))
                 .addGap(18, 18, 18)
                 .addComponent(lblQuenMK)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAnh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -397,6 +408,15 @@ public class DangNhap extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblQuenMKMouseClicked
 
+    private void cboPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboPassMouseClicked
+        // TODO add your handling code here:
+        if (cboPass.isSelected()) {
+            txtMatKhau.setEchoChar((char)0);
+        }else {
+            txtMatKhau.setEchoChar('*');
+        }
+    }//GEN-LAST:event_cboPassMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -444,6 +464,7 @@ public class DangNhap extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnOut;
+    private javax.swing.JCheckBox cboPass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
