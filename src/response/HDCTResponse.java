@@ -12,12 +12,12 @@ public class HDCTResponse {
 
     private String maSP, tenSP, hang, mau, size;
     private int SoLuong;
-    private Float DonGia, GiamGiaKM, TongTien;
+    private Float DonGia, TongTien;
 
     public HDCTResponse() {
     }
 
-    public HDCTResponse(String maSP, String tenSP, String hang, String mau, String size, int SoLuong, Float DonGia, Float GiamGiaKM, Float TongTien) {
+    public HDCTResponse(String maSP, String tenSP, String hang, String mau, String size, int SoLuong, Float DonGia, Float TongTien) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.hang = hang;
@@ -25,7 +25,6 @@ public class HDCTResponse {
         this.size = size;
         this.SoLuong = SoLuong;
         this.DonGia = DonGia;
-        this.GiamGiaKM = GiamGiaKM;
         this.TongTien = TongTien;
     }
 
@@ -83,14 +82,6 @@ public class HDCTResponse {
 
     public void setDonGia(Float DonGia) {
         this.DonGia = DonGia;
-    }
-
-    public Float getGiamGiaKM() {
-        return GiamGiaKM;
-    }
-
-    public void setGiamGiaKM(Float GiamGiaKM) {
-        this.GiamGiaKM = GiamGiaKM;
     }
 
     public Float getTongTien() {

@@ -133,7 +133,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         String email = emailTxt.getText();
         String dchi = diachiTP.getText();
         String gt, tt;
-        if (ma.trim().isEmpty() || ten.trim().isEmpty() || sdt.trim().isEmpty() || email.trim().isEmpty() || dchi.trim().isEmpty()) {
+        if (ten.trim().isEmpty() || sdt.trim().isEmpty() || email.trim().isEmpty() || dchi.trim().isEmpty()) {
             dem++;
             JOptionPane.showMessageDialog(this, "Không được để trống thông tin");
         }

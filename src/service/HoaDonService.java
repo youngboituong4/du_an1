@@ -28,7 +28,7 @@ public class HoaDonService {
     public ArrayList<HoaDonResponse> getAll() {
         ArrayList<HoaDonResponse> list = new ArrayList<>();
         String sql = """
-                 SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.ThanhTien, HD.HinhThucThanhToan, HD.MaNhanVien, KH.TenKH, HD.TrangThai
+                 SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.ThanhTien, HD.TienGiamGia, HD.HinhThucThanhToan, HD.MaNhanVien, KH.TenKH, HD.TrangThai
                  FROM HoaDon HD
                  LEFT JOIN KhachHang KH
                  ON HD.MaKhachHang = KH.MaKH
@@ -38,7 +38,7 @@ public class HoaDonService {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                HoaDonResponse hd = new HoaDonResponse(rs.getString("MaHoaDon"), rs.getString("MaNhanVien"), rs.getString("TenKH"), rs.getFloat("ThanhTien"), rs.getInt("HinhThucThanhToan"), rs.getInt("TrangThai"), rs.getDate("NgayTao"), rs.getDate("NgayThanhToan"));
+                HoaDonResponse hd = new HoaDonResponse(rs.getString("MaHoaDon"), rs.getString("MaNhanVien"), rs.getString("TenKH"), rs.getFloat("ThanhTien"), rs.getFloat("TienGiamGia"), rs.getInt("HinhThucThanhToan"), rs.getInt("TrangThai"), rs.getDate("NgayTao"), rs.getDate("NgayThanhToan"));
 
                 list.add(hd);
             }
@@ -76,7 +76,7 @@ public class HoaDonService {
                 HDCTResponse hdct = new HDCTResponse(
                         rs.getString("MaSP"), rs.getString("TenSP"), rs.getString("ThuongHieu"),
                         rs.getString("TenMau"), rs.getString("KichThuoc"), rs.getInt("SoLuong"),
-                        rs.getFloat("DonGia"), rs.getFloat("TienGiamGia"), rs.getFloat("ThanhTien"));
+                        rs.getFloat("DonGia"), rs.getFloat("ThanhTien"));
 
                 list.add(hdct);
             }
@@ -113,7 +113,7 @@ public class HoaDonService {
     public ArrayList<HoaDonResponse> loc(String tim, int page, Integer trangthaiHD, Integer HTthanhtoan, Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<HoaDonResponse> list = new ArrayList<>();
         String sql = """
-                 SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.ThanhTien, HD.HinhThucThanhToan, HD.MaNhanVien, KH.TenKH, HD.TrangThai
+                 SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.ThanhTien, HD.TienGiamGia, HD.HinhThucThanhToan, HD.MaNhanVien, KH.TenKH, HD.TrangThai
                                   FROM HoaDon HD
                                   LEFT JOIN KhachHang KH
                                   ON HD.MaKhachHang = KH.MaKH
@@ -152,7 +152,7 @@ public class HoaDonService {
             while (rs.next()) {
                 HoaDonResponse hd = new HoaDonResponse(rs.getString("MaHoaDon"),
                         rs.getString("MaNhanVien"), rs.getString("TenKH"),
-                        rs.getFloat("ThanhTien"), rs.getInt("HinhThucThanhToan"), rs.getInt("TrangThai"), rs.getDate("NgayTao"), rs.getDate("NgayThanhToan"));
+                        rs.getFloat("ThanhTien"), rs.getFloat("TienGiamGia"), rs.getInt("HinhThucThanhToan"), rs.getInt("TrangThai"), rs.getDate("NgayTao"), rs.getDate("NgayThanhToan"));
                 list.add(hd);
             }
         } catch (Exception e) {
@@ -167,7 +167,7 @@ public class HoaDonService {
     public ArrayList<HoaDonResponse> countSearch(String tim, Integer trangthaiHD, Integer HTthanhtoan, Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<HoaDonResponse> list = new ArrayList<>();
         String sql = """
-                    SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.ThanhTien, HD.HinhThucThanhToan, HD.MaNhanVien, KH.TenKH, HD.TrangThai
+                    SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.ThanhTien, HD.TienGiamGia, HD.HinhThucThanhToan, HD.MaNhanVien, KH.TenKH, HD.TrangThai
                                                       FROM HoaDon HD
                                                       LEFT JOIN KhachHang KH
                                                       ON HD.MaKhachHang = KH.MaKH
@@ -199,7 +199,7 @@ public class HoaDonService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                HoaDonResponse hd = new HoaDonResponse(rs.getString("MaHoaDon"), rs.getString("MaNhanVien"), rs.getString("TenKH"), rs.getFloat("ThanhTien"), rs.getInt("HinhThucThanhToan"), rs.getInt("HinhThucThanhToan"), rs.getDate("NgayTao"), rs.getDate("NgayThanhToan"));
+                HoaDonResponse hd = new HoaDonResponse(rs.getString("MaHoaDon"), rs.getString("MaNhanVien"), rs.getString("TenKH"), rs.getFloat("ThanhTien"), rs.getFloat("TienGiamGia"), rs.getInt("HinhThucThanhToan"), rs.getInt("HinhThucThanhToan"), rs.getDate("NgayTao"), rs.getDate("NgayThanhToan"));
                 list.add(hd);
             }
         } catch (Exception e) {
@@ -253,6 +253,47 @@ public class HoaDonService {
             closeResources();
         }
         return null;
+    }
+
+    public ArrayList<XemCTHDResponse> xuatDSHD() {
+        ArrayList<XemCTHDResponse> list = new ArrayList<>();
+        sql = """
+              SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.HinhThucThanhToan, HD.ThanhTien,
+              	     HD.TienKhachChuyenKhoan, HD.TienKhachTra, HD.TienThua, NV.MaNV, NV.HoVaTen,
+              	     KH.TenKH, KH.DiaChi, KH.SDT, HD.TienGiamGia, HD.TrangThai
+              FROM HoaDon HD 
+              JOIN NhanVien NV
+              ON HD.MaNhanVien = NV.MaNV
+              JOIN KhachHang KH
+              ON HD.MaKhachHang = KH.MaKH
+              """;
+
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                XemCTHDResponse xemCT = new XemCTHDResponse(rs.getString("MaHoaDon"),
+                        rs.getString("MaNV"), rs.getString("HoVaTen"),
+                        rs.getString("TenKH"), rs.getString("DiaChi"),
+                        rs.getString("SDT"), rs.getDate("NgayTao"),
+                        rs.getDate("NgayThanhToan"), rs.getFloat("ThanhTien"),
+                        rs.getFloat("TienKhachChuyenKhoan"),
+                        rs.getFloat("TienKhachTra"),
+                        rs.getFloat("TienThua"), rs.getFloat("TienGiamGia"),
+                        rs.getInt("HinhThucThanhToan"),
+                        rs.getInt("TrangThai"));
+                list.add(xemCT);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đảm bảo đóng tài nguyên
+            closeResources();
+        }
+        return list;
     }
 
 }
