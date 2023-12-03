@@ -5,11 +5,15 @@
 package service;
 
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.ThongKe;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 /**
  *
@@ -28,6 +32,24 @@ public class ThongKeService {
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                count = rs.getInt("count");
+            }
+            return count;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
+    }
+    public int KhachHangNam(int namm){
+        int count = 0;
+            sql = "select count(*) as count from khachhang WHERE YEAR(ngaythanhtoan) like ?";
+        
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, namm);
             rs = ps.executeQuery();
             while (rs.next()) {                
                 count = rs.getInt("count");
@@ -58,7 +80,64 @@ public class ThongKeService {
             return 1;
         }
     }
+    public int HoaDonNam(int namm){
+        int counttt = 0;
+        sql = "select count(*) as counttt from hoadon WHERE YEAR(ngaythanhtoan) like ?";
+        
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, namm);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {                
+                counttt = rs.getInt("counttt");
+            }
+            return counttt;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
+    }
+    public int HoaDonThang(int namm, int thang){
+        int counttt = 0;
+        sql = "select count(*) as counttt from hoadon WHERE YEAR(ngaythanhtoan) like ? and MONTH(ngaythanhtoan) like ?";
+        
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, namm);
+            ps.setObject(2, thang);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {                
+                counttt = rs.getInt("counttt");
+            }
+            return counttt;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
+    }
     
+    public int TimFromTo(String ngayy){
+        int counnt = 0;
+        sql = "select sum(ThanhTien) as total_monthh from hoadon where NgayThanhToan like ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, ngayy);  
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                counnt = rs.getInt("total_monthh");
+            }
+            return counnt;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;   
+        }
+    }
     
     public int DemSoSp(){
         int counttt = 0;
@@ -230,6 +309,15 @@ public class ThongKeService {
         } catch (Exception e) {
             e.printStackTrace();
             return 1;
+        }
+    }
+
+    public void openFile(String file) {
+        try {
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+        } catch (IOException ioe) {
+            System.out.println(ioe);
         }
     }
 }
