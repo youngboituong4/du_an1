@@ -7,16 +7,31 @@ package view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ThongKe;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
@@ -40,7 +55,9 @@ public class ThongKeForm extends javax.swing.JFrame {
     int namm = 0;
     int thang = 0;
     int ngay = 0;
-
+    int tu = 0;
+    int den = 0;
+    String ngayy = null;
     /**
      * Creates new form ThongKeForm
      */
@@ -53,6 +70,8 @@ public class ThongKeForm extends javax.swing.JFrame {
         for (id = 0; id <= service.DemSoSp(); id++) {
             this.fillThongKe(service.getThongKe(id));
         }
+        jButton3.setEnabled(false);
+        jButton3.setBackground(Color.LIGHT_GRAY);
         themNamCbo();
         themThangCbo();
 
@@ -116,8 +135,11 @@ public class ThongKeForm extends javax.swing.JFrame {
         int amount = service.DoanhThu();
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         String formattedAmount = decimalFormat.format(amount);
-        jLabel9.setText(formattedAmount + "" + "" +",000"+ "VNĐ");
+        jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
+        
+        jLabel1.setText("Doanh thu");
         jLabel10.setText(service.HoaDonDaThanhToan() + "");
+        
     }
 
     public void ThongKe0() {
@@ -156,10 +178,10 @@ public class ThongKeForm extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        Date = new com.toedter.calendar.JDateChooser();
+        Date2 = new com.toedter.calendar.JDateChooser();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         PanelChart = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -168,6 +190,9 @@ public class ThongKeForm extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -192,7 +217,7 @@ public class ThongKeForm extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 17, Short.MAX_VALUE)))
+                        .addGap(0, 121, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -272,6 +297,7 @@ public class ThongKeForm extends javax.swing.JFrame {
                 .addContainerGap(68, Short.MAX_VALUE))
         );
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("  Sản Phẩm Đã Bán");
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -311,41 +337,44 @@ public class ThongKeForm extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Từ");
 
         jLabel6.setText("Đến");
+
+        Date.setDateFormatString("yyyy-MM-dd");
+
+        Date2.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Date2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Date2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         PanelChart.setBackground(new java.awt.Color(255, 0, 0));
@@ -412,40 +441,62 @@ public class ThongKeForm extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Tìm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Báo cáo DTHN");
+
+        jButton4.setText("Xuất file Excel");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3)
+                            .addComponent(jButton4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(756, 756, 756))
+                        .addGap(804, 804, 804))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 902, Short.MAX_VALUE)))
+                        .addComponent(jTabbedPane1)))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -455,17 +506,26 @@ public class ThongKeForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(72, 72, 72)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(5, 5, 5)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel5, jPanel6});
@@ -479,16 +539,12 @@ public class ThongKeForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jLabel11AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel11AncestorAdded
 
@@ -499,13 +555,12 @@ public class ThongKeForm extends javax.swing.JFrame {
         if (selectedValue != null) {
             DefaultCategoryDataset BarChartData = new DefaultCategoryDataset();
             if (jComboBox1.getSelectedItem().equals("5 năm gần nhất")) {
-                jLabel1.setText("Doanh thu");
+                HienThi();
                 LocalDate now = LocalDate.now();
                 int currentYear = now.getYear();
                 for (int i = currentYear; i >= currentYear - 4; i--) {
                     nam = i;
                     BarChartData.setValue(service.DoanhThuNam(nam), "Doanh thu", i + "");
-                    System.out.println(nam);
 
                 }
 
@@ -524,12 +579,19 @@ public class ThongKeForm extends javax.swing.JFrame {
                 jComboBox2.setEnabled(false);
                 jComboBox2.setBackground(Color.LIGHT_GRAY);
             } else {
-
+                if(selectedValue != "5 năm gần nhất"){
                 jComboBox2.setEnabled(true);
                 jComboBox2.setBackground(Color.WHITE);
+                
                 namm = Integer.parseInt(selectedValue);
                 jLabel1.setText("Doanh thu năm " + namm);
-                jLabel9.setText(service.DoanhThuNam(namm)+"");
+
+                int amount = service.DoanhThuNam(namm);
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                String formattedAmount = decimalFormat.format(amount);
+                jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
+                jLabel10.setText("" + service.HoaDonNam(namm));
+                System.out.println(selectedValue);
                 for (int i = 1; i <= 12; i++) {
                     thang = i;
                     BarChartData.setValue(service.DoanhThuThangTrongNam(thang, namm), "Doanh thu", i + "");
@@ -544,6 +606,7 @@ public class ThongKeForm extends javax.swing.JFrame {
                 PanelChart.add(barPanel);
                 PanelChart.validate();
                 jComboBox2.setSelectedIndex(0);
+                }
             }
 
         }
@@ -551,7 +614,10 @@ public class ThongKeForm extends javax.swing.JFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        Date.setDate(null);
+        Date2.setDate(null);
+        jButton3.setEnabled(true);
+        jButton3.setBackground(Color.WHITE);
         LocalDate currentDateTime = LocalDate.now();
         LocalDate ngay = currentDateTime;
         service.DoanhThuHomNay(ngay);
@@ -585,7 +651,17 @@ public class ThongKeForm extends javax.swing.JFrame {
         String selectedValues = (String) jComboBox2.getSelectedItem();
         DefaultCategoryDataset BarChartData = new DefaultCategoryDataset();
         if (selectedValue != "5 năm gần nhất") {
+            
             if (jComboBox2.getSelectedItem().equals("Tất cả các tháng")) {
+                namm = Integer.parseInt(selectedValue);
+                jLabel1.setText("Doanh thu năm " + namm);
+
+                int amount = service.DoanhThuNam(namm);
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                String formattedAmount = decimalFormat.format(amount);
+                jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
+                jLabel10.setText("" + service.HoaDonNam(namm));
+
                 for (int i = 1; i <= 12; i++) {
                     thang = i;
                     BarChartData.setValue(service.DoanhThuThangTrongNam(thang, namm), "Doanh thu", thang + "");
@@ -600,8 +676,18 @@ public class ThongKeForm extends javax.swing.JFrame {
                 PanelChart.validate();
 
             } else {
+                
+                
+                
                 namm = Integer.parseInt(selectedValue);
                 thang = Integer.parseInt(selectedValues);
+                jLabel1.setText("Doanh thu tháng " + thang + " " + "năm " + namm + "");
+                
+                int amount = service.DoanhThuThangTrongNam(thang, namm);
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                String formattedAmount = decimalFormat.format(amount);
+                jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
+                jLabel10.setText(service.HoaDonThang(namm, thang)+"");
                 YearMonth yearMonth = YearMonth.of(namm, thang);
                 int daysInMonth = yearMonth.lengthOfMonth();
                 for (int j = 1; j <= daysInMonth; j++) {
@@ -620,6 +706,78 @@ public class ThongKeForm extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (Date.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Chưa chọn ngày bắt đầu tìm");
+
+        } else {
+            if (Date2.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Chưa chọn ngày kết thúc tìm");
+            } else {
+                jComboBox1.setSelectedIndex(0);
+                jComboBox2.setSelectedIndex(0);
+
+                SimpleDateFormat From = new SimpleDateFormat("yyyy-MM-dd");
+                String from = From.format(Date.getDate());
+
+                SimpleDateFormat dayFrom = new SimpleDateFormat("dd");
+                SimpleDateFormat monthFrom = new SimpleDateFormat("MM");
+                SimpleDateFormat yearFrom = new SimpleDateFormat("yyyy");
+                String date = dayFrom.format(Date.getDate());
+                String month = monthFrom.format(Date.getDate());
+                String year = yearFrom.format(Date.getDate());
+
+                SimpleDateFormat To = new SimpleDateFormat("yyyy-MM-dd");
+                String to = To.format(Date2.getDate());
+
+                SimpleDateFormat dayTo = new SimpleDateFormat("dd");
+                SimpleDateFormat monthTo = new SimpleDateFormat("MM");
+                SimpleDateFormat yearTo = new SimpleDateFormat("yyyy");
+                String date2 = dayTo.format(Date2.getDate());
+                String month2 = monthTo.format(Date2.getDate());
+                String year2 = yearTo.format(Date2.getDate());
+
+                ngay = Integer.parseInt(date);
+                namm = Integer.parseInt(year);
+                thang = Integer.parseInt(month);
+                DefaultCategoryDataset BarChartData = new DefaultCategoryDataset();
+
+                LocalDate startDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(date));
+                LocalDate endDate = LocalDate.of(Integer.parseInt(year2), Integer.parseInt(month2), Integer.parseInt(date2));
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("MM/dd");
+
+                LocalDate currentDate = startDate;
+                while (!currentDate.isAfter(endDate)) {
+                    String formattedDate = currentDate.format(formatter);
+                    String formattedDatee = currentDate.format(formatterr);
+
+                    ngayy = formattedDate;
+                    BarChartData.setValue(service.TimFromTo(ngayy), "Doanh thu", formattedDatee + "");
+
+                    currentDate = currentDate.plusDays(1);
+
+                }
+
+                JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Ngày", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
+                CategoryPlot barchrt = barChart.getCategoryPlot();
+                barchrt.setRangeGridlinePaint(getBackground());
+
+                ChartPanel barPanel = new ChartPanel(barChart);
+                PanelChart.removeAll();
+                PanelChart.add(barPanel);
+                PanelChart.validate();
+                PanelChart.validate();
+            }
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -660,8 +818,13 @@ public class ThongKeForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser Date;
+    private com.toedter.calendar.JDateChooser Date2;
     private javax.swing.JPanel PanelChart;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -684,8 +847,6 @@ public class ThongKeForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTable tblThongKe;
     // End of variables declaration//GEN-END:variables
 
