@@ -122,15 +122,13 @@ public class HoaDonService {
                         (? IS NULL OR ? IS NULL OR HD.NgayTao BETWEEN ? AND ? OR HD.NgayThanhToan BETWEEN ? AND ?) AND
                         (? IS NULL OR HD.TrangThai = ?) AND
                         (? IS NULL OR HD.HinhThucThanhToan = ?)
-                 ORDER BY HD.MaHoaDon
-                 OFFSET ? ROW FETCH NEXT 2 ROW ONLY
+                 ORDER BY CAST(SUBSTRING(HD.MaHoaDon, 3, LEN(HD.MaHoaDon) - 2) AS INT) DESC
+                 OFFSET ? ROW FETCH NEXT 10 ROW ONLY
                  """;
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-
-//            ps.setObject(1, tim);
-//            ps.setObject(2, tim);
+            
             ps.setObject(1, "%" + tim + "%");
             ps.setObject(2, "%" + tim + "%");
             ps.setObject(3, "%" + tim + "%");
@@ -145,7 +143,7 @@ public class HoaDonService {
             ps.setObject(12, trangthaiHD);
             ps.setObject(13, HTthanhtoan);
             ps.setObject(14, HTthanhtoan);
-            ps.setObject(15, page * 2);
+            ps.setObject(15, page * 10);
 
             rs = ps.executeQuery();
 
@@ -158,7 +156,6 @@ public class HoaDonService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // Đảm bảo đóng tài nguyên
             closeResources();
         }
         return list;
@@ -205,7 +202,6 @@ public class HoaDonService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // Đảm bảo đóng tài nguyên 123:))
             closeResources();
         }
         return list;
@@ -215,13 +211,16 @@ public class HoaDonService {
         XemCTHDResponse list = new XemCTHDResponse();
         sql = """
               SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.HinhThucThanhToan, HD.ThanhTien,
-              	     HD.TienKhachChuyenKhoan, HD.TienKhachTra, HD.TienThua, NV.MaNV, NV.HoVaTen,
-              	     KH.TenKH, KH.DiaChi, KH.SDT, HD.TienGiamGia, HD.TrangThai
-              FROM HoaDon HD 
-              JOIN NhanVien NV
-              ON HD.MaNhanVien = NV.MaNV
-              JOIN KhachHang KH
-              ON HD.MaKhachHang = KH.MaKH
+                            	     HD.TienKhachChuyenKhoan, HD.TienKhachTra, HD.TienThua, NV.MaNV, NV.HoVaTen,
+                            	     KH.TenKH, KH.DiaChi, KH.SDT, KM.Ma, KM.TenKhuyenMai, KM.GiaTri, KM.LoaiKhuyenMai,
+                                     HD.TienGiamGia, HD.TrangThai
+                                        FROM HoaDon HD 
+                                        JOIN NhanVien NV
+                                        ON HD.MaNhanVien = NV.MaNV
+                                        JOIN KhachHang KH
+                                        ON HD.MaKhachHang = KH.MaKH
+                                        JOIN KhuyenMai KM
+                                        ON KM.ID = HD.IdKM
               WHERE HD.MaHoaDon = ?
               """;
 
@@ -236,20 +235,22 @@ public class HoaDonService {
                 XemCTHDResponse xemCT = new XemCTHDResponse(maHD,
                         rs.getString("MaNV"), rs.getString("HoVaTen"),
                         rs.getString("TenKH"), rs.getString("DiaChi"),
-                        rs.getString("SDT"), rs.getDate("NgayTao"),
+                        rs.getString("SDT"), rs.getString("Ma"), 
+                        rs.getString("TenKhuyenMai"),rs.getDate("NgayTao"),
                         rs.getDate("NgayThanhToan"), rs.getFloat("ThanhTien"),
                         rs.getFloat("TienKhachChuyenKhoan"),
                         rs.getFloat("TienKhachTra"),
                         rs.getFloat("TienThua"), rs.getFloat("TienGiamGia"),
+                        rs.getFloat("GiaTri"),
                         rs.getInt("HinhThucThanhToan"),
-                        rs.getInt("TrangThai"));
+                        rs.getInt("TrangThai"),
+                        rs.getInt("LoaiKhuyenMai"));
                 return xemCT;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // Đảm bảo đóng tài nguyên
             closeResources();
         }
         return null;
@@ -259,13 +260,16 @@ public class HoaDonService {
         ArrayList<XemCTHDResponse> list = new ArrayList<>();
         sql = """
               SELECT HD.MaHoaDon, HD.NgayTao, HD.NgayThanhToan, HD.HinhThucThanhToan, HD.ThanhTien,
-              	     HD.TienKhachChuyenKhoan, HD.TienKhachTra, HD.TienThua, NV.MaNV, NV.HoVaTen,
-              	     KH.TenKH, KH.DiaChi, KH.SDT, HD.TienGiamGia, HD.TrangThai
-              FROM HoaDon HD 
-              JOIN NhanVien NV
-              ON HD.MaNhanVien = NV.MaNV
-              JOIN KhachHang KH
-              ON HD.MaKhachHang = KH.MaKH
+                                          	     HD.TienKhachChuyenKhoan, HD.TienKhachTra, HD.TienThua, NV.MaNV, NV.HoVaTen,
+                                          	     KH.TenKH, KH.DiaChi, KH.SDT, KM.Ma, KM.TenKhuyenMai, KM.GiaTri, KM.LoaiKhuyenMai,
+                                                   HD.TienGiamGia, HD.TrangThai
+                                                      FROM HoaDon HD 
+                                                      JOIN NhanVien NV
+                                                      ON HD.MaNhanVien = NV.MaNV
+                                                      JOIN KhachHang KH
+                                                      ON HD.MaKhachHang = KH.MaKH
+                                                      JOIN KhuyenMai KM
+                                                      ON KM.ID = HD.IdKM
               """;
 
         try {
@@ -277,20 +281,22 @@ public class HoaDonService {
                 XemCTHDResponse xemCT = new XemCTHDResponse(rs.getString("MaHoaDon"),
                         rs.getString("MaNV"), rs.getString("HoVaTen"),
                         rs.getString("TenKH"), rs.getString("DiaChi"),
-                        rs.getString("SDT"), rs.getDate("NgayTao"),
+                        rs.getString("SDT"), rs.getString("Ma"), 
+                        rs.getString("TenKhuyenMai"),rs.getDate("NgayTao"),
                         rs.getDate("NgayThanhToan"), rs.getFloat("ThanhTien"),
                         rs.getFloat("TienKhachChuyenKhoan"),
                         rs.getFloat("TienKhachTra"),
                         rs.getFloat("TienThua"), rs.getFloat("TienGiamGia"),
+                        rs.getFloat("GiaTri"),
                         rs.getInt("HinhThucThanhToan"),
-                        rs.getInt("TrangThai"));
+                        rs.getInt("TrangThai"),
+                        rs.getInt("LoaiKhuyenMai"));
                 list.add(xemCT);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // Đảm bảo đóng tài nguyên
             closeResources();
         }
         return list;

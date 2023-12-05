@@ -49,7 +49,7 @@ public class HoaDonForm extends javax.swing.JPanel {
     private Date ngayKT = null;
     private Integer HTthanhtoan = null;
     private Integer totalPage = null;
-    private Integer size = 2;
+    private Integer size = 10;
     private Integer page = null;
     private String maHoaDonSelected = null; // để lấy ra mã hóa đơn khi click  
 
@@ -71,7 +71,7 @@ public class HoaDonForm extends javax.swing.JPanel {
             showData(list);
         } catch (Exception e) {
         }
-    }//khoan đã
+    }
 
     private void showData(ArrayList<HoaDonResponse> listHDS) {
         model.setRowCount(0);
@@ -331,8 +331,8 @@ public class HoaDonForm extends javax.swing.JPanel {
                     .addComponent(inBtn)
                     .addComponent(xuatFileBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(prevBtn)
                     .addComponent(nextBtn)
@@ -644,7 +644,7 @@ public class HoaDonForm extends javax.swing.JPanel {
         if (!(selectFileCheck == JFileChooser.APPROVE_OPTION)) {
             return;
         }
-        //Muốn lấy đường dẫn và để vào export PDF thì 
+        
         String path = selectedFile.getAbsolutePath();
 
         ExportPDFHoaDon export = new ExportPDFHoaDon();
