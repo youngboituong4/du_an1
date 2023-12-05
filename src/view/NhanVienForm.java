@@ -27,6 +27,8 @@ import java.io.FileNotFoundException;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 public class NhanVienForm extends javax.swing.JPanel {
@@ -34,13 +36,14 @@ public class NhanVienForm extends javax.swing.JPanel {
     /**
      * Creates new form NhanVienForm
      */
+    ArrayList<NhanVien> list = new ArrayList<>();
     NhanVienService service = new NhanVienService();
     DefaultTableModel model = new DefaultTableModel();
-    ArrayList<NhanVien> list = new ArrayList<>();
-    private Boolean vaiTro = Boolean.TRUE;
-    private Boolean trangThai = Boolean.TRUE;
     int index = -1;
-    
+
+    /**
+     * Creates new form View
+     */
     public NhanVienForm() {
         initComponents();
         this.findTable(service.getAll());
@@ -62,21 +65,18 @@ public class NhanVienForm extends javax.swing.JPanel {
         txtSDT.setText("");
         txtDiaChi.setText("");
         txtTim.setText("");
-        ButtonGroup groupGT = new ButtonGroup();
-        groupGT.add(rdoNam);
-        groupGT.add(rdoNu);
-        groupGT.clearSelection();
-
+        ButtonGroup group = new ButtonGroup();
+        group.add(rdoNam);
+        group.add(rdoNu);
+        group.clearSelection();
         ButtonGroup groupNVQL = new ButtonGroup();
-        groupNVQL.add(rdoNV);
         groupNVQL.add(rdoQL);
+        groupNVQL.add(rdoNV);
         groupNVQL.clearSelection();
-
-        ButtonGroup groupTT = new ButtonGroup();
-        groupTT.add(rdoDl);
-        groupTT.add(rdoNl);
-        groupTT.clearSelection();
-
+        ButtonGroup groupDlNl = new ButtonGroup();
+        groupDlNl.add(rdoDl);
+        groupDlNl.add(rdoNl);
+        groupDlNl.clearSelection();
     }
 
     void ShowData(int index) {
@@ -119,6 +119,7 @@ public class NhanVienForm extends javax.swing.JPanel {
         String diaChi = txtDiaChi.getText().trim();
         String email = txtEmail.getText().trim();
         String sdt = txtSDT.getText().trim();
+
         boolean gioiTinh;
         if (rdoNam.isSelected()) {
             gioiTinh = true;
@@ -156,16 +157,16 @@ public class NhanVienForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Mật Khẩu Phải Nhập Chữ Hoa,Thường,Kí Tự Đặt Biệt,Số Và Từ 8 - 12 kí tự");
             return false;
         }
+        if (txtSDT.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mời nhập số điện thoại");
+            return false;
+        }
         if (txtEmail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Mời nhập Email của bạn");
             return false;
         }
         if (!txtEmail.getText().matches(regex)) {
             JOptionPane.showMessageDialog(this, "Email không đúng định dạng");
-            return false;
-        }
-        if (txtSDT.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Mời nhập số điện thoại");
             return false;
         }
         if (txtDiaChi.getText().isEmpty()) {
@@ -176,7 +177,7 @@ public class NhanVienForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn giới tính");
             return false;
         }
-        if (!rdoNV.isSelected() && !rdoQL.isSelected()) {
+        if (!rdoQL.isSelected() && !rdoNV.isSelected()) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn vai trò");
             return false;
         }
@@ -212,7 +213,32 @@ public class NhanVienForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Tải mẫu thất bại.");
         }
     }
-    
+
+    private boolean isNullOrBlank(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
+    private boolean isDataValid(XSSFSheet sheet) {
+        // Lặp qua từng dòng của sheet
+        for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
+            XSSFRow row = sheet.getRow(rowIndex);
+            if (row != null) {
+                // Lấy giá trị từ từng ô của dòng
+                for (int columnIndex = 1; columnIndex < row.getLastCellNum(); columnIndex++) {
+                    XSSFCell cell = row.getCell(columnIndex);
+                    if (cell != null) {
+                        String cellValue = cell.getStringCellValue();
+                        // Kiểm tra xem giá trị có giá trị null hoặc trống không
+                        if (isNullOrBlank(cellValue)) {
+                            return false; // Nếu có giá trị null hoặc trống, trả về false
+                        }
+                    }
+                }
+            }
+        }
+        return true; // Dữ liệu hợp lệ, không có giá trị null hoặc trống
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -608,7 +634,10 @@ public class NhanVienForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         NhanVien nv = readForm();
         if (testData()) {
-            {
+
+            if (service.getNV(nv.getMaNV()) != null) {
+                JOptionPane.showMessageDialog(this, "Mã bị trùng");
+            } else {
                 if (service.AddNV(nv) > 0) {
                     JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công");
                     this.findTable(service.getAll());
@@ -624,7 +653,6 @@ public class NhanVienForm extends javax.swing.JPanel {
         index = tblBang.getSelectedRow();
         this.ShowData(index);
         showDataTimKiemNV(index);
-
         Object selectedData = tblBang.getValueAt(index, 0);
         Object selectedData1 = tblBang.getValueAt(index, 1);
         Object selectedData2 = tblBang.getValueAt(index, 2);
@@ -642,9 +670,15 @@ public class NhanVienForm extends javax.swing.JPanel {
         txtEmail.setText(selectedData4.toString());
         txtSDT.setText(selectedData5.toString());
 
-        boolean gioiTinh = Boolean.parseBoolean(selectedData6.toString());
-        boolean vaiTro = Boolean.parseBoolean(selectedData7.toString());
-        boolean trangThai = Boolean.parseBoolean(selectedData8.toString());
+        boolean gioiTinh = selectedData6.equals("Nam");
+        rdoNam.setSelected(gioiTinh);
+        rdoNu.setSelected(!gioiTinh);
+        boolean vaiTro = selectedData7.equals("Quản lý");
+        rdoNV.setSelected(!vaiTro);
+        rdoQL.setSelected(vaiTro);
+        boolean trangThai = selectedData8.equals("Đang làm");
+        rdoDl.setSelected(trangThai);
+        rdoNl.setSelected(!trangThai);
     }//GEN-LAST:event_tblBangMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -686,11 +720,13 @@ public class NhanVienForm extends javax.swing.JPanel {
 
     private void cboVaiTroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboVaiTroActionPerformed
         // TODO add your handling code here:
+        boolean vaiTro = true;
+        boolean trangThai = true;
         String loctt = (String) cboVaiTro.getSelectedItem();
-        if (loctt.equals("Quản lý")) {
-            vaiTro = Boolean.TRUE; // Chọn quản lý
-        } else if (loctt.equals("Nhân viên")) {
-            vaiTro = Boolean.FALSE; // Chọn nhân viên
+        if ("Quản lý".equals(loctt)) {
+            vaiTro = Boolean.TRUE;
+        } else if ("Nhân viên".equals(loctt)) {
+            vaiTro = Boolean.FALSE;
         }
         list = service.timTheoDieuKien(txtTim.getText(), vaiTro, trangThai);
         findTable(list);
@@ -698,11 +734,13 @@ public class NhanVienForm extends javax.swing.JPanel {
 
     private void cboTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrangThaiActionPerformed
         // TODO add your handling code here:
+        boolean trangThai = true;
+        boolean vaiTro = true;
         String loctt = (String) cboTrangThai.getSelectedItem();
-        if (loctt.equals("Đang làm")) {
-            trangThai = Boolean.TRUE; // Chọn đang làm
-        } else if (loctt.equals("Nghỉ làm")) {
-            trangThai = Boolean.FALSE; // Chọn nghỉ làm
+        if ("Đang làm".equals(loctt)) {
+            trangThai = Boolean.TRUE;
+        } else if ("Nghỉ làm".equals(loctt)) {
+            trangThai = Boolean.FALSE;
         }
         list = service.timTheoDieuKien(txtTim.getText(), vaiTro, trangThai);
         findTable(list);
@@ -760,23 +798,21 @@ public class NhanVienForm extends javax.swing.JPanel {
         if (excelChooser == JFileChooser.APPROVE_OPTION) {
             try {
                 excelFile = excel.getSelectedFile();
-
-                // Kiểm tra xem tệp có tồn tại không
                 if (!excelFile.exists()) {
                     JOptionPane.showMessageDialog(null, "Tệp không tồn tại");
                     return;
                 }
+
                 fis = new FileInputStream(excelFile);
                 bis = new BufferedInputStream(fis);
                 excelImport = new XSSFWorkbook(bis);
                 XSSFSheet sheet = excelImport.getSheetAt(0);
-
-                // Import dữ liệu từ Excel vào cơ sở dữ liệu
-                service.importDataFromExcelToDatabase(sheet);
-
-                // Thêm mã nhân viên sau khi import
-                service.updateMaNVForImportedData();
-
+                if (!isDataValid(sheet)) {
+                    JOptionPane.showMessageDialog(null, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.");
+                } else {
+                    service.importDataFromExcelToDatabase(sheet);
+                    JOptionPane.showMessageDialog(null, "Import dữ liệu thành công.");
+                }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             } finally {

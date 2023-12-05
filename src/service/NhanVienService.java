@@ -43,78 +43,24 @@ public class NhanVienService {
         }
     }
 
-    private void updateMaNV(int id) {
-        // Cập nhật MaNV dựa trên ID
-        sql = "UPDATE NhanVien SET MaNV = CONCAT('NV', RIGHT('00' + CAST(? AS VARCHAR(2)), 2)) WHERE ID = ?";
-
+    public int AddNV(NhanVien nv) {
+        sql = "insert into NhanVien(MaNV,HoVaTen,MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro,TrangThai) values (?,?,?,?,?,?,?,?,?)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-
-            ps.setInt(1, id);
-            ps.setInt(2, id);
-
-            ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            // Đóng PreparedStatement và Connection trong khối finally để đảm bảo luôn được đóng
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    public int AddNV(NhanVien nv) {
-        // Thay đổi câu lệnh SQL để không chèn trực tiếp giá trị cho cột MaNV
-        sql = "INSERT INTO NhanVien (HoVaTen, MatKhau, DiaChi, Email, SDT, GioiTinh, VaiTro, TrangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        try {
-            con = DBConnect.getConnection();
-            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            // Chèn giá trị cho các cột khác (không bao gồm MaNV)
-            ps.setObject(1, nv.getHoVaTen());
-            ps.setObject(2, nv.getMatKhau());
-            ps.setObject(3, nv.getDiaChi());
-            ps.setObject(4, nv.getEmail());
-            ps.setObject(5, nv.getSdt());
-            ps.setBoolean(6, nv.isGioiTinh());
-            ps.setBoolean(7, nv.isVaiTro());
-            ps.setBoolean(8, nv.isTrangThai());
-            int affectedRows = ps.executeUpdate();
-            if (affectedRows > 0) {
-                ResultSet generatedKeys = ps.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    int id = generatedKeys.getInt(1);
-                    // Cập nhật MaNV sau khi có ID được sinh tự động
-                    updateMaNV(id);
-                }
-            }
-
-            return affectedRows;
+            ps.setObject(1, nv.getMaNV());
+            ps.setObject(2, nv.getHoVaTen());
+            ps.setObject(3, nv.getMatKhau());
+            ps.setObject(4, nv.getDiaChi());
+            ps.setObject(5, nv.getEmail());
+            ps.setObject(6, nv.getSdt());
+            ps.setObject(7, nv.isVaiTro());
+            ps.setObject(8, nv.isGioiTinh());
+            ps.setObject(9, nv.isTrangThai());
+            return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
-        } finally {
-            // Đóng PreparedStatement và Connection trong khối finally để đảm bảo luôn được đóng
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
@@ -155,21 +101,8 @@ public class NhanVienService {
         }
     }
 
-    public int deleteNV(String MaNV) {
-        sql = "DELETE from NhanVien where MaNV = ?";
-        try {
-            con = DBConnect.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, MaNV);
-            return ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
     public int updateNV(NhanVien nv, String ma) {
-        String sql = "UPDATE NhanVien SET MaNV = ?,HoVaTen = ?,MatKhau = ?,DiaChi = ?,Email = ?,sdt = ?, VaiTro = ?,GioiTinh = ?,TrangThai = ? WHERE MaNV = ?";
+        String sql = "UPDATE NhanVien SET MaNV = ?, HoVaTen = ?, MatKhau = ?, DiaChi = ?, Email = ?, SDT = ?, GioiTinh = ?, VaiTro = ?, TrangThai = ? WHERE MaNV = ?";
         try {
             Connection con = DBConnect.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -179,11 +112,19 @@ public class NhanVienService {
             ps.setString(4, nv.getDiaChi());
             ps.setString(5, nv.getEmail());
             ps.setString(6, nv.getSdt());
-            ps.setBoolean(7, nv.isVaiTro());
-            ps.setBoolean(8, nv.isGioiTinh());
+            ps.setBoolean(7, nv.isGioiTinh());
+            ps.setBoolean(8, nv.isVaiTro());
             ps.setBoolean(9, nv.isTrangThai());
-            ps.setString(10, ma);
-            return ps.executeUpdate();
+            ps.setString(10, ma);  // Mã nhân viên cần sửa đổi
+            int rowsUpdated = ps.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Sửa thành công!");
+            } else {
+                System.out.println("Sửa thất bại!");
+            }
+
+            return rowsUpdated;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -192,49 +133,18 @@ public class NhanVienService {
 
     public List<NhanVien> timNV(String maNV) {
         List<NhanVien> list = new ArrayList<>();
-        sql = "SELECT * FROM NhanVien WHERE MaNV LIKE ? ";
+        sql = "SELECT * FROM NhanVien WHERE MaNV LIKE ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, "%" + maNV + "%");
+            ps.setObject(1, maNV + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
                 list.add(nv);
             }
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public ArrayList<NhanVien> timTheoDieuKien(String tim, Boolean vaiTro, Boolean trangThai) {
-        ArrayList<NhanVien> list = new ArrayList<>();
-        sql = "SELECT * FROM NhanVien WHERE (MaNV LIKE ? OR HoVaTen LIKE ? OR MatKhau LIKE ? OR DiaChi LIKE ? OR Email LIKE ? OR SDT LIKE ?)And VaiTro Like ? AND TrangThai like ? ORDER BY MaNV";
-        try {
-            con = DBConnect.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, "%" + tim + "%");
-            ps.setObject(2, "%" + tim + "%");
-            ps.setObject(3, "%" + tim + "%");
-            ps.setObject(4, "%" + tim + "%");
-            ps.setObject(5, "%" + tim + "%");
-            ps.setObject(6, "%" + tim + "%");
-            if (vaiTro != null) {
-                ps.setBoolean(7, vaiTro);
-            } else {
-                ps.setNull(7, Types.BOOLEAN);
-            }
-            if (trangThai != null) {
-                ps.setBoolean(8, trangThai);
-            } else {
-                ps.setNull(8, Types.BOOLEAN);
-            }
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
-                list.add(nv);
+            if (list.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy nhân viên. Vui lòng kiểm tra lại mã.", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
             return list;
         } catch (Exception e) {
@@ -252,10 +162,10 @@ public class NhanVienService {
 
             if (rs.next()) {
                 int count = rs.getInt(1);
-                return count > 0; // Trả về true nếu mã nhân viên đã tồn tại
+                return count > 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ theo ý của bạn
+            e.printStackTrace();
         }
 
         return false;
@@ -289,28 +199,18 @@ public class NhanVienService {
                 String vaiTroValue = (VaiTro != null) ? VaiTro.toString() : "";
                 String trangThaiValue = (TrangThai != null) ? TrangThai.toString() : "";
 
-                // Kiểm tra xem mã nhân viên đã tồn tại hay chưa
                 if (maNVExistsInDatabase(maNVValue)) {
-                    // Thực hiện xử lý khi mã nhân viên đã tồn tại (ví dụ: thông báo, bỏ qua, hoặc cập nhật)
-                    continue; // Bỏ qua dòng hiện tại và chuyển đến dòng tiếp theo
+                    continue;
                 }
-
                 ps.setString(1, maNVValue);
                 ps.setString(2, hoVaTenValue);
                 ps.setString(3, matKhauValue);
                 ps.setString(4, diaChiValue);
                 ps.setString(5, emailValue);
                 ps.setString(6, sdtValue);
-
-                // Xử lý cột có kiểu dữ liệu bit (boolean)
                 ps.setBoolean(7, "Nam".equals(gioiTinhValue));
-
                 ps.setBoolean(8, "Quản lý".equals(vaiTroValue));
-
-                // Xử lý cột có kiểu dữ liệu bit (boolean)
-                ps.setBoolean(9, "Active".equals(trangThaiValue));
-
-                // Thực hiện câu truy vấn
+                ps.setBoolean(9, "Đang làm".equals(trangThaiValue));
                 ps.executeUpdate();
             }
 
@@ -320,23 +220,44 @@ public class NhanVienService {
         }
     }
 
-    public void updateMaNVForImportedData() {
+    public ArrayList<NhanVien> timTheoDieuKien(String tim, Boolean vaiTro, Boolean trangThai) {
+        ArrayList<NhanVien> list = new ArrayList<>();
+        sql = "SELECT MaNV, HoVaTen, MatKhau, DiaChi, Email, SDT, GioiTinh, VaiTro, TrangThai FROM NhanVien WHERE (MaNV LIKE ? OR HoVaTen LIKE ? OR MatKhau LIKE ? OR DiaChi LIKE ? OR Email LIKE ? OR SDT LIKE ?) AND VaiTro = ? AND TrangThai = ? ORDER BY MaNV";
+
         try {
             con = DBConnect.getConnection();
-            String sql = "UPDATE NhanVien SET MaNV = CONCAT('NV', RIGHT('00' + CAST(ID AS VARCHAR(2)), 2)) WHERE MaNV IS NULL OR MaNV = ''";
-            try (PreparedStatement ps = con.prepareStatement(sql)) {
-                ps.executeUpdate();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, "%" + tim + "%");
+            ps.setObject(2, "%" + tim + "%");
+            ps.setObject(3, "%" + tim + "%");
+            ps.setObject(4, "%" + tim + "%");
+            ps.setObject(5, "%" + tim + "%");
+            ps.setObject(6, "%" + tim + "%");
+
+            if (vaiTro != null) {
+                ps.setBoolean(7, vaiTro);
+            } else {
+                ps.setNull(7, Types.BOOLEAN);
             }
-        } catch (SQLException e) {
+
+            if (trangThai != null) {
+                ps.setBoolean(8, trangThai);
+            } else {
+                ps.setNull(8, Types.BOOLEAN);
+            }
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
+                list.add(nv);
+            }
+
+            return list;
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            return null;
         }
     }
+
 }
