@@ -166,6 +166,9 @@ public class HoaDonForm extends javax.swing.JPanel {
             }
         });
 
+        locBtn.setBackground(new java.awt.Color(0, 102, 255));
+        locBtn.setForeground(new java.awt.Color(255, 255, 255));
+        locBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/timkiem.png"))); // NOI18N
         locBtn.setText("Tìm kiếm");
         locBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,6 +205,8 @@ public class HoaDonForm extends javax.swing.JPanel {
             TbHoaDon.getColumnModel().getColumn(5).setResizable(false);
         }
 
+        prevBtn.setBackground(new java.awt.Color(0, 102, 255));
+        prevBtn.setForeground(new java.awt.Color(255, 255, 255));
         prevBtn.setText("Prev");
         prevBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,6 +214,8 @@ public class HoaDonForm extends javax.swing.JPanel {
             }
         });
 
+        nextBtn.setBackground(new java.awt.Color(0, 102, 255));
+        nextBtn.setForeground(new java.awt.Color(255, 255, 255));
         nextBtn.setText("Next");
         nextBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,6 +229,9 @@ public class HoaDonForm extends javax.swing.JPanel {
 
         trangLb.setText("jLabel8");
 
+        chitietBtn.setBackground(new java.awt.Color(0, 102, 255));
+        chitietBtn.setForeground(new java.awt.Color(255, 255, 255));
+        chitietBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgmain/hoadon.png"))); // NOI18N
         chitietBtn.setText("Xem chi tiết");
         chitietBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,6 +239,9 @@ public class HoaDonForm extends javax.swing.JPanel {
             }
         });
 
+        inBtn.setBackground(new java.awt.Color(0, 102, 255));
+        inBtn.setForeground(new java.awt.Color(255, 255, 255));
+        inBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgmain/hoadon.png"))); // NOI18N
         inBtn.setText("In hoá đơn");
         inBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,6 +249,9 @@ public class HoaDonForm extends javax.swing.JPanel {
             }
         });
 
+        xuatFileBtn.setBackground(new java.awt.Color(0, 102, 255));
+        xuatFileBtn.setForeground(new java.awt.Color(255, 255, 255));
+        xuatFileBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/them.png"))); // NOI18N
         xuatFileBtn.setText("Xuất file Excel");
         xuatFileBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,6 +357,8 @@ public class HoaDonForm extends javax.swing.JPanel {
                     .addComponent(trangLb))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {chitietBtn, inBtn, locBtn, xuatFileBtn});
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Hóa đơn chi tiết"));

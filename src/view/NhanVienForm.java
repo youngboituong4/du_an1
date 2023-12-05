@@ -305,6 +305,9 @@ public class NhanVienForm extends javax.swing.JPanel {
 
         jLabel4.setText("Mật khẩu");
 
+        btnAdd.setBackground(new java.awt.Color(0, 102, 255));
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/them.png"))); // NOI18N
         btnAdd.setText("Thêm");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,6 +345,9 @@ public class NhanVienForm extends javax.swing.JPanel {
 
         jLabel7.setText("Email");
 
+        btnSua.setBackground(new java.awt.Color(0, 102, 255));
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sua.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,6 +366,9 @@ public class NhanVienForm extends javax.swing.JPanel {
 
         jLabel10.setText("Địa chỉ");
 
+        btnClear.setBackground(new java.awt.Color(0, 102, 255));
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
         btnClear.setText("Làm mới");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,7 +376,10 @@ public class NhanVienForm extends javax.swing.JPanel {
             }
         });
 
-        btnTim.setText("Tìm kiếm nhân viên");
+        btnTim.setBackground(new java.awt.Color(0, 102, 255));
+        btnTim.setForeground(new java.awt.Color(255, 255, 255));
+        btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/timkiem.png"))); // NOI18N
+        btnTim.setText("Tìm kiếm");
         btnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimActionPerformed(evt);
@@ -447,6 +459,9 @@ public class NhanVienForm extends javax.swing.JPanel {
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
+        btnExport.setBackground(new java.awt.Color(0, 102, 255));
+        btnExport.setForeground(new java.awt.Color(255, 255, 255));
+        btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgmain/hoadon.png"))); // NOI18N
         btnExport.setText("Export file Excel");
         btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -454,6 +469,9 @@ public class NhanVienForm extends javax.swing.JPanel {
             }
         });
 
+        btnImport.setBackground(new java.awt.Color(0, 102, 255));
+        btnImport.setForeground(new java.awt.Color(255, 255, 255));
+        btnImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/them.png"))); // NOI18N
         btnImport.setText("Import file Excel");
         btnImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -461,6 +479,9 @@ public class NhanVienForm extends javax.swing.JPanel {
             }
         });
 
+        btnTaiMau.setBackground(new java.awt.Color(0, 102, 255));
+        btnTaiMau.setForeground(new java.awt.Color(255, 255, 255));
+        btnTaiMau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/them.png"))); // NOI18N
         btnTaiMau.setText("Tải mẫu Excel");
         btnTaiMau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -479,20 +500,20 @@ public class NhanVienForm extends javax.swing.JPanel {
                         .addComponent(btnAdd)
                         .addGap(18, 18, 18)
                         .addComponent(btnSua)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExport)
                         .addGap(18, 18, 18)
                         .addComponent(btnImport)
                         .addGap(18, 18, 18)
-                        .addComponent(btnTaiMau))
+                        .addComponent(btnTaiMau)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(btnTim)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(804, 804, 804)
-                            .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1099, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(20, 20, 20)
@@ -548,7 +569,7 @@ public class NhanVienForm extends javax.swing.JPanel {
                                             .addGap(37, 37, 37)))))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -604,22 +625,23 @@ public class NhanVienForm extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(rdoDl)
                                 .addComponent(rdoNl)))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTim))
-                .addGap(32, 32, 32)
+                .addGap(77, 77, 77)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSua)
                     .addComponent(btnAdd)
                     .addComponent(btnClear)
                     .addComponent(btnExport)
                     .addComponent(btnImport)
-                    .addComponent(btnTaiMau))
+                    .addComponent(btnTaiMau)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTim)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClear, btnExport, btnImport, btnSua, btnTaiMau, btnTim});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

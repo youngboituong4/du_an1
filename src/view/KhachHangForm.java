@@ -257,6 +257,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         themBtn.setBackground(new java.awt.Color(0, 102, 255));
         themBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         themBtn.setForeground(new java.awt.Color(255, 255, 255));
+        themBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/them.png"))); // NOI18N
         themBtn.setText("Thêm");
         themBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,6 +268,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         suaBtn.setBackground(new java.awt.Color(0, 102, 255));
         suaBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         suaBtn.setForeground(new java.awt.Color(255, 255, 255));
+        suaBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sua.png"))); // NOI18N
         suaBtn.setText("Sửa");
         suaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,6 +279,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         moiBtn.setBackground(new java.awt.Color(0, 102, 255));
         moiBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         moiBtn.setForeground(new java.awt.Color(255, 255, 255));
+        moiBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
         moiBtn.setText("Mới");
         moiBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,6 +299,9 @@ public class KhachHangForm extends javax.swing.JPanel {
                     .addComponent(moiBtn, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
+
+        jPanel23Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {moiBtn, suaBtn, themBtn});
+
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
@@ -307,6 +313,8 @@ public class KhachHangForm extends javax.swing.JPanel {
                 .addComponent(moiBtn)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        jPanel23Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {moiBtn, suaBtn, themBtn});
 
         jPanel24.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -506,6 +514,9 @@ public class KhachHangForm extends javax.swing.JPanel {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
+        search.setBackground(new java.awt.Color(0, 102, 255));
+        search.setForeground(new java.awt.Color(255, 255, 255));
+        search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/timkiem.png"))); // NOI18N
         search.setText("Search");
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -527,7 +538,7 @@ public class KhachHangForm extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(search))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -583,7 +594,7 @@ public class KhachHangForm extends javax.swing.JPanel {
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 967, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel21Layout.setVerticalGroup(
@@ -596,6 +607,8 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Lịch sử giao dịch", jPanel21);
 
+        prevBtn.setBackground(new java.awt.Color(0, 102, 255));
+        prevBtn.setForeground(new java.awt.Color(255, 255, 255));
         prevBtn.setText("Prev");
         prevBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -609,6 +622,8 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         pageLb.setText(" ");
 
+        nextBtn.setBackground(new java.awt.Color(0, 102, 255));
+        nextBtn.setForeground(new java.awt.Color(255, 255, 255));
         nextBtn.setText("Next");
         nextBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -676,7 +691,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1015, Short.MAX_VALUE)
+            .addGap(0, 1033, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -685,7 +700,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGap(0, 705, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(48, 48, 48)

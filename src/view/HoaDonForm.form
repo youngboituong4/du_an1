@@ -153,10 +153,10 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="locBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="chitietBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="inBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="xuatFileBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="locBtn" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chitietBtn" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="inBtn" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="xuatFileBtn" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="198" max="-2" attributes="0"/>
@@ -228,6 +228,15 @@
         </Component>
         <Component class="javax.swing.JButton" name="locBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/img/timkiem.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
           </Properties>
           <Events>
@@ -317,6 +326,12 @@
         </Container>
         <Component class="javax.swing.JButton" name="prevBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Prev"/>
           </Properties>
           <Events>
@@ -325,6 +340,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="nextBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Next"/>
           </Properties>
           <Events>
@@ -352,6 +373,15 @@
         </Component>
         <Component class="javax.swing.JButton" name="chitietBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imgmain/hoadon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Xem chi ti&#x1ebf;t"/>
           </Properties>
           <Events>
@@ -360,6 +390,15 @@
         </Component>
         <Component class="javax.swing.JButton" name="inBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imgmain/hoadon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="In ho&#xe1; &#x111;&#x1a1;n"/>
           </Properties>
           <Events>
@@ -368,6 +407,15 @@
         </Component>
         <Component class="javax.swing.JButton" name="xuatFileBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/img/them.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t file Excel"/>
           </Properties>
           <Events>
