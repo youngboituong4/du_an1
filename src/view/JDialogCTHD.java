@@ -37,7 +37,7 @@ public class JDialogCTHD extends javax.swing.JDialog {
         // Định dạng ngày và hiển thị
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
         String ngayTaoFormatted = dateFormat.format(obj.getNgayTao());
-        ngayTaoTxt.setText(ngayTaoFormatted); 
+        ngayTaoTxt.setText(ngayTaoFormatted);
         String ngayThanhToanFormatted = dateFormat.format(obj.getNgayThanhToan());
         ngayThanhToanTxt.setText(ngayThanhToanFormatted);
         if (obj.getHTthanhtoan() == 0) {
@@ -64,7 +64,16 @@ public class JDialogCTHD extends javax.swing.JDialog {
         if (obj.getTrangThai() == 1) {
             trangthaiTxt.setText("Đã thanh toán");
         }
-        tienKhachTraTxt.setText(obj.getTienKhachTra()+"");
+        tienKhachTraTxt.setText(obj.getTienKhachTra() + "");
+        maKMtxt.setText(obj.getMaKM());
+        tenKmTxt.setText(obj.getTenKM());
+        if (obj.getLoaiKM() == 0) {
+            HTgiamTtx.setText("Giảm bằng %");
+        }
+        if (obj.getLoaiKM() == 1) {
+            HTgiamTtx.setText("Giảm bằng tiền");
+        }
+        gtriGiamTtx.setText(obj.getGiaTriGiam() + "");
     }
 
     /**
@@ -107,8 +116,17 @@ public class JDialogCTHD extends javax.swing.JDialog {
         trangthaiTxt = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tienKhachTraTxt = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        maKMtxt = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        tenKmTxt = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        HTgiamTtx = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        gtriGiamTtx = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Thông tin hoá đơn tại quầy");
@@ -173,6 +191,22 @@ public class JDialogCTHD extends javax.swing.JDialog {
 
         tienKhachTraTxt.setText("jLabel17");
 
+        jLabel17.setText("Mã khuyến mãi:");
+
+        maKMtxt.setText("jLabel18");
+
+        jLabel19.setText("Tên khuyến mãi:");
+
+        tenKmTxt.setText("jLabel20");
+
+        jLabel21.setText("Hình thức giảm:");
+
+        HTgiamTtx.setText("jLabel22");
+
+        jLabel23.setText("Giá trị giảm:");
+
+        gtriGiamTtx.setText("jLabel24");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,7 +233,11 @@ public class JDialogCTHD extends javax.swing.JDialog {
                             .addComponent(jLabel14)
                             .addComponent(jLabel15)
                             .addComponent(jLabel16)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel23))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(maHDTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -216,7 +254,11 @@ public class JDialogCTHD extends javax.swing.JDialog {
                             .addComponent(sdtTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tienGiamTtx, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(trangthaiTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tienKhachTraTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(tienKhachTraTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(maKMtxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tenKmTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(HTgiamTtx, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(gtriGiamTtx, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
@@ -278,6 +320,22 @@ public class JDialogCTHD extends javax.swing.JDialog {
                     .addComponent(sdtTxt))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(maKMtxt))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(tenKmTxt))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(HTgiamTtx))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(gtriGiamTtx))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(tienGiamTtx))
                 .addGap(18, 18, 18)
@@ -333,8 +391,10 @@ public class JDialogCTHD extends javax.swing.JDialog {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel HTgiamTtx;
     private javax.swing.JLabel HTthanhtoanTxt;
     private javax.swing.JLabel dchiTxt;
+    private javax.swing.JLabel gtriGiamTtx;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -343,7 +403,11 @@ public class JDialogCTHD extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -352,11 +416,13 @@ public class JDialogCTHD extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel maHDTxt;
+    private javax.swing.JLabel maKMtxt;
     private javax.swing.JLabel maNvTxt;
     private javax.swing.JLabel ngayTaoTxt;
     private javax.swing.JLabel ngayThanhToanTxt;
     private javax.swing.JLabel sdtTxt;
     private javax.swing.JLabel tenKhTxt;
+    private javax.swing.JLabel tenKmTxt;
     private javax.swing.JLabel tenNvTxt;
     private javax.swing.JLabel tienGiamTtx;
     private javax.swing.JLabel tienKhachTraTxt;

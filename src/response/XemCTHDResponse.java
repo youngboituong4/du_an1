@@ -12,21 +12,23 @@ import java.util.Date;
  */
 public class XemCTHDResponse {
 
-    private String maHD, maNV, tenNV, tenKH, diaChi, sdt;
+    private String maHD, maNV, tenNV, tenKH, diaChi, sdt, maKM, tenKM;
     private Date ngayTao, ngayThanhToan;
-    private Float tongTien, tienkhachCK, tienKhachTra, tienThua, tienGiam;
-    private int HTthanhtoan, trangThai;
+    private Float tongTien, tienkhachCK, tienKhachTra, tienThua, tienGiam, giaTriGiam;
+    private int HTthanhtoan, trangThai, loaiKM;
 
     public XemCTHDResponse() {
     }
 
-    public XemCTHDResponse(String maHD, String maNV, String tenNV, String tenKH, String diaChi, String sdt, Date ngayTao, Date ngayThanhToan, Float tongTien, Float tienkhachCK, Float tienKhachTra, Float tienThua, Float tienGiam, int HTthanhtoan, int trangThai) {
+    public XemCTHDResponse(String maHD, String maNV, String tenNV, String tenKH, String diaChi, String sdt, String maKM, String tenKM, Date ngayTao, Date ngayThanhToan, Float tongTien, Float tienkhachCK, Float tienKhachTra, Float tienThua, Float tienGiam, Float giaTriGiam, int HTthanhtoan, int trangThai, int loaiKM) {
         this.maHD = maHD;
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.tenKH = tenKH;
         this.diaChi = diaChi;
         this.sdt = sdt;
+        this.maKM = maKM;
+        this.tenKM = tenKM;
         this.ngayTao = ngayTao;
         this.ngayThanhToan = ngayThanhToan;
         this.tongTien = tongTien;
@@ -34,11 +36,11 @@ public class XemCTHDResponse {
         this.tienKhachTra = tienKhachTra;
         this.tienThua = tienThua;
         this.tienGiam = tienGiam;
+        this.giaTriGiam = giaTriGiam;
         this.HTthanhtoan = HTthanhtoan;
         this.trangThai = trangThai;
+        this.loaiKM = loaiKM;
     }
-
-    
 
     public String getMaHD() {
         return maHD;
@@ -47,9 +49,6 @@ public class XemCTHDResponse {
     public void setMaHD(String maHD) {
         this.maHD = maHD;
     }
-
-    
-    
 
     public String getMaNV() {
         return maNV;
@@ -89,6 +88,22 @@ public class XemCTHDResponse {
 
     public void setSdt(String sdt) {
         this.sdt = sdt;
+    }
+
+    public String getMaKM() {
+        return maKM;
+    }
+
+    public void setMaKM(String maKM) {
+        this.maKM = maKM;
+    }
+
+    public String getTenKM() {
+        return tenKM;
+    }
+
+    public void setTenKM(String tenKM) {
+        this.tenKM = tenKM;
     }
 
     public Date getNgayTao() {
@@ -147,6 +162,14 @@ public class XemCTHDResponse {
         this.tienGiam = tienGiam;
     }
 
+    public Float getGiaTriGiam() {
+        return giaTriGiam;
+    }
+
+    public void setGiaTriGiam(Float giaTriGiam) {
+        this.giaTriGiam = giaTriGiam;
+    }
+
     public int getHTthanhtoan() {
         return HTthanhtoan;
     }
@@ -161,6 +184,14 @@ public class XemCTHDResponse {
 
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public int getLoaiKM() {
+        return loaiKM;
+    }
+
+    public void setLoaiKM(int loaiKM) {
+        this.loaiKM = loaiKM;
     }
 
 }

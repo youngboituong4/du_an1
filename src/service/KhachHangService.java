@@ -28,7 +28,9 @@ public class KhachHangService {
 
     public ArrayList<KhachHang> getAll() {
         ArrayList<KhachHang> list = new ArrayList<>();
-        sql = "select * from KhachHang";
+        sql = """
+              SELECT * FROM KhachHang
+              """;
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -107,12 +109,10 @@ public class KhachHangService {
         ArrayList<KhachHang> list = new ArrayList<>();
         String sql = """
                      SELECT * FROM KhachHang 
-                     WHERE (MaKH LIKE ? OR TenKH LIKE ? OR
-                                          SDT LIKE ? or Email LIKE ? OR 
-                                          DiaChi LIKE ?) AND
-                     GioiTinh LIKE ? AND TrangThai LIKE ?
-                     ORDER BY MaKH
-                     OFFSET ? ROW FETCH NEXT 2 ROW ONLY
+                     WHERE (MaKH LIKE ? OR TenKH LIKE ? OR SDT LIKE ? or Email LIKE ? OR DiaChi LIKE ?) 
+                           AND GioiTinh LIKE ? AND TrangThai LIKE ?
+                     ORDER BY CAST(SUBSTRING(MaKH, 3, LEN(MaKH) - 2) AS INT) DESC
+                     OFFSET ? ROW FETCH NEXT 10 ROW ONLY
                      """;
         try {
             con = DBConnect.getConnection();
@@ -125,7 +125,7 @@ public class KhachHangService {
             ps.setObject(5, "%" + tim + "%");
             ps.setObject(6, "%" + gioiTinhString + "%");
             ps.setObject(7, "%" + trangTthai + "%");
-            ps.setObject(8, page * 2);
+            ps.setObject(8, page * 10); 
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -148,8 +148,6 @@ public class KhachHangService {
                                                                DiaChi LIKE ?) AND
                                           GioiTinh LIKE ? AND TrangThai LIKE ?
                      """;
-        // A B C D E F
-        // 0: A B
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -187,7 +185,6 @@ public class KhachHangService {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
 
-            // Đặt giá trị cho tham số MaKH
             ps.setString(1, maKH);
 
             rs = ps.executeQuery();

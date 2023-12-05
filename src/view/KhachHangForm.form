@@ -48,7 +48,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="650" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="695" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
@@ -337,9 +337,9 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="nuRB" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="maTxt" alignment="0" pref="264" max="32767" attributes="0"/>
-                              <Component id="tenTxt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tenTxt" alignment="0" pref="264" max="32767" attributes="0"/>
                               <Component id="sdtTxt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="maTxt" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="61" max="32767" attributes="0"/>
                       </Group>
@@ -348,12 +348,12 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="maTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="maTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="tenTxt" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -378,14 +378,6 @@
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="M&#xe3; kh&#xe1;ch h&#xe0;ng:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="maTxt">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Text Cursor"/>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
@@ -424,6 +416,11 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="sdtTxt">
                 </Component>
+                <Component class="javax.swing.JLabel" name="maTxt">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value=" "/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -450,11 +447,35 @@
                       <Component id="jTabbedPane1" pref="0" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                      <Component id="prevBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="currentPage" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel21" min="-2" pref="11" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pageLb" min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="nextBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane1" alignment="0" min="-2" pref="289" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jTabbedPane1" alignment="0" min="-2" pref="289" max="-2" attributes="0"/>
+                      <EmptySpace pref="45" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="prevBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nextBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="pageLb" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="currentPage" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -506,34 +527,18 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="timkiemTxt" min="-2" pref="390" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="search" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="jScrollPane2" alignment="0" min="-2" pref="617" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
-                                          <Component id="prevBtn" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                          <Component id="currentPage" min="-2" max="-2" attributes="0"/>
+                                          <Component id="timkiemTxt" min="-2" pref="390" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jLabel21" min="-2" pref="11" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="pageLb" min="-2" pref="22" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="nextBtn" min="-2" max="-2" attributes="0"/>
+                                          <Component id="search" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="jScrollPane2" min="-2" pref="663" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="83" max="32767" attributes="0"/>
+                                  <EmptySpace pref="31" max="32767" attributes="0"/>
                                   <Component id="jPanel22" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -546,7 +551,7 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jPanel22" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="3" attributes="0">
@@ -555,16 +560,8 @@
                                               <Component id="search" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane2" min="-2" pref="109" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane2" min="-2" pref="217" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="prevBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="nextBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="pageLb" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="currentPage" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -718,37 +715,6 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="prevBtn">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Prev"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="prevBtnActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="nextBtn">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Next"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nextBtnActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="pageLb">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value=" "/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel21">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="/"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="currentPage">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="jLabel22"/>
-                          </Properties>
-                        </Component>
                       </SubComponents>
                     </Container>
                   </SubComponents>
@@ -817,6 +783,37 @@
                 </Container>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="prevBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Prev"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="prevBtnActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="currentPage">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jLabel22"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel21">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="/"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="pageLb">
+              <Properties>
+                <Property name="text" type="java.lang.String" value=" "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="nextBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Next"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nextBtnActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
