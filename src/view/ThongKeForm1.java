@@ -5,6 +5,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
@@ -26,6 +27,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ThongKe;
+import model.ThongKe1;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -58,6 +60,7 @@ public class ThongKeForm1 extends javax.swing.JFrame {
     int tu = 0;
     int den = 0;
     String ngayy = null;
+    int sl = 0;
     /**
      * Creates new form ThongKeForm
      */
@@ -67,16 +70,24 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         BDThongKe();
         HienThi();
         ThongKe0();
-        for (id = 0; id <= service.DemSoSp(); id++) {
-            this.fillThongKe(service.getThongKe(id));
-        }
+        this.fillThongKe(service.getThongKe());
+
+        this.fillThongKe1(service.getT5ThongKe());
+
         jButton3.setEnabled(false);
         jButton3.setBackground(Color.LIGHT_GRAY);
         themNamCbo();
         themThangCbo();
 
     }
-
+    public void openFile(String file) {
+        try {
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
+    }
     public void themNamCbo() {
         jComboBox1.removeAllItems();
         LocalDate now = LocalDate.now();
@@ -153,6 +164,13 @@ public class ThongKeForm1 extends javax.swing.JFrame {
             model.addRow(thongKe1.toData());
         }
     }
+    private void fillThongKe1(List<ThongKe1> t5ThongKe) {
+        model = (DefaultTableModel) tblT5ThongKe.getModel();
+        for (ThongKe1 thongKe1 : t5ThongKe) {
+            model.addRow(thongKe1.toData());
+        }
+    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -186,6 +204,8 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         PanelChart = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblThongKe = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblT5ThongKe = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
@@ -401,6 +421,26 @@ public class ThongKeForm1 extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("  Sản Phẩm Đã Bán", jScrollPane1);
 
+        tblT5ThongKe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Thương hiệu", "Giá bán", "Số lượng"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblT5ThongKe);
+
+        jTabbedPane1.addTab("Top 5 best seller", jScrollPane2);
+
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -473,6 +513,9 @@ public class ThongKeForm1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jTabbedPane1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
@@ -484,14 +527,8 @@ public class ThongKeForm1 extends javax.swing.JFrame {
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3)
-                            .addComponent(jButton4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(804, 804, 804))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jTabbedPane1)))
+                            .addComponent(jButton4)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -776,7 +813,42 @@ public class ThongKeForm1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+try {
+            JFileChooser jFileChooser = new JFileChooser();
+            jFileChooser.showSaveDialog(this);
+            File saveFile = jFileChooser.getSelectedFile();
 
+            if (saveFile != null) {
+                saveFile = new File(saveFile.toString());
+                Workbook wb = new XSSFWorkbook();
+                Sheet sheet = wb.createSheet("customer");
+                Row rowCol = sheet.createRow(0);
+                for (int i = 0; i < tblThongKe.getColumnCount(); i++) {
+                    Cell cell = rowCol.createCell(i);
+                    cell.setCellValue(tblThongKe.getColumnName(i));
+                }
+                for (int j = 0; j < tblThongKe.getRowCount(); j++) {
+                    Row row = sheet.createRow(j + 1);
+                    for (int k = 0; k < tblThongKe.getColumnCount(); k++) {
+                        Cell cell = row.createCell(k);
+                        if (tblThongKe.getValueAt(j, k) != null) {
+                            cell.setCellValue(tblThongKe.getValueAt(j, k).toString());
+                        }
+                    }
+                }
+                FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
+                wb.write(out);
+                wb.close();
+                out.close();
+                openFile(saveFile.toString());
+            } else {
+                JOptionPane.showMessageDialog(null, "Đã hủy xuất file");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (IOException io) {
+            System.out.println(io);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -850,8 +922,15 @@ public class ThongKeForm1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tblT5ThongKe;
     private javax.swing.JTable tblThongKe;
     // End of variables declaration//GEN-END:variables
 
+
+
+   
+
+    
 }
