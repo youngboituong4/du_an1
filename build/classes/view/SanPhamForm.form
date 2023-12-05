@@ -145,7 +145,7 @@
                               <Component id="btnChiTietSP" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="210" max="32767" attributes="0"/>
+                      <EmptySpace pref="177" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -206,7 +206,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/img/new.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CHI TI&#x1ebe;T SP"/>
+                <Property name="text" type="java.lang.String" value="Chi ti&#x1ebf;t s&#x1ea3;n ph&#x1ea9;m"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnChiTietSPMouseClicked"/>
@@ -252,7 +252,7 @@
                               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                               <Component id="btnTim" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txtTim" pref="167" max="32767" attributes="0"/>
+                              <Component id="txtTim" pref="183" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -327,7 +327,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/img/new.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="M&#x1eda;I"/>
+                <Property name="text" type="java.lang.String" value="M&#x1edb;i"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
@@ -344,7 +344,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/img/timkiem.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="T&#xcc;M KI&#x1ebe;M"/>
+                <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimActionPerformed"/>
@@ -363,7 +363,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/img/load.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="LOAD TABLE"/>
+                <Property name="text" type="java.lang.String" value="Load Table"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClear1ActionPerformed"/>
@@ -411,9 +411,9 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/img/new.png"/>
+                  <Image iconType="3" name="/img/them.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="TH&#xca;M"/>
+                <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClear2ActionPerformed"/>
@@ -469,19 +469,9 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel27" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
-                                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
+                                                  <Component id="jLabel27" min="-2" pref="119" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="rdoConhang" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                          <Component id="rdoHethang" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="txtDonGia" linkSize="1" min="-2" pref="194" max="-2" attributes="0"/>
-                                                  </Group>
+                                                  <Component id="txtDonGia" linkSize="1" min="-2" pref="194" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="jLabel26" min="-2" pref="119" max="-2" attributes="0"/>
@@ -500,11 +490,14 @@
                                           <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="106" max="32767" attributes="0"/>
+                                  <EmptySpace pref="114" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="btnQuayVeSP" linkSize="3" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnThem" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnSua1" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="btnQuayVeSP" linkSize="3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnThem" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnSua1" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="btnThem1" linkSize="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                               </Group>
@@ -557,7 +550,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel21" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                       <Component id="txtSoLuong" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -588,19 +581,21 @@
                                       </Group>
                                       <Component id="jButton3" linkSize="6" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel29" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                      <Component id="cboThuongHieu" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnQuayVeSP" linkSize="4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnSua1" linkSize="4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnThem" linkSize="4" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnThem1" linkSize="4" min="-2" max="-2" attributes="0"/>
                               </Group>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel29" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="cboThuongHieu" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
@@ -610,13 +605,7 @@
                       <Component id="jLabel27" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="txtDonGia" linkSize="2" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rdoConhang" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rdoHethang" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="227" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -635,7 +624,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/sua.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="S&#x1eec;A"/>
+            <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSua1ActionPerformed"/>
@@ -652,7 +641,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imgmain/sanpham.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="S&#x1ea2;N PH&#x1ea8;M"/>
+            <Property name="text" type="java.lang.String" value="S&#x1ea3;n ph&#x1ea9;m"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuayVeSPActionPerformed"/>
@@ -807,7 +796,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/them.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="TH&#xca;M"/>
+            <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
@@ -838,21 +827,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng th&#xe1;i"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="rdoConhang">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="C&#xf2;n h&#xe0;ng"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="rdoHethang">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="H&#x1ebf;t h&#xe0;ng"/>
-          </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane3">
           <AuxValues>
@@ -929,6 +903,23 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnThem1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/img/new.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="L&#xe0;m m&#x1edb;i"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

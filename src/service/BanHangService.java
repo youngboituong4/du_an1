@@ -184,20 +184,18 @@ public class BanHangService {
         return null;
     }
 
-    public BanHangResponse showLocHoaDon(int trangThai, int id) {
-        BanHangResponse bh = null;
-        sql = "SELECT ID, MaHoaDon, NgayTao, MaNhanVien, A.TrangThai,  MaKhachHang, TenKH FROM HOADON A JOIN KhachHang B ON A.MaKhachHang = b.MaKH\n" +
-"WHERE A.TrangThai = ? AND ID = ?";
+    public BanHangResponse getHoaDonChuaTT(int id) {
+        BanHangResponse hd = null;
+        sql = "SELECT ID, MaKhachHang, MaNhanVien, MaHoaDon, NgayTao, NgayThanhToan, TienKhachTra, TienKhachChuyenKhoan, TienThua, TienGiamGia, ThanhTien,  A.TrangThai, TenKH FROM HoaDon A LEFT JOIN KhachHang B ON A.MaKhachHang = b.MaKH WHERE ID = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, trangThai);
-            ps.setObject(2, id);
+            ps.setObject(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                bh = new BanHangResponse(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7));
+                hd = new BanHangResponse(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9), rs.getDouble(10), rs.getDouble(11), rs.getInt(12), rs.getString(13));
             }
-            return bh;
+            return hd;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -278,14 +276,13 @@ public class BanHangService {
         }
     }
 
-    public int addHoaDon(HoaDon hd, int idKM) {
+    public int addHoaDon(HoaDon hd) {
         sql = "INSERT INTO HoaDon (MaKhachHang, MaNhanVien, IdKM, NgayTao, NgayThanhToan, TienKhachTra, TienKhachChuyenKhoan, TienThua, TienGiamGia, ThanhTien, HinhThucThanhToan, TrangThai) VALUES \n"
-                + "       ('', ?, ?, GETDATE(), '', 0, 0, 0, 0, 0, 0, 0)";
+                + "       ('', ?, '', GETDATE(), '', 0, 0, 0, 0, 0, 0, 0)";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, hd.getMaNhanVien());
-            ps.setObject(2, idKM);
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -418,8 +415,8 @@ public class BanHangService {
         }
     }
 
-    public int updateHoaDon(Double tienTra, Double tienCK, Double tienThua, Double thanhTien, int id, String makh, int httt, Double tienGG) {
-        sql = "UPDATE HOADON SET TrangThai = 1, TienKhachTra = ?, TienKhachChuyenKhoan = ?, TienThua = ?, NgayThanhToan = GETDATE(), ThanhTien = ?, MaKhachHang = ?, HinhThucThanhToan = ?, TienGiamGia = ? WHERE ID = ?";
+    public int updateHoaDon(Double tienTra, Double tienCK, Double tienThua, Double thanhTien, int id, String makh, int httt, Double tienGG, int idKM) {
+        sql = "UPDATE HOADON SET TrangThai = 1, TienKhachTra = ?, TienKhachChuyenKhoan = ?, TienThua = ?, NgayThanhToan = GETDATE(), ThanhTien = ?, MaKhachHang = ?, HinhThucThanhToan = ?, TienGiamGia = ?, IdKM = ? WHERE ID = ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -430,7 +427,8 @@ public class BanHangService {
             ps.setObject(5, makh);
             ps.setObject(6, httt);
             ps.setObject(7, tienGG);
-            ps.setObject(8, id);
+            ps.setObject(8, idKM);
+            ps.setObject(9, id);
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -579,14 +577,14 @@ public class BanHangService {
     }
 
     public LayRaKhuyenMai LayKM() {
-        sql = "select Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai WHERE NgayBatDau <= GETDATE() AND NgayKetThuc >= GETDATE() AND TrangThai = N'Áp Dụng';";
+        sql = "select ID, Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai WHERE NgayBatDau <= GETDATE() AND NgayKetThuc >= GETDATE() AND TrangThai = N'Áp Dụng';";
         LayRaKhuyenMai lrkm = null;
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                lrkm = new LayRaKhuyenMai(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getDate(5), rs.getDate(6), rs.getDouble(7), rs.getString(8));
+                lrkm = new LayRaKhuyenMai(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5), rs.getDate(6), rs.getDate(7), rs.getDouble(8), rs.getString(9));
             }
             return lrkm;
         } catch (Exception e) {

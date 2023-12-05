@@ -158,15 +158,18 @@ public class ThongKeService {
     }
     
     
-    public List<ThongKe> getThongKe(int sl){
+    public List<ThongKe> getThongKe(){
         List<ThongKe> list = new ArrayList<>();
-        sql = " select masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong)  from ChiTietSanPham\n" +
-"	   join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham \n" +
-"	   where chitietsanpham.id like ? group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia";
+        sql = """
+              select masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong) as tongsl from ChiTietSanPham
+              left join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham 
+              group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia
+              order by tongsl desc
+              """;
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, sl);
+           // ps.setObject(1, sl);
             rs = ps.executeQuery();
             while (rs.next()) {                
                 ThongKe tke = new ThongKe(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), rs.getInt(9));

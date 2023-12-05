@@ -34,6 +34,19 @@ public class ChiTietSanPham {
         this.trangThai = trangThai;
     }
     
+    public ChiTietSanPham(int ID, String maSP, String tenSP, String maLoai, String maKichThuoc, String maMauSac, String maChatLieu, String maThuongHieu, double gia, int soLuong) {
+        this.ID = ID;
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.maLoai = maLoai;
+        this.maKichThuoc = maKichThuoc;
+        this.maMauSac = maMauSac;
+        this.maChatLieu = maChatLieu;
+        this.maThuongHieu = maThuongHieu;
+        this.gia = gia;
+        this.soLuong = soLuong;
+    }
+    
     public ChiTietSanPham(int ID,String maSP, String tenSP, double gia, int soLuong) {
         this.ID = ID;
         this.maSP = maSP;

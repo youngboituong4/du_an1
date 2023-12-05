@@ -222,6 +222,9 @@ public class NhanVienForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -285,8 +288,10 @@ public class NhanVienForm extends javax.swing.JPanel {
 
         jLabel5.setText("Giới tính");
 
+        buttonGroup1.add(rdoNam);
         rdoNam.setText("Nam");
 
+        buttonGroup1.add(rdoNu);
         rdoNu.setText("Nữ");
 
         tblBang.setModel(new javax.swing.table.DefaultTableModel(
@@ -320,9 +325,11 @@ public class NhanVienForm extends javax.swing.JPanel {
 
         jLabel9.setText("Vai trò");
 
+        buttonGroup2.add(rdoNV);
         rdoNV.setSelected(true);
         rdoNV.setText("Nhân viên");
 
+        buttonGroup2.add(rdoQL);
         rdoQL.setText("Quản lý");
 
         jLabel10.setText("Địa chỉ");
@@ -343,9 +350,11 @@ public class NhanVienForm extends javax.swing.JPanel {
 
         jLabel11.setText("Trạng thái");
 
+        buttonGroup3.add(rdoDl);
         rdoDl.setSelected(true);
         rdoDl.setText("Đang làm");
 
+        buttonGroup3.add(rdoNl);
         rdoNl.setText("Nghỉ làm");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -829,6 +838,9 @@ public class NhanVienForm extends javax.swing.JPanel {
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTaiMau;
     private javax.swing.JButton btnTim;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JComboBox<String> cboVaiTro;
     private javax.swing.JLabel jLabel1;

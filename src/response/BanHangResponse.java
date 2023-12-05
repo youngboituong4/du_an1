@@ -38,7 +38,24 @@ public class BanHangResponse {
         this.hinhThucThanhToan = hinhThucThanhToan;
     }
 
-    public BanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai) {
+    public BanHangResponse(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai) {
+        this.ID = ID;
+        this.maHoaDon = maHoaDon;
+        this.ngayTao = ngayTao;
+        this.maNhanVien = maNhanVien;
+        this.trangThai = trangThai;
+    }
+
+    public BanHangResponse(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, String maKhachHang, String tenKH) {
+        this.ID = ID;
+        this.maHoaDon = maHoaDon;
+        this.ngayTao = ngayTao;
+        this.maNhanVien = maNhanVien;
+        this.maKhachHang = maKhachHang;       
+        this.tenKH = tenKH;
+    }
+
+    public BanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, String tenKH) {
         this.ID = ID;
         this.maKhachHang = maKhachHang;
         this.maNhanVien = maNhanVien;
@@ -51,26 +68,9 @@ public class BanHangResponse {
         this.tienGiamGia = tienGiamGia;
         this.thanhTien = thanhTien;
         this.trangThai = trangThai;
-    }
-
-    public BanHangResponse(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai) {
-        this.ID = ID;
-        this.maHoaDon = maHoaDon;
-        this.ngayTao = ngayTao;
-        this.maNhanVien = maNhanVien;
-        this.trangThai = trangThai;
-    }
-
-    public BanHangResponse(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai, String maKhachHang, String tenKH) {
-        this.ID = ID;
-        this.maHoaDon = maHoaDon;
-        this.maKhachHang = maKhachHang;
-        this.ngayTao = ngayTao;
-        this.maNhanVien = maNhanVien;
-        this.trangThai = trangThai;
         this.tenKH = tenKH;
     }
-
+    
     public BanHangResponse(String maNhanVien, Integer trangThai) {
         this.maNhanVien = maNhanVien;
         this.trangThai = trangThai;

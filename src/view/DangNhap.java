@@ -29,6 +29,7 @@ public class DangNhap extends javax.swing.JFrame {
 
     private Connection connection;
     BanHangService service = new BanHangService();
+
     /**
      * Creates new form NewJFrame
      */
@@ -143,8 +144,8 @@ public class DangNhap extends javax.swing.JFrame {
 
     private boolean sendPasswordResetEmail(String email, String newPassword) {
         // Cài đặt thông tin của tài khoản email gửi đi
-        final String senderEmail = "sugo2305@gmail.com";
-        final String senderPassword = "huy02mnsk"; // Điều này là mật khẩu ứng dụng nếu bạn sử dụng Gmail, không phải mật khẩu email
+        final String senderEmail = "hoang.duc.200fc@gmail.com";
+        final String senderPassword = "frytumibkpxvordb"; // Điều này là mật khẩu ứng dụng nếu bạn sử dụng Gmail, không phải mật khẩu email
 
         // Cài đặt thông tin máy chủ SMTP
         Properties properties = new Properties();
@@ -152,9 +153,19 @@ public class DangNhap extends javax.swing.JFrame {
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
+//        properties.setProperty("mail.smtp.ssl.trust", "smtp.gmail.com");
+//        properties.put("mail.smtp.starttls.required", "true");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        properties.put("mail.smtp.user", senderEmail);
+        properties.put("mail.smtp.password", senderPassword);
 
         // Tạo phiên gửi email
-        Session session = Session.getInstance(properties, new Authenticator() {
+//        Session session = Session.getInstance(properties, new Authenticator() {
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(senderEmail, senderPassword);
+//            }
+//        });
+        Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(senderEmail, senderPassword);
             }
@@ -162,9 +173,9 @@ public class DangNhap extends javax.swing.JFrame {
 
         try {
             // Tạo tin nhắn
-            Message message = new MimeMessage(session);
+            MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email, false));
             message.setSubject("Khôi phục mật khẩu");
 
             // Nội dung email với mật khẩu mới
@@ -209,7 +220,7 @@ public class DangNhap extends javax.swing.JFrame {
             return false;
         }
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -375,15 +386,12 @@ public class DangNhap extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
 
                         // Mở form QuanLySanPham
-
                         String email = txtTaiKhoan.getText();
                         LayRaNhanVien nv = service.layNhanVien(email);
-                        
-                        
-    
+
                         QuanLySanPham quanLySanPhamForm = new QuanLySanPham(nv);
                         quanLySanPhamForm.setVisible(true);
-                        
+
                         //BanHangForm banhangForm = new BanHangForm(nv);
                         // Đóng form đăng nhập (nếu bạn muốn)
                         dispose();
@@ -421,8 +429,8 @@ public class DangNhap extends javax.swing.JFrame {
     private void cboPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboPassMouseClicked
         // TODO add your handling code here:
         if (cboPass.isSelected()) {
-            txtMatKhau.setEchoChar((char)0);
-        }else {
+            txtMatKhau.setEchoChar((char) 0);
+        } else {
             txtMatKhau.setEchoChar('*');
         }
     }//GEN-LAST:event_cboPassMouseClicked

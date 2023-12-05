@@ -97,7 +97,7 @@ public class JDialogThuongHieu extends javax.swing.JDialog {
         tblThuocTinh = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Chất liệu");
+        setTitle("Thương hiệu");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

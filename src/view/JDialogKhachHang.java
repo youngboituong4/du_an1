@@ -134,7 +134,7 @@ public class JDialogKhachHang extends javax.swing.JDialog {
         String email = emailTxt1.getText();
         String dchi = diachiTP1.getText();
         String gt, tt;
-        if (ma.trim().isEmpty() || ten.trim().isEmpty() || sdt.trim().isEmpty() || email.trim().isEmpty() || dchi.trim().isEmpty()) {
+        if (ten.trim().isEmpty() || sdt.trim().isEmpty() || email.trim().isEmpty() || dchi.trim().isEmpty()) {
             dem++;
             JOptionPane.showMessageDialog(this, "Không được để trống thông tin");
         }
@@ -171,16 +171,23 @@ public class JDialogKhachHang extends javax.swing.JDialog {
 
     public String maKhachHang() {
         int row = khTable.getSelectedRow();
-        String ma = String.valueOf(khTable.getValueAt(row, 0));
-        
-        return ma;
+        String ma;
+        if(khTable.getSelectedRow() < 0){
+            return ma = "";
+        } else {
+        return ma = String.valueOf(khTable.getValueAt(row, 0));
+        }
     }
     
     public String tenKhachHang() {
         int row = khTable.getSelectedRow();
-        String ten = String.valueOf(khTable.getValueAt(row, 1));
+        String ten;
         
-        return ten;
+        if(khTable.getSelectedRow() < 0){
+            return ten = "...";
+        } else {
+        return ten  = String.valueOf(khTable.getValueAt(row, 1));
+        }
     }
     
     /**
@@ -451,7 +458,7 @@ public class JDialogKhachHang extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
