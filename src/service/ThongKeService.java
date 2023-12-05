@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.ThongKe;
+import model.ThongKe1;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 /**
@@ -160,6 +161,7 @@ public class ThongKeService {
     
     public List<ThongKe> getThongKe(){
         List<ThongKe> list = new ArrayList<>();
+<<<<<<< HEAD
         sql = """
               select masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong) as tongsl from ChiTietSanPham
               left join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham 
@@ -170,9 +172,37 @@ public class ThongKeService {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
            // ps.setObject(1, sl);
+=======
+        sql = " select masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong)  from ChiTietSanPham\n" +
+"	   left join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham \n" +
+"	    group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+>>>>>>> HungManh
             rs = ps.executeQuery();
             while (rs.next()) {                
                 ThongKe tke = new ThongKe(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), rs.getInt(9));
+                list.add(tke);
+                        
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<ThongKe1> getT5ThongKe(){
+        List<ThongKe1> list = new ArrayList<>();
+        sql = "select top 5 masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong) as tongsl  from ChiTietSanPham\n" +
+"		join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham\n" +
+"    group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia order by tongsl desc ";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {                
+                ThongKe1 tke = new ThongKe1(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), (int) rs.getDouble(9));
                 list.add(tke);
                         
             }
