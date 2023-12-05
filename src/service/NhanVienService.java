@@ -259,7 +259,6 @@ public class NhanVienService {
             return null;
         }
     }
-<<<<<<< HEAD
     
     public void update1(NhanVien model) {
     String sql = "Update NhanVien set MatKhau = ? Where MaNV = ?";
@@ -288,41 +287,5 @@ public class NhanVienService {
             }
         }
     }
-<<<<<<< HEAD
-}
-=======
-
->>>>>>> HuyHoang
-=======
-    public void update1(NhanVien model) {
-    String sql = "Update NhanVien set MatKhau = ? Where MaNV = ?";
-    try {
-        con = DBConnect.getConnection();
-        ps = con.prepareStatement(sql);
-        ps.setObject(1, model.getMatKhau()); // Thiết lập mật khẩu mới
-        ps.setObject(2, model.getMaNV()); // Thiết lập mã nhân viên
-        ps.executeUpdate();
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        // Đóng các tài nguyên để tránh rò rỉ bộ nhớ
-        if (ps != null) {
-            try {
-                ps.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
     }
-}
-
-     
->>>>>>> PhanVu
 }

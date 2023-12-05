@@ -70,8 +70,8 @@ public class NhanVienForm extends javax.swing.JPanel {
         group.add(rdoNu);
         group.clearSelection();
         ButtonGroup groupNVQL = new ButtonGroup();
-        groupNVQL.add(rdoQL);
         groupNVQL.add(rdoNV);
+        groupNVQL.add(rdoQL);
         groupNVQL.clearSelection();
         ButtonGroup groupDlNl = new ButtonGroup();
         groupDlNl.add(rdoDl);
@@ -177,7 +177,7 @@ public class NhanVienForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn giới tính");
             return false;
         }
-        if (!rdoQL.isSelected() && !rdoNV.isSelected()) {
+        if (!rdoNV.isSelected() && !rdoQL.isSelected()) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn vai trò");
             return false;
         }
@@ -271,8 +271,8 @@ public class NhanVienForm extends javax.swing.JPanel {
         txtSDT = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        rdoNV = new javax.swing.JRadioButton();
         rdoQL = new javax.swing.JRadioButton();
+        rdoNV = new javax.swing.JRadioButton();
         txtDiaChi = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
@@ -351,12 +351,12 @@ public class NhanVienForm extends javax.swing.JPanel {
 
         jLabel9.setText("Vai trò");
 
-        buttonGroup2.add(rdoNV);
-        rdoNV.setSelected(true);
-        rdoNV.setText("Nhân viên");
-
         buttonGroup2.add(rdoQL);
+        rdoQL.setSelected(true);
         rdoQL.setText("Quản lý");
+
+        buttonGroup2.add(rdoNV);
+        rdoNV.setText("Nhân viên");
 
         jLabel10.setText("Địa chỉ");
 
@@ -535,12 +535,12 @@ public class NhanVienForm extends javax.swing.JPanel {
                                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                .addComponent(rdoNV)
+                                                                .addComponent(rdoQL)
                                                                 .addComponent(rdoNam, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                             .addGap(18, 18, 18)
                                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                 .addComponent(rdoNu)
-                                                                .addComponent(rdoQL, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                .addComponent(rdoNV, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                             .addComponent(rdoDl)
                                                             .addGap(18, 18, 18)
@@ -596,8 +596,8 @@ public class NhanVienForm extends javax.swing.JPanel {
                                             .addComponent(rdoNu))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(rdoNV)
-                                            .addComponent(rdoQL))))))
+                                            .addComponent(rdoQL)
+                                            .addComponent(rdoNV))))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -36,7 +36,7 @@ public class DangNhap extends javax.swing.JFrame {
     public DangNhap() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("ĐĂNG NHẬP HỆT THỐNG");
+        setTitle("ĐĂNG NHẬP HỆ THỐNG");
         connection = DBConnect.getConnection();
         lblQuenMK.addMouseListener(new MouseAdapter() {
             @Override

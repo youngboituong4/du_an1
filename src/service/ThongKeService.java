@@ -160,26 +160,14 @@ public class ThongKeService {
     
     
     public List<ThongKe> getThongKe(){
-        List<ThongKe> list = new ArrayList<>();
-<<<<<<< HEAD
-        sql = """
-              select masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong) as tongsl from ChiTietSanPham
-              left join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham 
-              group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia
-              order by tongsl desc
-              """;
-        try {
-            con = DBConnect.getConnection();
-            ps = con.prepareStatement(sql);
+        List<ThongKe> list = new ArrayList<>();       
            // ps.setObject(1, sl);
-=======
         sql = " select masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong)  from ChiTietSanPham\n" +
-"	   left join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham \n" +
+"	    join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham \n" +
 "	    group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
->>>>>>> HungManh
             rs = ps.executeQuery();
             while (rs.next()) {                
                 ThongKe tke = new ThongKe(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), rs.getInt(9));
@@ -192,6 +180,8 @@ public class ThongKeService {
             return null;
         }
     }
+    
+    
     public List<ThongKe1> getT5ThongKe(){
         List<ThongKe1> list = new ArrayList<>();
         sql = "select top 5 masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong) as tongsl  from ChiTietSanPham\n" +

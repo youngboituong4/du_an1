@@ -131,13 +131,13 @@
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Group type="102" alignment="0" attributes="0">
                                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                  <Component id="rdoNV" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="rdoQL" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                   <Component id="rdoNam" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                                                               </Group>
                                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                                               <Group type="103" groupAlignment="0" attributes="0">
                                                                   <Component id="rdoNu" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="rdoQL" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                                                                  <Component id="rdoNV" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
                                                               </Group>
                                                           </Group>
                                                           <Group type="102" alignment="0" attributes="0">
@@ -217,8 +217,8 @@
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="rdoNV" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="rdoQL" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="rdoNV" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -371,21 +371,21 @@
             <Property name="text" type="java.lang.String" value="Vai tr&#xf2;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="rdoNV">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonGroup2"/>
-            </Property>
-            <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JRadioButton" name="rdoQL">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup2"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="rdoNV">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup2"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDiaChi">
