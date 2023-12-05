@@ -1,6 +1,4 @@
-
 package model;
-
 
 import java.util.Date;
 
@@ -67,7 +65,6 @@ public class KhuyenMai {
         this.tenKhuyenMai = tenKhuyenMai;
     }
 
-
     public String getTrangThai() {
         return trangThai;
     }
@@ -115,22 +112,35 @@ public class KhuyenMai {
     public void setGiaTri(Double giaTri) {
         this.giaTri = giaTri;
     }
-    
 
-    String getKhuyenMai(Integer loaiKhuyenMai){
+    String getKhuyenMai(Integer loaiKhuyenMai) {
         if (loaiKhuyenMai == 0) {
             return "Giảm Bằng %";
-        }else {
+        } else {
             return "Giảm Bằng Tiền";
         }
     }
-    
 
-    public Object[] toDataRow() {  
-        return new Object[]{this.ma, this.tenKhuyenMai, this.getKhuyenMai(loaiKhuyenMai), this.DonGiamToiThieu, this.ngayBatDau, this.ngayKetThuc, this.giaTri, this.trangThai};
+    public KhuyenMai(Date ngayBatDau, Date ngayKetThuc) {
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
     }
 
-    
+    public String kiemTraTrangThai(Date ngayBatDau, Date ngayKetThuc) {
+        Date hienTai = new Date();
 
-    
+        if (hienTai.before(ngayBatDau)) {
+            return "Sắp Diễn Ra";
+        } else if (hienTai.after(ngayKetThuc)) {
+           return "Đã Kết Thúc";
+        } else {
+            return "Đang Diễn Ra";
+        }
+       
+    }
+
+      public Object[] toObjectArray() {
+        return new Object[]{this.ma, this.tenKhuyenMai, this.getKhuyenMai(this.loaiKhuyenMai), this.DonGiamToiThieu, this.ngayBatDau, this.ngayKetThuc, this.giaTri, this.trangThai,this.kiemTraTrangThai(ngayBatDau, ngayKetThuc)};
+    }
+
 }
