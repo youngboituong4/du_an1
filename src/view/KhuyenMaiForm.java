@@ -63,7 +63,7 @@ public class KhuyenMaiForm extends javax.swing.JPanel {
         model = (DefaultTableModel) tbKM.getModel();
         model.setRowCount(0);
         for (KhuyenMai km : lst) {
-            model.addRow(km.toDataRow());
+            model.addRow(km.toObjectArray());
         }
     }
 
