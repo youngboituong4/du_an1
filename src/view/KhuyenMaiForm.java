@@ -201,11 +201,11 @@ public class KhuyenMaiForm extends javax.swing.JPanel {
         cbFindTT = new javax.swing.JComboBox<>();
         jLabel34 = new javax.swing.JLabel();
         txtFind2 = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tbKM = new javax.swing.JTable();
         btnPRE = new javax.swing.JButton();
         JBtext = new javax.swing.JLabel();
         btnNEXT = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbKM = new javax.swing.JTable();
         btnNew = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -404,29 +404,6 @@ public class KhuyenMaiForm extends javax.swing.JPanel {
             }
         });
 
-        tbKM.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Mã Khuyễn Mãi", "Tên KM", "HT Giảm", "Điều Kiện Giảm", "Ngày Bắt Đầu ", "Ngày Kết Thúc ", "Giá Trị", "Trạng Thái"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbKM.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbKMMouseClicked(evt);
-            }
-        });
-        jScrollPane4.setViewportView(tbKM);
-
         btnPRE.setBackground(new java.awt.Color(0, 102, 255));
         btnPRE.setForeground(new java.awt.Color(255, 255, 255));
         btnPRE.setText("PRE");
@@ -447,6 +424,29 @@ public class KhuyenMaiForm extends javax.swing.JPanel {
                 btnNEXTActionPerformed(evt);
             }
         });
+
+        tbKM.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã Khuyễn Mãi", "Tên KM", "HT Giảm", "Điều Kiện Giảm", "Ngày Bắt Đầu ", "Ngày Kết Thúc ", "Giá Trị", "Trạng Thái Sử Dụng", "Trạng Thái "
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbKM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbKMMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tbKM);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -469,7 +469,7 @@ public class KhuyenMaiForm extends javax.swing.JPanel {
                         .addComponent(btnNEXT)
                         .addGap(45, 45, 45)
                         .addComponent(cbFindTT, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -487,9 +487,9 @@ public class KhuyenMaiForm extends javax.swing.JPanel {
                         .addComponent(btnPRE)
                         .addComponent(JBtext)
                         .addComponent(btnNEXT)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         btnNew.setBackground(new java.awt.Color(0, 102, 255));
@@ -651,28 +651,6 @@ public class KhuyenMaiForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFind2ActionPerformed
 
-    private void tbKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKMMouseClicked
-        // TODO add your handling code here:
-        index = tbKM.getSelectedRow();
-        ShowData(index);
-        Object selectedData = tbKM.getValueAt(index, 0); // Thay đổi 0 thành chỉ số cột tương ứng
-        Object selectedData1 = tbKM.getValueAt(index, 1);
-        Object selectedData2 = tbKM.getValueAt(index, 2);
-        Object selectedData3 = tbKM.getValueAt(index, 3);
-        Object selectedData4 = tbKM.getValueAt(index, 4);
-        Object selectedData5 = tbKM.getValueAt(index, 5);
-        Object selectedData6 = tbKM.getValueAt(index, 6);
-        Object selectedData7 = tbKM.getValueAt(index, 7);
-        txtMa.setText(selectedData.toString());
-        txtTen.setText(selectedData1.toString());
-        cbHT.setSelectedItem(selectedData2.toString());
-        txtDK.setText(String.valueOf(selectedData3.toString()));
-        txtGia.setText(String.valueOf(selectedData6));
-        Date.setDate((Date) selectedData4);
-        Date2.setDate((Date) selectedData5);
-        cbTT.setSelectedItem(String.valueOf(selectedData7));
-    }//GEN-LAST:event_tbKMMouseClicked
-
     private void btnPREActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPREActionPerformed
         // TODO add your handling code here:
         if (demsotrang > 1) {
@@ -801,6 +779,28 @@ public class KhuyenMaiForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Kích Hoạt Thất Bại");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tbKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKMMouseClicked
+        // TODO add your handling code here:
+        index = tbKM.getSelectedRow();
+        ShowData(index);
+        Object selectedData = tbKM.getValueAt(index, 0); // Thay đổi 0 thành chỉ số cột tương ứng
+        Object selectedData1 = tbKM.getValueAt(index, 1);
+        Object selectedData2 = tbKM.getValueAt(index, 2);
+        Object selectedData3 = tbKM.getValueAt(index, 3);
+        Object selectedData4 = tbKM.getValueAt(index, 4);
+        Object selectedData5 = tbKM.getValueAt(index, 5);
+        Object selectedData6 = tbKM.getValueAt(index, 6);
+        Object selectedData7 = tbKM.getValueAt(index, 7);
+        txtMa.setText(selectedData.toString());
+        txtTen.setText(selectedData1.toString());
+        cbHT.setSelectedItem(selectedData2.toString());
+        txtDK.setText(String.valueOf(selectedData3.toString()));
+        txtGia.setText(String.valueOf(selectedData6));
+        Date.setDate((Date) selectedData4);
+        Date2.setDate((Date) selectedData5);
+        cbTT.setSelectedItem(String.valueOf(selectedData7));
+    }//GEN-LAST:event_tbKMMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
