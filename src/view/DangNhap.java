@@ -374,7 +374,7 @@ public class DangNhap extends javax.swing.JFrame {
             }
 
             // Thực hiện truy vấn SQL
-            String sql = "SELECT * FROM NhanVien WHERE Email = ? AND MatKhau = ?";
+            String sql = "SELECT * FROM NhanVien WHERE Email = ? AND MatKhau = ? AND TrangThai = 0";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, username);
                 statement.setString(2, password);
@@ -396,7 +396,7 @@ public class DangNhap extends javax.swing.JFrame {
                         dispose();
                     } else {
                         // Sai tên đăng nhập hoặc mật khẩu
-                        JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!");
+                        JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu hoặc đã nghỉ làm !");
                     }
                 }
             }

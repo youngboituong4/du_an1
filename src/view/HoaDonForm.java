@@ -649,6 +649,10 @@ public class HoaDonForm extends javax.swing.JPanel {
         }
         HoaDonResponse hd = list.get(row);
         maHoaDonSelected = hd.getMaHD();
+        if(hd.getTrangThai() == 0){
+            JOptionPane.showMessageDialog(this, "Hóa đơn này chưa thanh toán !");
+            return;
+        }
         XemCTHDResponse xemCT = service.xemchitiet(maHoaDonSelected);
         listCT = service.getAllHDCT(hd.getMaHD());
         maHoaDonSelected = hd.getMaHD();

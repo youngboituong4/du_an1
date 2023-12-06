@@ -1062,6 +1062,14 @@ public class SanPhamForm extends javax.swing.JPanel {
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
         if (checkTrongCTSP()) {
             ChiTietSanPham ctsp = readFormCTSP();
+            if(ctsp.getSoLuong() < 0){
+                JOptionPane.showMessageDialog(this, "Số lượng phải lớn hợn hoặc bằng 0 !");
+                return;
+            }
+            if(ctsp.getGia() < 0){
+                JOptionPane.showMessageDialog(this, "Giá phải lớn hợn hoặc bằng 0 !");
+                return;
+            }
             int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn sửa sản phẩm này ?");
             if (chon == JOptionPane.YES_OPTION) {
                 if (checkTrungCTSanPham()) {
@@ -1124,6 +1132,14 @@ public class SanPhamForm extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         if (checkTrongCTSP()) {
             ChiTietSanPham ctsp = readFormAddCTSP();
+            if(ctsp.getSoLuong() < 0){
+                JOptionPane.showMessageDialog(this, "Số lượng phải lớn hợn hoặc bằng 0 !");
+                return;
+            }
+            if(ctsp.getGia() < 0){
+                JOptionPane.showMessageDialog(this, "Giá phải lớn hợn hoặc bằng 0 !");
+                return;
+            }
             if (checkTrungCTSanPham()) {
                 if (service.addCTSP(ctsp) > 0) {
                     JOptionPane.showMessageDialog(this, "Thêm thành công !");

@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/response/LayRaNhanVien.java</file>
             <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/view/DangNhap.java</file>
-            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/view/KhachHangForm.java</file>
-            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/service/NhanVienService.java</file>
+            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/view/HoaDonForm.java</file>
+            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/service/HoaDonService.java</file>
+            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/service/BanHangService.java</file>
             <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/view/BanHangForm.java</file>
-            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/view/NhanVienForm.java</file>
-            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/view/DoiMatKhauForm.java</file>
+            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/view/SanPhamForm.java</file>
+            <file>file:/C:/Users/thinh/Downloads/MOI/du_an1/src/view/JDialogCTHD.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1173,7 +1173,7 @@ public class BanHangForm extends javax.swing.JPanel {
             if(lrkm != null){
                 idKM = lrkm.getID();
             } else {
-                idKM = 0;
+                idKM = null;
             }
             int id = Integer.valueOf(txtIdHoaDon.getText());
             String makh = txtMaKhachHang.getText();

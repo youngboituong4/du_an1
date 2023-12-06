@@ -415,7 +415,7 @@ public class BanHangService {
         }
     }
 
-    public int updateHoaDon(Double tienTra, Double tienCK, Double tienThua, Double thanhTien, int id, String makh, int httt, Double tienGG, int idKM) {
+    public int updateHoaDon(Double tienTra, Double tienCK, Double tienThua, Double thanhTien, int id, String makh, int httt, Double tienGG, Integer idKM) {
         sql = "UPDATE HOADON SET TrangThai = 1, TienKhachTra = ?, TienKhachChuyenKhoan = ?, TienThua = ?, NgayThanhToan = GETDATE(), ThanhTien = ?, MaKhachHang = ?, HinhThucThanhToan = ?, TienGiamGia = ?, IdKM = ? WHERE ID = ?";
         try {
             con = DBConnect.getConnection();
