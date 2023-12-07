@@ -425,6 +425,12 @@ public class QuanLySanPham extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDoiMatKhauMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDoiMatKhauMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDoiMatKhauMouseExited(evt);
+            }
         });
 
         lblDoiMatKhau.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -451,6 +457,17 @@ public class QuanLySanPham extends javax.swing.JFrame {
         );
 
         btnDangXuat.setBackground(new java.awt.Color(0, 102, 255));
+        btnDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDangXuatMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDangXuatMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDangXuatMouseExited(evt);
+            }
+        });
 
         lblDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDangXuat.setForeground(new java.awt.Color(255, 255, 255));
@@ -465,13 +482,14 @@ public class QuanLySanPham extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDangXuatLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(32, 32, 32))
         );
         btnDangXuatLayout.setVerticalGroup(
             btnDangXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnDangXuatLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addComponent(lblDangXuat)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -536,7 +554,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
                         .addComponent(btnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDoiMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGap(18, 18, 18)
                         .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(249, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
@@ -578,13 +596,21 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThongKeMouseClicked
 
     private void btnSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanPhamMouseClicked
-        tenMenu = "SanPham";
-        this.setMenu();
+        if (nhanVien.isVaiTro()) {
+            tenMenu = "SanPham";
+            this.setMenu();
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn là nhân viên, không thể vào màn này !");
+        }
     }//GEN-LAST:event_btnSanPhamMouseClicked
 
     private void btnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseClicked
-        tenMenu = "NhanVien";
-        this.setMenu();
+        if (nhanVien.isVaiTro()) {
+            tenMenu = "NhanVien";
+            this.setMenu();
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn là nhân viên, không thể vào màn này !");
+        }
     }//GEN-LAST:event_btnNhanVienMouseClicked
 
     private void btnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseClicked
@@ -598,8 +624,12 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBanHangMouseClicked
 
     private void btnKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhuyenMaiMouseClicked
-        tenMenu = "KhuyenMai";
-        this.setMenu();
+        if (nhanVien.isVaiTro()) {
+            tenMenu = "KhuyenMai";
+            this.setMenu();
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn là nhân viên, không thể vào màn này !");
+        }
     }//GEN-LAST:event_btnKhuyenMaiMouseClicked
 
     private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
@@ -700,6 +730,37 @@ public class QuanLySanPham extends javax.swing.JFrame {
         btnThongKe.setBackground(new java.awt.Color(0, 102, 255));
         lblThongKe.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnThongKeMouseExited
+
+    private void btnDoiMatKhauMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseEntered
+        btnDoiMatKhau.setBackground(Color.WHITE);
+        lblDoiMatKhau.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnDoiMatKhauMouseEntered
+
+    private void btnDoiMatKhauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseExited
+        btnDoiMatKhau.setBackground(new java.awt.Color(0, 102, 255));
+        lblDoiMatKhau.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnDoiMatKhauMouseExited
+
+    private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn đăng xuất ?");
+        if (chon == JOptionPane.YES_OPTION) {
+            QuanLySanPham.this.dispose();
+
+            new DangNhap().setVisible(true);
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_btnDangXuatMouseClicked
+
+    private void btnDangXuatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseEntered
+        btnDangXuat.setBackground(Color.WHITE);
+        lblDangXuat.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnDangXuatMouseEntered
+
+    private void btnDangXuatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseExited
+        btnDangXuat.setBackground(new java.awt.Color(0, 102, 255));
+        lblDangXuat.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnDangXuatMouseExited
 
     /**
      * @param args the command line arguments

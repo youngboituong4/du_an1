@@ -344,10 +344,12 @@ public class DangNhap extends javax.swing.JFrame {
                             .addComponent(btnOut))
                         .addGap(18, 18, 18)
                         .addComponent(lblQuenMK)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnLogin, btnOut});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtMatKhau, txtTaiKhoan});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -374,7 +376,7 @@ public class DangNhap extends javax.swing.JFrame {
             }
 
             // Thực hiện truy vấn SQL
-            String sql = "SELECT * FROM NhanVien WHERE Email = ? AND MatKhau = ? AND TrangThai = 0";
+            String sql = "SELECT * FROM NhanVien WHERE Email = ? AND MatKhau = ? AND TrangThai = 1";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, username);
                 statement.setString(2, password);
