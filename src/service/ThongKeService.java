@@ -318,7 +318,9 @@ public class ThongKeService {
     }
     public int SoKhachHangHomNay(LocalDate ngay){
         int count = 0;
-        sql = "select count(*) as count from khachhang where NgayThanhToan like ?";
+        sql = "select count(DISTINCT hoadon.MaKhachHang) as count \n" +
+"	from hoadon\n" +
+"	join khachhang on hoadon.MaKhachHang = khachhang.MAKH where hoadon.Ngaythanhtoan like ?";
         
         try {
             con = DBConnect.getConnection();
