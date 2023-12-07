@@ -47,6 +47,8 @@ public class NhanVienForm extends javax.swing.JPanel {
     public NhanVienForm() {
         initComponents();
         this.findTable(service.getAll());
+        
+        txtMaNV.disable();
     }
 
     void findTable(List<NhanVien> list) {
@@ -239,6 +241,20 @@ public class NhanVienForm extends javax.swing.JPanel {
         return true; // Dữ liệu hợp lệ, không có giá trị null hoặc trống
     }
 
+    private boolean testDataAdd() {
+        NhanVien nv = readForm();
+        NhanVien existingMaNV = service.getNV(nv.getMaNV());
+        NhanVien existingEmail = service.getEmail(nv.getEmail());
+
+        if (existingMaNV != null || existingEmail != null) {
+            JOptionPane.showMessageDialog(this, "Mã bị trùng hoặc Email đã được đăng ký");
+            return false;
+        }
+
+        // Rest of your validation logic goes here
+        return true;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -626,16 +642,17 @@ public class NhanVienForm extends javax.swing.JPanel {
                                 .addComponent(rdoDl)
                                 .addComponent(rdoNl)))))
                 .addGap(77, 77, 77)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSua)
-                    .addComponent(btnAdd)
-                    .addComponent(btnClear)
-                    .addComponent(btnExport)
-                    .addComponent(btnImport)
-                    .addComponent(btnTaiMau)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnTim)))
+                        .addComponent(btnTim))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSua)
+                        .addComponent(btnAdd)
+                        .addComponent(btnClear)
+                        .addComponent(btnExport)
+                        .addComponent(btnImport)
+                        .addComponent(btnTaiMau)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -664,17 +681,12 @@ public class NhanVienForm extends javax.swing.JPanel {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         NhanVien nv = readForm();
-        if (testData()) {
-
-            if (service.getNV(nv.getMaNV()) != null) {
-                JOptionPane.showMessageDialog(this, "Mã bị trùng");
+        if (testDataAdd()) {
+            if (service.AddNV(nv) > 0) {
+                JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công");
+                this.findTable(service.getAll());
             } else {
-                if (service.AddNV(nv) > 0) {
-                    JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công");
-                    this.findTable(service.getAll());
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thêm nhân viên thất bại");
-                }
+                JOptionPane.showMessageDialog(this, "Thêm nhân viên thất bại");
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed

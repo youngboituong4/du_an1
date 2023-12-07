@@ -877,7 +877,7 @@ public class ThongKeForm extends javax.swing.JPanel {
         final String senderEmail = "hoang.duc.200fc@gmail.com";
         final String senderPassword = "frytumibkpxvordb";
         // Receiver's email address
-        String receiverEmail = "hung06278@gmail.com";
+        String receiverEmail = "thinhbem113@gmail.com";
 
         // Create properties for the SMTP session
         Properties properties = new Properties();
@@ -906,7 +906,7 @@ public class ThongKeForm extends javax.swing.JPanel {
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverEmail));
             message.setSubject("BÁO CÁO DOANH THU HÔM NAY");
-            message.setText("Doanh thu hôm nay ngày " + ngay + ": " + formattedAmount + "" + ",000 " + "VNĐ"
+            message.setText("Doanh thu hôm nay ngày " + ngay + ": " + formattedAmount + "" + " VNĐ"
                     + "\nHóa đơn đã thanh toán: " + service.HoaDonDaThanhToanHomNay(ngay) + ""
                     + "\nLượng khách hàng hôm nay: " + service.SoKhachHangHomNay(ngay) + ""
             );

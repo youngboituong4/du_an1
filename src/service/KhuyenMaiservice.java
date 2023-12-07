@@ -21,7 +21,9 @@ public class KhuyenMaiservice {
     String sql = null;
 
     public List<KhuyenMai> getAllKM() {
-        sql = "select Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai from KhuyenMai";
+        sql = "SELECT Ma, TenKhuyenMai, LoaiKhuyenMai, DonGiaToiThieu, NgayBatDau, NgayKetThuc, GiaTri, TrangThai " +
+"FROM KhuyenMai " +
+"ORDER BY CAST(SUBSTRING(Ma, 3, LEN(Ma) - 2) AS INT) DESC";
         List<KhuyenMai> lst = new ArrayList<>();
         try {
             con = DBConnect.getConnection();

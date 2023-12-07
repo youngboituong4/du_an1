@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import jdk.jfr.Timestamp;
 import model.ChatLieu;
 import model.ChiTietSanPham;
 import model.HoaDon;
@@ -129,15 +131,19 @@ public class BanHangService {
         }
     }
 
-    public List<HoaDon> getAllHoaDon() {
-        List<HoaDon> list = new ArrayList<>();
+    public List<HoaDonBanHangResponse> getAllHoaDon() {
+        List<HoaDonBanHangResponse> list = new ArrayList<>();
         sql = "SELECT ID, MaHoaDon, NgayTao, MaNhanVien, TrangThai FROM HOADON";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                HoaDon hd = new HoaDon(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5));
+                Date ngayTaoDate = rs.getTimestamp("NgayTao");
+
+        // Chuyển đổi thành kiểu Long
+        Long ngayTaoLong = ngayTaoDate.getTime();
+                HoaDonBanHangResponse hd = new HoaDonBanHangResponse(rs.getInt(1), rs.getString(2), ngayTaoLong, rs.getString(4), rs.getInt(5));
                 list.add(hd);
             }
             return list;
@@ -165,16 +171,21 @@ public class BanHangService {
         return null;
     }
 
-    public List<HoaDon> LocHoaDon(int trangThai) {
-        List<HoaDon> list = new ArrayList<>();
-        sql = "SELECT ID, MaHoaDon, NgayTao, MaNhanVien, TrangThai FROM HOADON WHERE TrangThai = ?";
+    public List<HoaDonBanHangResponse> LocHoaDon(int trangThai) {
+        List<HoaDonBanHangResponse> list = new ArrayList<>();
+        sql = "SELECT ID, MaHoaDon, NgayTao, MaNhanVien, TrangThai FROM HOADON WHERE TrangThai = ? ORDER BY CAST(SUBSTRING(MaHoaDon, 3, LEN(MaHoaDon) - 2) AS INT) DESC";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, trangThai);
             rs = ps.executeQuery();
+            
             while (rs.next()) {
-                HoaDon hd = new HoaDon(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5));
+                Date ngayTaoDate = rs.getTimestamp("NgayTao");
+
+        // Chuyển đổi thành kiểu Long
+        Long ngayTaoLong = ngayTaoDate.getTime();
+                HoaDonBanHangResponse hd = new HoaDonBanHangResponse(rs.getInt(1), rs.getString(2), ngayTaoLong, rs.getString(4), rs.getInt(5));
                 list.add(hd);
             }
             return list;
@@ -193,7 +204,20 @@ public class BanHangService {
             ps.setObject(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                hd = new BanHangResponse(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getDouble(7), rs.getDouble(8), rs.getDouble(9), rs.getDouble(10), rs.getDouble(11), rs.getInt(12), rs.getString(13));
+                Date ngayTaoDate = rs.getTimestamp("NgayTao");
+
+        // Chuyển đổi thành kiểu Long
+        Long ngayTaoLong = ngayTaoDate.getTime();
+        
+        Date ngayThanhToanDate = rs.getTimestamp("NgayThanhToan");
+
+        // Chuyển đổi thành kiểu Long
+        Long ngayThanhToanLong = null;
+        if(ngayThanhToanDate != null){
+            ngayThanhToanLong = ngayThanhToanDate.getTime();
+        }
+        
+                hd = new BanHangResponse(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), ngayTaoLong, ngayThanhToanLong, rs.getDouble(7), rs.getDouble(8), rs.getDouble(9), rs.getDouble(10), rs.getDouble(11), rs.getInt(12), rs.getString(13));
             }
             return hd;
         } catch (Exception e) {
@@ -278,12 +302,15 @@ public class BanHangService {
 
     public int addHoaDon(HoaDon hd) {
         sql = "INSERT INTO HoaDon (MaKhachHang, MaNhanVien, IdKM, NgayTao, NgayThanhToan, TienKhachTra, TienKhachChuyenKhoan, TienThua, TienGiamGia, ThanhTien, HinhThucThanhToan, TrangThai) VALUES \n"
-                + "       ('', ?, '', GETDATE(), '', 0, 0, 0, 0, 0, 0, 0)";
+                + "       (null, ?, null, ?, null, 0, 0, 0, 0, 0, 0, 0)";
         try {
+            Date currentDate = new Date(System.currentTimeMillis());
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, hd.getMaNhanVien());
-
+            ps.setObject(2, currentDate);
+            
+            
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

@@ -288,4 +288,22 @@ public class NhanVienService {
         }
     }
     }
+    
+    public NhanVien getEmail(String Email) {
+        sql = "SELECT MaNV,HoVaTen,MatKhau,DiaChi,Email,SDT,GioiTinh,VaiTro,TrangThai from NhanVien where Email = ?";
+        NhanVien nv = null;
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, Email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9));
+            }
+            return nv;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

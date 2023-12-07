@@ -403,7 +403,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="txtFind2" min="-2" pref="148" max="-2" attributes="0"/>
@@ -418,7 +418,7 @@
                               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                               <Component id="cbFindTT" min="-2" pref="188" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -500,37 +500,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFind2ActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane4">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTable" name="tbKM">
-                  <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="8" rowCount="0">
-                        <Column editable="false" title="M&#xe3; Khuy&#x1ec5;n M&#xe3;i" type="java.lang.Object"/>
-                        <Column editable="false" title="T&#xea;n KM" type="java.lang.Object"/>
-                        <Column editable="false" title="HT Gi&#x1ea3;m" type="java.lang.Object"/>
-                        <Column editable="false" title="&#x110;i&#x1ec1;u Ki&#x1ec7;n Gi&#x1ea3;m" type="java.lang.Object"/>
-                        <Column editable="false" title="Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u " type="java.lang.Object"/>
-                        <Column editable="false" title="Ng&#xe0;y K&#x1ebf;t Th&#xfa;c " type="java.lang.Object"/>
-                        <Column editable="false" title="Gi&#xe1; Tr&#x1ecb;" type="java.lang.Object"/>
-                        <Column editable="false" title="Tr&#x1ea1;ng Th&#xe1;i" type="java.lang.Object"/>
-                      </Table>
-                    </Property>
-                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbKMMouseClicked"/>
-                  </Events>
-                </Component>
-              </SubComponents>
-            </Container>
             <Component class="javax.swing.JButton" name="btnPRE">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -567,6 +536,38 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNEXTActionPerformed"/>
               </Events>
             </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="tbKM">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="9" rowCount="0">
+                        <Column editable="false" title="M&#xe3; Khuy&#x1ec5;n M&#xe3;i" type="java.lang.Object"/>
+                        <Column editable="false" title="T&#xea;n KM" type="java.lang.Object"/>
+                        <Column editable="false" title="HT Gi&#x1ea3;m" type="java.lang.Object"/>
+                        <Column editable="false" title="&#x110;i&#x1ec1;u Ki&#x1ec7;n Gi&#x1ea3;m" type="java.lang.Object"/>
+                        <Column editable="false" title="Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u " type="java.lang.Object"/>
+                        <Column editable="false" title="Ng&#xe0;y K&#x1ebf;t Th&#xfa;c " type="java.lang.Object"/>
+                        <Column editable="false" title="Gi&#xe1; Tr&#x1ecb;" type="java.lang.Object"/>
+                        <Column editable="false" title="Tr&#x1ea1;ng Th&#xe1;i S&#x1eed; D&#x1ee5;ng" type="java.lang.Object"/>
+                        <Column editable="false" title="Tr&#x1ea1;ng Th&#xe1;i " type="java.lang.Object"/>
+                      </Table>
+                    </Property>
+                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbKMMouseClicked"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JButton" name="btnNew">
