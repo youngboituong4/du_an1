@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,17 +11,17 @@ import java.util.Date;
  *
  * @author thinh
  */
-public class HoaDon {
+public class HoaDonBanHangResponse {
     private Integer ID;
     private String maKhachHang,maNhanVien,maHoaDon;
-    private Date ngayTao, ngayThanhToan;
+    private Long ngayTao, ngayThanhToan;
     private Double tienKhachTra, tienKhachChuyenKhoan,tienThua, tienGiamGia, thanhTien;
     private Integer trangThai, hinhThucThanhToan;
 
-    public HoaDon() {
+    public HoaDonBanHangResponse() {
     }
 
-    public HoaDon(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, Integer hinhThucThanhToan) {
+    public HoaDonBanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Long ngayTao, Long ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, Integer hinhThucThanhToan) {
         this.ID = ID;
         this.maKhachHang = maKhachHang;
         this.maNhanVien = maNhanVien;
@@ -37,7 +37,7 @@ public class HoaDon {
         this.hinhThucThanhToan = hinhThucThanhToan;
     }
 
-    public HoaDon(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai) {
+    public HoaDonBanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Long ngayTao, Long ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai) {
         this.ID = ID;
         this.maKhachHang = maKhachHang;
         this.maNhanVien = maNhanVien;
@@ -52,7 +52,7 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
-    public HoaDon(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai) {
+    public HoaDonBanHangResponse(Integer ID, String maHoaDon, Long ngayTao, String maNhanVien, Integer trangThai) {
         this.ID = ID;
         this.maHoaDon = maHoaDon;
         this.ngayTao = ngayTao;
@@ -60,7 +60,7 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
     
-    public HoaDon(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai, String maKhachHang) {
+    public HoaDonBanHangResponse(Integer ID, String maHoaDon, Long ngayTao, String maNhanVien, Integer trangThai, String maKhachHang) {
         this.ID = ID;
         this.maHoaDon = maHoaDon;
         this.maKhachHang = maKhachHang;
@@ -69,7 +69,7 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
     
-    public HoaDon(String maNhanVien, Integer trangThai) {
+    public HoaDonBanHangResponse(String maNhanVien, Integer trangThai) {
         this.maNhanVien = maNhanVien;        
         this.trangThai = trangThai;
     }
@@ -106,19 +106,19 @@ public class HoaDon {
         this.maHoaDon = maHoaDon;
     }
 
-    public Date getNgayTao() {
+    public Long getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setNgayTao(Long ngayTao) {
         this.ngayTao = ngayTao;
     }
 
-    public Date getNgayThanhToan() {
+    public Long getNgayThanhToan() {
         return ngayThanhToan;
     }
 
-    public void setNgayThanhToan(Date ngayThanhToan) {
+    public void setNgayThanhToan(Long ngayThanhToan) {
         this.ngayThanhToan = ngayThanhToan;
     }
 

@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ import response.BanHangResponse;
 import response.LayRaKhuyenMai;
 import response.LayRaNhanVien;
 import service.BanHangService;
+import service.HoaDonBanHangResponse;
 
 public class BanHangForm extends javax.swing.JPanel {
 
@@ -84,11 +86,11 @@ public class BanHangForm extends javax.swing.JPanel {
                     if (clickCount == 2) {
                         // Xử lý sự kiện bấm 2 lần vào bảng ở đây
                         String soLuong = JOptionPane.showInputDialog("Mời nhập số lượng: ");
+                        if (soLuong != null){
+                            clickCount = 0;  
                         if (Pattern.matches(regex, soLuong)) {
-                            clickCount = 0;
-                            if (soLuong != null) {
-                                soLuongMua = Integer.valueOf(soLuong);
-                            }
+                            clickCount = 0;                            
+                                soLuongMua = Integer.valueOf(soLuong);                           
                         } else {
                             clickCount = 0;
                             JOptionPane.showMessageDialog(null, "Dữ liệu không phù hợp !");
@@ -121,6 +123,9 @@ public class BanHangForm extends javax.swing.JPanel {
                             JOptionPane.showMessageDialog(null, "Hóa đơn đã thanh toán !");
                             return;
                         }
+                    } else {
+                            clickCount = 0; 
+                        }
                     }
                 }
             }
@@ -138,10 +143,10 @@ public class BanHangForm extends javax.swing.JPanel {
         txtMaKhachHang.disable();
     }
 
-    public void fillToTableHoaDon(List<HoaDon> list) {
+    public void fillToTableHoaDon(List<HoaDonBanHangResponse> list) {
         model.setRowCount(0);
         model = (DefaultTableModel) tblHoaDon.getModel();
-        for (HoaDon hoaDon : list) {
+        for (HoaDonBanHangResponse hoaDon : list) {
             model.addRow(hoaDon.toDataRowHoaDon());
         }
     }
@@ -204,10 +209,11 @@ public class BanHangForm extends javax.swing.JPanel {
 //        Double tienGiamGia = Double.valueOf(hd.getTienGiamGia());
 //       Double tienThua = Double.valueOf(hd.getTienThua());
         BanHangResponse hd = service.getHoaDonChuaTT(id);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         if (hd.getTrangThai() == 0) {
             txtIdHoaDon.setText(hd.getID() + "");
             txtMaHoaDon.setText(hd.getMaHoaDon());
-            txtNgayTao.setText(String.valueOf(hd.getNgayTao()));
+            txtNgayTao.setText(sdf.format(hd.getNgayTao()));
             txtTenNhanVien.setText(hd.getMaNhanVien());
             System.out.println(hd.getMaKhachHang());
             txtMaKhachHang.setText(hd.getMaKhachHang());
@@ -350,7 +356,7 @@ public class BanHangForm extends javax.swing.JPanel {
         txtNgayTao.setText("");
         txtTenNhanVien.setText("");
         txtMaKhachHang.setText("");
-        lblKhachHang.setText("KhachBanLe");
+        lblKhachHang.setText("...");
         txtTongTien.setText("");
         txtGiamGia.setText("");
         txtTienKhachDua.setText("");
@@ -689,7 +695,7 @@ public class BanHangForm extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -1023,7 +1029,7 @@ public class BanHangForm extends javax.swing.JPanel {
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1169,15 +1175,9 @@ public class BanHangForm extends javax.swing.JPanel {
         Integer idKM = 0;
         if (tblHoaDon.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Mời chọn hóa đơn !");
-        } else {
-            if(lrkm != null){
-                idKM = lrkm.getID();
-            } else {
-                idKM = 0;
-            }
+        } else {                      
             int id = Integer.valueOf(txtIdHoaDon.getText());
             String makh = txtMaKhachHang.getText();
-            String tenKhach = "Khách bán lẻ";
             String httt = (String) cboHinhThuc.getSelectedItem();
             int hinhThuc = 0;
             if (httt.equals("Kết hợp")) {
@@ -1196,12 +1196,21 @@ public class BanHangForm extends javax.swing.JPanel {
 
             tienThua = (tienDua + tienCK + tienGG) - tongTien;
             
+            if(lrkm != null){
+                if(lrkm.getDonGiamToiThieu() < tongTien){
+                idKM = lrkm.getID();               
+                } else {
+                    idKM = null;  
+                }
+            } else {
+                idKM = null;
+            }
+            
             if (tienThua >= 0 && tongTien > 0 && !makh.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Thanh toán thành công !");
                 service.updateHoaDon(tienDua, tienCK, tienThua, tongTien, id, makh, hinhThuc, tienGG,idKM);
                 fillToTableHoaDon(service.LocHoaDon(1));
-                index = (service.LocHoaDon(1).size()) - 1;
-                tblHoaDon.setRowSelectionInterval(index, index);
+                tblHoaDon.setRowSelectionInterval(0, 0);
                 lblKhachHang.setText("...");
                 txtTienThua.setText("0.0");
                 txtGiamGia.setText("0.0");

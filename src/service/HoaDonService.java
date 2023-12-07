@@ -215,11 +215,11 @@ public class HoaDonService {
                             	     KH.TenKH, KH.DiaChi, KH.SDT, KM.Ma, KM.TenKhuyenMai, KM.GiaTri, KM.LoaiKhuyenMai,
                                      HD.TienGiamGia, HD.TrangThai
                                         FROM HoaDon HD 
-                                        JOIN NhanVien NV
+                                        LEFT JOIN NhanVien NV
                                         ON HD.MaNhanVien = NV.MaNV
-                                        JOIN KhachHang KH
+                                        LEFT JOIN KhachHang KH
                                         ON HD.MaKhachHang = KH.MaKH
-                                        JOIN KhuyenMai KM
+                                        LEFT JOIN KhuyenMai KM
                                         ON KM.ID = HD.IdKM
               WHERE HD.MaHoaDon = ?
               """;

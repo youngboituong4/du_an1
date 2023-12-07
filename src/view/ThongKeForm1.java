@@ -42,6 +42,10 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import service.ThongKeService;
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.Properties;
+import org.apache.xmlbeans.impl.soap.SOAPFault;
 
 /**
  *
@@ -61,6 +65,7 @@ public class ThongKeForm1 extends javax.swing.JFrame {
     int den = 0;
     String ngayy = null;
     int sl = 0;
+
     /**
      * Creates new form ThongKeForm
      */
@@ -76,8 +81,11 @@ public class ThongKeForm1 extends javax.swing.JFrame {
 
         themNamCbo();
         themThangCbo();
+        jButton3.setEnabled(false);
+        jButton3.setBackground(Color.LIGHT_GRAY);
 
     }
+
     public void openFile(String file) {
         try {
             File path = new File(file);
@@ -86,6 +94,7 @@ public class ThongKeForm1 extends javax.swing.JFrame {
             System.out.println(ioe);
         }
     }
+
     public void themNamCbo() {
         jComboBox1.removeAllItems();
         LocalDate now = LocalDate.now();
@@ -118,7 +127,8 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         int localYear = calendar.get(Calendar.YEAR);
     }
 
-    public void BDThongKe() {PanelChart.removeAll();
+    public void BDThongKe() {
+        PanelChart.removeAll();
         DefaultCategoryDataset BarChartData = new DefaultCategoryDataset();
         LocalDate now = LocalDate.now();
         int currentYear = now.getYear();
@@ -145,10 +155,10 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         String formattedAmount = decimalFormat.format(amount);
         jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
-        
+
         jLabel1.setText("Doanh thu");
         jLabel10.setText(service.HoaDonDaThanhToan() + "");
-        
+
     }
 
     public void ThongKe0() {
@@ -162,13 +172,13 @@ public class ThongKeForm1 extends javax.swing.JFrame {
             model.addRow(thongKe1.toData());
         }
     }
+
     private void fillThongKe1(List<ThongKe1> t5ThongKe) {
         model = (DefaultTableModel) tblT5ThongKe.getModel();
         for (ThongKe1 thongKe1 : t5ThongKe) {
             model.addRow(thongKe1.toData());
         }
     }
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -210,6 +220,7 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -492,6 +503,13 @@ public class ThongKeForm1 extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Báo cáo DTHN");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -508,25 +526,29 @@ public class ThongKeForm1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jTabbedPane1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4)))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jTabbedPane1)))
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton4});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,7 +573,9 @@ public class ThongKeForm1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addGap(5, 5, 5)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(85, Short.MAX_VALUE))
@@ -608,33 +632,33 @@ public class ThongKeForm1 extends javax.swing.JFrame {
                 jComboBox2.setEnabled(false);
                 jComboBox2.setBackground(Color.LIGHT_GRAY);
             } else {
-                if(selectedValue != "5 năm gần nhất"){
-                jComboBox2.setEnabled(true);
-                jComboBox2.setBackground(Color.WHITE);
-                
-                namm = Integer.parseInt(selectedValue);
-                jLabel1.setText("Doanh thu năm " + namm);
+                if (selectedValue != "5 năm gần nhất") {
+                    jComboBox2.setEnabled(true);
+                    jComboBox2.setBackground(Color.WHITE);
 
-                int amount = service.DoanhThuNam(namm);
-                DecimalFormat decimalFormat = new DecimalFormat("#,##0");
-                String formattedAmount = decimalFormat.format(amount);
-                jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
-                jLabel10.setText("" + service.HoaDonNam(namm));
-                System.out.println(selectedValue);
-                for (int i = 1; i <= 12; i++) {
-                    thang = i;
-                    BarChartData.setValue(service.DoanhThuThangTrongNam(thang, namm), "Doanh thu", i + "");
+                    namm = Integer.parseInt(selectedValue);
+                    jLabel1.setText("Doanh thu năm " + namm);
 
-                }
-                JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Tháng", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
-                CategoryPlot barchrt = barChart.getCategoryPlot();
-                barchrt.setRangeGridlinePaint(getBackground());
+                    int amount = service.DoanhThuNam(namm);
+                    DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+                    String formattedAmount = decimalFormat.format(amount);
+                    jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
+                    jLabel10.setText("" + service.HoaDonNam(namm));
+                    System.out.println(selectedValue);
+                    for (int i = 1; i <= 12; i++) {
+                        thang = i;
+                        BarChartData.setValue(service.DoanhThuThangTrongNam(thang, namm), "Doanh thu", i + "");
 
-                ChartPanel barPanel = new ChartPanel(barChart);
-                PanelChart.removeAll();
-                PanelChart.add(barPanel);
-                PanelChart.validate();
-                jComboBox2.setSelectedIndex(0);
+                    }
+                    JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Tháng", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
+                    CategoryPlot barchrt = barChart.getCategoryPlot();
+                    barchrt.setRangeGridlinePaint(getBackground());
+
+                    ChartPanel barPanel = new ChartPanel(barChart);
+                    PanelChart.removeAll();
+                    PanelChart.add(barPanel);
+                    PanelChart.validate();
+                    jComboBox2.setSelectedIndex(0);
                 }
             }
 
@@ -643,6 +667,8 @@ public class ThongKeForm1 extends javax.swing.JFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jButton3.setEnabled(true);
+        jButton3.setBackground(Color.WHITE);
         Date.setDate(null);
         Date2.setDate(null);
         LocalDate currentDateTime = LocalDate.now();
@@ -652,15 +678,14 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
         String formattedAmount = decimalFormat.format(amount);
         jLabel1.setText("Doanh thu hôm nay");
-        
+
         jLabel9.setText(formattedAmount + "" + " " + "VNĐ");
-        jLabel10.setText(service.HoaDonDaThanhToanHomNay(ngay)+"");
-        jLabel11.setText(service.HoaDonDaThanhToanHomNay(ngay)+"");
-        
+        jLabel10.setText(service.HoaDonDaThanhToanHomNay(ngay) + "");
+        jLabel11.setText(service.SoKhachHangHomNay(ngay) + "");
+
         DefaultCategoryDataset BarChartData = new DefaultCategoryDataset();
 
         BarChartData.setValue(service.DoanhThuHomNay(ngay), "Doanh thu", ngay);
-             
 
         JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Năm", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot barchrt = barChart.getCategoryPlot();
@@ -669,7 +694,7 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         ChartPanel barPanel = new ChartPanel(barChart);
         PanelChart.removeAll();
         PanelChart.add(barPanel);
-        PanelChart.validate();    
+        PanelChart.validate();
         ;
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -678,7 +703,7 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         String selectedValues = (String) jComboBox2.getSelectedItem();
         DefaultCategoryDataset BarChartData = new DefaultCategoryDataset();
         if (selectedValue != "5 năm gần nhất") {
-            
+
             if (jComboBox2.getSelectedItem().equals("Tất cả các tháng")) {
                 namm = Integer.parseInt(selectedValue);
                 jLabel1.setText("Doanh thu năm " + namm);
@@ -703,18 +728,16 @@ public class ThongKeForm1 extends javax.swing.JFrame {
                 PanelChart.validate();
 
             } else {
-                
-                
-                
+
                 namm = Integer.parseInt(selectedValue);
                 thang = Integer.parseInt(selectedValues);
                 jLabel1.setText("Doanh thu tháng " + thang + " " + "năm " + namm + "");
-                
+
                 int amount = service.DoanhThuThangTrongNam(thang, namm);
                 DecimalFormat decimalFormat = new DecimalFormat("#,##0");
                 String formattedAmount = decimalFormat.format(amount);
                 jLabel9.setText(formattedAmount + "" + "" + " VNĐ");
-                jLabel10.setText(service.HoaDonThang(namm, thang)+"");
+                jLabel10.setText(service.HoaDonThang(namm, thang) + "");
                 YearMonth yearMonth = YearMonth.of(namm, thang);
                 int daysInMonth = yearMonth.lengthOfMonth();
                 for (int j = 1; j <= daysInMonth; j++) {
@@ -724,7 +747,7 @@ public class ThongKeForm1 extends javax.swing.JFrame {
                 JFreeChart barChart = ChartFactory.createBarChart("Doanh thu", "Ngày", "", BarChartData, PlotOrientation.VERTICAL, false, true, false);
                 CategoryPlot barchrt = barChart.getCategoryPlot();
                 barchrt.setRangeGridlinePaint(getBackground());
-                
+
                 ChartPanel barPanel = new ChartPanel(barChart);
                 PanelChart.removeAll();
                 PanelChart.add(barPanel);
@@ -803,7 +826,7 @@ public class ThongKeForm1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-try {
+        try {
             JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.showSaveDialog(this);
             File saveFile = jFileChooser.getSelectedFile();
@@ -840,6 +863,59 @@ try {
             System.out.println(io);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        LocalDate currentDateTime = LocalDate.now();
+        LocalDate ngay = currentDateTime;
+
+        // Sender's email address and password
+        final String senderEmail = "hoang.duc.200fc@gmail.com";
+        final String senderPassword = "frytumibkpxvordb";
+        // Receiver's email address
+        String receiverEmail = "hung06278@gmail.com";
+
+        // Create properties for the SMTP session
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+//        properties.setProperty("mail.smtp.ssl.trust", "smtp.gmail.com");
+//        properties.put("mail.smtp.starttls.required", "true");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        properties.put("mail.smtp.user", senderEmail);
+        properties.put("mail.smtp.password", senderPassword);
+
+        // Create a session with authentication
+        Session session = Session.getInstance(properties, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail, senderPassword);
+            }
+        });
+        int amount = service.DoanhThuHomNay(ngay);
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+        String formattedAmount = decimalFormat.format(amount);
+        try {
+            // Create an email message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(senderEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverEmail));
+            message.setSubject("BÁO CÁO DOANH THU HÔM NAY");
+            message.setText("Doanh thu hôm nay ngày " + ngay + ": " + formattedAmount + "" + ",000 " + "VNĐ"
+                    + "\nHóa đơn đã thanh toán: " + service.HoaDonDaThanhToanHomNay(ngay) + ""
+                    + "\nLượng khách hàng hôm nay: " + service.SoKhachHangHomNay(ngay) + ""
+            );
+
+            // Send the email
+            Transport.send(message);
+
+            System.out.println("Email sent successfully.");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "ok");
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -889,6 +965,7 @@ try {
     private javax.swing.JPanel PanelChart;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -917,9 +994,4 @@ try {
     private javax.swing.JTable tblThongKe;
     // End of variables declaration//GEN-END:variables
 
-
-
-   
-
-    
 }

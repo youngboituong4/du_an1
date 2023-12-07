@@ -133,10 +133,18 @@ public class ExportPDFHoaDon {
             itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
             itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
             itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
+            itemTable.addCell(new Cell().add("Tiền giảm giá").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBold().setBorder(Border.NO_BORDER).setFontColor(Color.WHITE));
+            Float tienGiamGia = hoaDon.getTienGiam()== null ? new Float(0) : hoaDon.getTienGiam();
+            itemTable.addCell(new Cell().add(df.format(tienGiamGia) + " Vnđ").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBold().setBorder(Border.NO_BORDER).setFontColor(Color.WHITE));
+
+            itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
+            itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
+            itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
+            itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
             itemTable.addCell(new Cell().add("Tiền khách trả").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBold().setBorder(Border.NO_BORDER).setFontColor(Color.WHITE));
             Float tienKhachTra = hoaDon.getTienKhachTra() == null ? new Float(0) : hoaDon.getTienKhachTra();
             itemTable.addCell(new Cell().add(df.format(tienKhachTra) + " Vnđ").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBold().setBorder(Border.NO_BORDER).setFontColor(Color.WHITE));
-
+           
             itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
             itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
             itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
@@ -144,7 +152,7 @@ public class ExportPDFHoaDon {
             itemTable.addCell(new Cell().add("Ngân hàng").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBold().setBorder(Border.NO_BORDER).setFontColor(Color.WHITE));
             Float tienKhachCK = hoaDon.getTienkhachCK() == null ? new Float(0) : hoaDon.getTienkhachCK();
             itemTable.addCell(new Cell().add(df.format(tienKhachCK) + " Vnđ").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBold().setBorder(Border.NO_BORDER).setFontColor(Color.WHITE));
-
+          
             itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
             itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));
             itemTable.addCell(new Cell().add("").setBackgroundColor(new DeviceRgb(0, 102, 255)).setBorder(Border.NO_BORDER));

@@ -14,7 +14,7 @@ public class BanHangResponse {
 
     private Integer ID;
     private String maKhachHang, maNhanVien, maHoaDon;
-    private Date ngayTao, ngayThanhToan;
+    private Long ngayTao, ngayThanhToan;
     private Double tienKhachTra, tienKhachChuyenKhoan, tienThua, tienGiamGia, thanhTien;
     private Integer trangThai, hinhThucThanhToan;
     private String tenKH;
@@ -22,7 +22,7 @@ public class BanHangResponse {
     public BanHangResponse() {
     }
 
-    public BanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, Integer hinhThucThanhToan) {
+    public BanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Long ngayTao, Long ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, Integer hinhThucThanhToan) {
         this.ID = ID;
         this.maKhachHang = maKhachHang;
         this.maNhanVien = maNhanVien;
@@ -38,7 +38,7 @@ public class BanHangResponse {
         this.hinhThucThanhToan = hinhThucThanhToan;
     }
 
-    public BanHangResponse(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, Integer trangThai) {
+    public BanHangResponse(Integer ID, String maHoaDon, Long ngayTao, String maNhanVien, Integer trangThai) {
         this.ID = ID;
         this.maHoaDon = maHoaDon;
         this.ngayTao = ngayTao;
@@ -46,7 +46,7 @@ public class BanHangResponse {
         this.trangThai = trangThai;
     }
 
-    public BanHangResponse(Integer ID, String maHoaDon, Date ngayTao, String maNhanVien, String maKhachHang, String tenKH) {
+    public BanHangResponse(Integer ID, String maHoaDon, Long ngayTao, String maNhanVien, String maKhachHang, String tenKH) {
         this.ID = ID;
         this.maHoaDon = maHoaDon;
         this.ngayTao = ngayTao;
@@ -55,7 +55,7 @@ public class BanHangResponse {
         this.tenKH = tenKH;
     }
 
-    public BanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Date ngayTao, Date ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, String tenKH) {
+    public BanHangResponse(Integer ID, String maKhachHang, String maNhanVien, String maHoaDon, Long ngayTao, Long ngayThanhToan, Double tienKhachTra, Double tienKhachChuyenKhoan, Double tienThua, Double tienGiamGia, Double thanhTien, Integer trangThai, String tenKH) {
         this.ID = ID;
         this.maKhachHang = maKhachHang;
         this.maNhanVien = maNhanVien;
@@ -108,19 +108,19 @@ public class BanHangResponse {
         this.maHoaDon = maHoaDon;
     }
 
-    public Date getNgayTao() {
+    public Long getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setNgayTao(Long ngayTao) {
         this.ngayTao = ngayTao;
     }
 
-    public Date getNgayThanhToan() {
+    public Long getNgayThanhToan() {
         return ngayThanhToan;
     }
 
-    public void setNgayThanhToan(Date ngayThanhToan) {
+    public void setNgayThanhToan(Long ngayThanhToan) {
         this.ngayThanhToan = ngayThanhToan;
     }
 
