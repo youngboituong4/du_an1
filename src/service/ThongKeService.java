@@ -121,24 +121,46 @@ public class ThongKeService {
         }
     }
     
-    public int TimFromTo(String ngayy){
-        int counnt = 0;
-        sql = "select sum(ThanhTien) as total_monthh from hoadon where NgayThanhToan like ?";
+    public int TimFromTo(String ngayyTu) {
+        sql = "SELECT SUM(ThanhTien) AS thanhtien FROM hoadon WHERE CONVERT(date, NgayThanhToan) like ?";
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, ngayy);  
+            ps.setObject(1, ngayyTu);
             rs = ps.executeQuery();
-            while (rs.next()) {                
-                counnt = rs.getInt("total_monthh");
+
+            if (rs.next()) {
+                int thanhTien = rs.getInt("thanhtien");
+                return thanhTien;
             }
-            return counnt;
-            
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;   
         }
+
+        return 0;
     }
+//    public int TimFromTo(String ngayyTu, String ngayyDen){
+//        int counnt = 0;
+//        sql = "	SELECT SUM(ThanhTien) AS total_monthh\n" +
+//"FROM HoaDon\n" +
+//"WHERE NgayThanhToan BETWEEN ? AND ?";
+//        try {
+//            con = DBConnect.getConnection();
+//            ps = con.prepareStatement(sql);
+//            ps.setObject(1, ngayyTu);  
+//            ps.setObject(2, ngayyDen);  
+//            rs = ps.executeQuery();
+//            while (rs.next()) {                
+//                counnt = rs.getInt("total_monthh");
+//            }
+//            return counnt;
+//            
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return 0;   
+//        }
+//    }
     
     public int DemSoSp(){
         int counttt = 0;
@@ -279,8 +301,8 @@ public class ThongKeService {
     }
     
     public int DoanhThuHomNay(LocalDate ngay){
-        int tienhomnay = 0;
-        sql="select sum(ThanhTien) as tienhomnay from hoadon where  ngayThanhToan like ?";
+        
+        sql="select sum(ThanhTien) as tienhomnay from hoadon WHERE CONVERT(date, NgayThanhToan) like ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -288,18 +310,19 @@ public class ThongKeService {
             rs = ps.executeQuery();
             while (rs.next()){
                                
-                tienhomnay = rs.getInt("tienhomnay");
-                
+                int tienhomnay = rs.getInt("tienhomnay");
+                return tienhomnay;
             }
-            return tienhomnay;
+            
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            
         }
+        return 0;
     }
     public int HoaDonDaThanhToanHomNay(LocalDate ngay){
         int countt = 0;
-        sql = "select count(*) as countt from hoadon where NgayThanhToan like ? and TrangThai like '1'";
+        sql = "select count(*) as countt from hoadon WHERE CONVERT(date, NgayThanhToan) like ? and TrangThai like '1'";
         
         try {
             con = DBConnect.getConnection();
@@ -320,7 +343,7 @@ public class ThongKeService {
         int count = 0;
         sql = "select count(DISTINCT hoadon.MaKhachHang) as count \n" +
 "	from hoadon\n" +
-"	join khachhang on hoadon.MaKhachHang = khachhang.MAKH where hoadon.Ngaythanhtoan like ?";
+"	join khachhang on hoadon.MaKhachHang = khachhang.MAKH WHERE CONVERT(date, hoadon.NgayThanhToan) like ?";
         
         try {
             con = DBConnect.getConnection();

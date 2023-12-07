@@ -63,7 +63,8 @@ public class ThongKeForm1 extends javax.swing.JFrame {
     int ngay = 0;
     int tu = 0;
     int den = 0;
-    String ngayy = null;
+    String ngayyTu = null;
+    String ngayyDen = null;
     int sl = 0;
 
     /**
@@ -83,7 +84,6 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         themThangCbo();
         jButton3.setEnabled(false);
         jButton3.setBackground(Color.LIGHT_GRAY);
-
     }
 
     public void openFile(String file) {
@@ -592,8 +592,9 @@ public class ThongKeForm1 extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -797,16 +798,15 @@ public class ThongKeForm1 extends javax.swing.JFrame {
                 LocalDate endDate = LocalDate.of(Integer.parseInt(year2), Integer.parseInt(month2), Integer.parseInt(date2));
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("MM/dd");
+                DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("dd/MM");
 
                 LocalDate currentDate = startDate;
                 while (!currentDate.isAfter(endDate)) {
                     String formattedDate = currentDate.format(formatter);
                     String formattedDatee = currentDate.format(formatterr);
 
-                    ngayy = formattedDate;
-                    BarChartData.setValue(service.TimFromTo(ngayy), "Doanh thu", formattedDatee + "");
-
+                    ngayyTu = formattedDate;
+                    BarChartData.setValue(service.TimFromTo(ngayyTu), "Doanh thu", formattedDatee + "");
                     currentDate = currentDate.plusDays(1);
 
                 }
@@ -901,7 +901,7 @@ public class ThongKeForm1 extends javax.swing.JFrame {
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverEmail));
             message.setSubject("BÁO CÁO DOANH THU HÔM NAY");
-            message.setText("Doanh thu hôm nay ngày " + ngay + ": " + formattedAmount + "" + ",000 " + "VNĐ"
+            message.setText("Doanh thu hôm nay ngày " + ngay + ": " + formattedAmount + "" + " VNĐ"
                     + "\nHóa đơn đã thanh toán: " + service.HoaDonDaThanhToanHomNay(ngay) + ""
                     + "\nLượng khách hàng hôm nay: " + service.SoKhachHangHomNay(ngay) + ""
             );
