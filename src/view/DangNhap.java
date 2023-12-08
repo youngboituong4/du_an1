@@ -389,9 +389,13 @@ public class DangNhap extends javax.swing.JFrame {
                         // Mở form QuanLySanPham
                         String email = txtTaiKhoan.getText();
                         LayRaNhanVien nv = service.layNhanVien(email);
-
-                        QuanLySanPham quanLySanPhamForm = new QuanLySanPham(nv);
-                        quanLySanPhamForm.setVisible(true);
+                        if (nv.isVaiTro()) {
+                            QuanLySanPham quanLySanPhamForm = new QuanLySanPham(nv);
+                            quanLySanPhamForm.setVisible(true);
+                        } else {
+                            QuanLySanPhamNV quanLySanPhamForm = new QuanLySanPhamNV(nv);
+                            quanLySanPhamForm.setVisible(true);
+                        }
 
                         //BanHangForm banhangForm = new BanHangForm(nv);
                         // Đóng form đăng nhập (nếu bạn muốn)

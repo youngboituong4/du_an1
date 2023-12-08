@@ -133,7 +133,7 @@ public class BanHangService {
 
     public List<HoaDonBanHangResponse> getAllHoaDon() {
         List<HoaDonBanHangResponse> list = new ArrayList<>();
-        sql = "SELECT ID, MaHoaDon, NgayTao, MaNhanVien, TrangThai FROM HOADON";
+        sql = "SELECT ID, MaHoaDon, NgayTao, MaNhanVien, TrangThai FROM HOADON ORDER BY CAST(SUBSTRING(MaHoaDon, 3, LEN(MaHoaDon) - 2) AS INT) DESC";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);

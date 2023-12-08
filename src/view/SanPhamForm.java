@@ -175,7 +175,7 @@ public class SanPhamForm extends javax.swing.JPanel {
 
         return new ChiTietSanPham(stt, ma, ten, loai, kt, mau, cl, th, gia, sl);
     }
-    
+
     ChiTietSanPham readFormAddCTSP() {
         String ma = txtMaSP.getText();
         String ten = txtTenSP.getText();
@@ -1062,11 +1062,11 @@ public class SanPhamForm extends javax.swing.JPanel {
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
         if (checkTrongCTSP()) {
             ChiTietSanPham ctsp = readFormCTSP();
-            if(ctsp.getSoLuong() < 0){
+            if (ctsp.getSoLuong() < 0) {
                 JOptionPane.showMessageDialog(this, "Số lượng phải lớn hợn hoặc bằng 0 !");
                 return;
             }
-            if(ctsp.getGia() < 0){
+            if (ctsp.getGia() < 0) {
                 JOptionPane.showMessageDialog(this, "Giá phải lớn hợn hoặc bằng 0 !");
                 return;
             }
@@ -1089,7 +1089,7 @@ public class SanPhamForm extends javax.swing.JPanel {
                 }
             } else {
                 return;
-            }           
+            }
         }
     }//GEN-LAST:event_btnSua1ActionPerformed
 
@@ -1098,6 +1098,8 @@ public class SanPhamForm extends javax.swing.JPanel {
         index = tblSanPham.getSelectedRow();
         jpSanPham.setVisible(true);
         jpChiTiet.setVisible(false);
+        txtSoLuong.setText("");
+        txtDonGia.setText("");
         fillToTableSanPham(service.PhanTrangSP(page));
     }//GEN-LAST:event_btnQuayVeSPActionPerformed
 
@@ -1118,25 +1120,35 @@ public class SanPhamForm extends javax.swing.JPanel {
     }//GEN-LAST:event_cboLoaiSPMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        tenMenu = "Mau";
-        this.setMenu();
-        fillCboMau();
+        String ma = txtMaSP.getText();
+        if (service.getMaSP(ma).size() > 0) {
+            tenMenu = "Mau";
+            this.setMenu();
+            fillCboMau();
+        } else {
+            return;
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        tenMenu = "ChatLieu";
-        this.setMenu();
-        fillCboCL();
+        String ma = txtMaSP.getText();
+        if (service.getMaSP(ma).size() > 0) {
+            tenMenu = "ChatLieu";
+            this.setMenu();
+            fillCboCL();
+        } else {
+            return;
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         if (checkTrongCTSP()) {
             ChiTietSanPham ctsp = readFormAddCTSP();
-            if(ctsp.getSoLuong() < 0){
+            if (ctsp.getSoLuong() < 0) {
                 JOptionPane.showMessageDialog(this, "Số lượng phải lớn hợn hoặc bằng 0 !");
                 return;
             }
-            if(ctsp.getGia() < 0){
+            if (ctsp.getGia() < 0) {
                 JOptionPane.showMessageDialog(this, "Giá phải lớn hợn hoặc bằng 0 !");
                 return;
             }
@@ -1155,15 +1167,25 @@ public class SanPhamForm extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        tenMenu = "KichThuoc";
-        this.setMenu();
-        fillCboKichThuoc();
+        String ma = txtMaSP.getText();
+        if (service.getMaSP(ma).size() > 0) {
+            tenMenu = "KichThuoc";
+            this.setMenu();
+            fillCboKichThuoc();
+        } else {
+            return;
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        tenMenu = "LSP";
-        this.setMenu();
-        fillCboLSP();
+        String ma = txtMaSP.getText();
+        if (service.getMaSP(ma).size() > 0) {
+            tenMenu = "LSP";
+            this.setMenu();
+            fillCboLSP();
+        } else {
+            return;
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void tblChiTietSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChiTietSanPhamMouseClicked
@@ -1176,9 +1198,14 @@ public class SanPhamForm extends javax.swing.JPanel {
     }//GEN-LAST:event_cboThuongHieuMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        tenMenu = "ThuongHieu";
-        this.setMenu();
-        fillCboTH();
+        String ma = txtMaSP.getText();
+        if (service.getMaSP(ma).size() > 0) {
+            tenMenu = "ThuongHieu";
+            this.setMenu();
+            fillCboTH();
+        } else {
+            return;
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
