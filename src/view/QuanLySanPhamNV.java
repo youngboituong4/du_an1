@@ -22,7 +22,7 @@ import service.SanPhamService;
  *
  * @author Admin
  */
-public class QuanLySanPham extends javax.swing.JFrame {
+public class QuanLySanPhamNV extends javax.swing.JFrame {
 
     DefaultTableModel model = new DefaultTableModel();
     DefaultTableModel model1 = new DefaultTableModel();
@@ -32,7 +32,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     JPanel view;
     String tenMenu;
 
-    public QuanLySanPham(LayRaNhanVien nv) {
+    public QuanLySanPhamNV(LayRaNhanVien nv) {
         initComponents();
         setLocationRelativeTo(null);
 
@@ -106,18 +106,10 @@ public class QuanLySanPham extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         btnThongKe = new javax.swing.JPanel();
         lblThongKe = new javax.swing.JLabel();
-        btnSanPham = new javax.swing.JPanel();
-        lblSanPham = new javax.swing.JLabel();
-        btnNhanVien = new javax.swing.JPanel();
-        lblNhanVien = new javax.swing.JLabel();
         btnHoaDon = new javax.swing.JPanel();
         lblHoaDon = new javax.swing.JLabel();
-        btnKhachHang = new javax.swing.JPanel();
-        lblKhachHang = new javax.swing.JLabel();
         btnBanHang = new javax.swing.JPanel();
         lblBanHang = new javax.swing.JLabel();
-        btnKhuyenMai = new javax.swing.JPanel();
-        lblKhuyenmai = new javax.swing.JLabel();
         btnDoiMatKhau = new javax.swing.JPanel();
         lblDoiMatKhau = new javax.swing.JLabel();
         btnDangXuat = new javax.swing.JPanel();
@@ -189,76 +181,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        btnSanPham.setBackground(new java.awt.Color(0, 102, 255));
-        btnSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSanPhamMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSanPhamMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSanPhamMouseExited(evt);
-            }
-        });
-
-        lblSanPham.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblSanPham.setForeground(new java.awt.Color(255, 255, 255));
-        lblSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgmain/sanpham.png"))); // NOI18N
-        lblSanPham.setText("  Sản phẩm");
-
-        javax.swing.GroupLayout btnSanPhamLayout = new javax.swing.GroupLayout(btnSanPham);
-        btnSanPham.setLayout(btnSanPhamLayout);
-        btnSanPhamLayout.setHorizontalGroup(
-            btnSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSanPhamLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        btnSanPhamLayout.setVerticalGroup(
-            btnSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSanPhamLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(lblSanPham)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-
-        btnNhanVien.setBackground(new java.awt.Color(0, 102, 255));
-        btnNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNhanVienMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnNhanVienMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnNhanVienMouseExited(evt);
-            }
-        });
-
-        lblNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNhanVien.setForeground(new java.awt.Color(255, 255, 255));
-        lblNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgmain/nhanvien.png"))); // NOI18N
-        lblNhanVien.setText("  Nhân viên");
-
-        javax.swing.GroupLayout btnNhanVienLayout = new javax.swing.GroupLayout(btnNhanVien);
-        btnNhanVien.setLayout(btnNhanVienLayout);
-        btnNhanVienLayout.setHorizontalGroup(
-            btnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnNhanVienLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        btnNhanVienLayout.setVerticalGroup(
-            btnNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnNhanVienLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(lblNhanVien)
-                .addGap(14, 14, 14))
-        );
-
         btnHoaDon.setBackground(new java.awt.Color(0, 102, 255));
         btnHoaDon.setForeground(new java.awt.Color(0, 0, 0));
         btnHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -296,58 +218,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        btnKhachHang.setBackground(new java.awt.Color(0, 102, 255));
-        btnKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnKhachHangMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnKhachHangMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnKhachHangMouseExited(evt);
-            }
-        });
-
-        lblKhachHang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblKhachHang.setForeground(new java.awt.Color(255, 255, 255));
-        lblKhachHang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgmain/khachhang.png"))); // NOI18N
-        lblKhachHang.setText("  Khách hàng");
-        lblKhachHang.setToolTipText("");
-        lblKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblKhachHangMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblKhachHangMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblKhachHangMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnKhachHangLayout = new javax.swing.GroupLayout(btnKhachHang);
-        btnKhachHang.setLayout(btnKhachHangLayout);
-        btnKhachHangLayout.setHorizontalGroup(
-            btnKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(btnKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnKhachHangLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-        );
-        btnKhachHangLayout.setVerticalGroup(
-            btnKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 63, Short.MAX_VALUE)
-            .addGroup(btnKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(btnKhachHangLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(lblKhachHang)
-                    .addContainerGap(17, Short.MAX_VALUE)))
-        );
-
         btnBanHang.setBackground(new java.awt.Color(0, 102, 255));
         btnBanHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -382,42 +252,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(lblBanHang)
                 .addContainerGap(15, Short.MAX_VALUE))
-        );
-
-        btnKhuyenMai.setBackground(new java.awt.Color(0, 102, 255));
-        btnKhuyenMai.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnKhuyenMaiMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnKhuyenMaiMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnKhuyenMaiMouseExited(evt);
-            }
-        });
-
-        lblKhuyenmai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblKhuyenmai.setForeground(new java.awt.Color(255, 255, 255));
-        lblKhuyenmai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblKhuyenmai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgmain/khuyenmai.png"))); // NOI18N
-        lblKhuyenmai.setText("  Khuyến mãi");
-
-        javax.swing.GroupLayout btnKhuyenMaiLayout = new javax.swing.GroupLayout(btnKhuyenMai);
-        btnKhuyenMai.setLayout(btnKhuyenMaiLayout);
-        btnKhuyenMaiLayout.setHorizontalGroup(
-            btnKhuyenMaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnKhuyenMaiLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblKhuyenmai, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-        );
-        btnKhuyenMaiLayout.setVerticalGroup(
-            btnKhuyenMaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnKhuyenMaiLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(lblKhuyenmai)
-                .addGap(14, 14, 14))
         );
 
         btnDoiMatKhau.setBackground(new java.awt.Color(0, 102, 255));
@@ -514,13 +348,9 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblTrangChu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnKhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnBanHang, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnDoiMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
@@ -545,18 +375,10 @@ public class QuanLySanPham extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(btnKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDoiMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(249, Short.MAX_VALUE))
+                        .addContainerGap(513, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jButton10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -595,20 +417,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
         this.setMenu();
     }//GEN-LAST:event_btnThongKeMouseClicked
 
-    private void btnSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanPhamMouseClicked
-
-        tenMenu = "SanPham";
-        this.setMenu();
-
-    }//GEN-LAST:event_btnSanPhamMouseClicked
-
-    private void btnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseClicked
-
-        tenMenu = "NhanVien";
-        this.setMenu();
-
-    }//GEN-LAST:event_btnNhanVienMouseClicked
-
     private void btnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseClicked
         tenMenu = "HoaDon";
         this.setMenu();
@@ -619,59 +427,14 @@ public class QuanLySanPham extends javax.swing.JFrame {
         this.setMenu();
     }//GEN-LAST:event_btnBanHangMouseClicked
 
-    private void btnKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhuyenMaiMouseClicked
-        tenMenu = "KhuyenMai";
-        this.setMenu();
-    }//GEN-LAST:event_btnKhuyenMaiMouseClicked
-
     private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
         tenMenu = "DoiMatKhau";
         this.setMenu();
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
-    private void btnKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMouseClicked
-        tenMenu = "KhachHang";
-        this.setMenu();
-    }//GEN-LAST:event_btnKhachHangMouseClicked
-
-    private void lblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhachHangMouseClicked
-        tenMenu = "KhachHang";
-        this.setMenu();
-    }//GEN-LAST:event_lblKhachHangMouseClicked
-
     private void lblTrangChuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTrangChuMouseClicked
 
     }//GEN-LAST:event_lblTrangChuMouseClicked
-
-    private void btnSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanPhamMouseEntered
-        btnSanPham.setBackground(Color.WHITE);
-        lblSanPham.setForeground(Color.BLACK);
-    }//GEN-LAST:event_btnSanPhamMouseEntered
-
-    private void btnSanPhamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanPhamMouseExited
-        btnSanPham.setBackground(new java.awt.Color(0, 102, 255));
-        lblSanPham.setForeground(Color.WHITE);
-    }//GEN-LAST:event_btnSanPhamMouseExited
-
-    private void btnKhachHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMouseEntered
-        btnKhachHang.setBackground(Color.WHITE);
-        lblKhachHang.setForeground(Color.BLACK);
-    }//GEN-LAST:event_btnKhachHangMouseEntered
-
-    private void btnKhachHangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMouseExited
-        btnKhachHang.setBackground(new java.awt.Color(0, 102, 255));
-        lblKhachHang.setForeground(Color.WHITE);
-    }//GEN-LAST:event_btnKhachHangMouseExited
-
-    private void lblKhachHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhachHangMouseEntered
-        btnKhachHang.setBackground(Color.WHITE);
-        lblKhachHang.setForeground(Color.BLACK);
-    }//GEN-LAST:event_lblKhachHangMouseEntered
-
-    private void lblKhachHangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhachHangMouseExited
-        btnKhachHang.setBackground(new java.awt.Color(0, 102, 255));
-        lblKhachHang.setForeground(Color.WHITE);
-    }//GEN-LAST:event_lblKhachHangMouseExited
 
     private void btnBanHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBanHangMouseEntered
         btnBanHang.setBackground(Color.WHITE);
@@ -692,26 +455,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
         btnHoaDon.setBackground(new java.awt.Color(0, 102, 255));
         lblHoaDon.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnHoaDonMouseExited
-
-    private void btnNhanVienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseEntered
-        btnNhanVien.setBackground(Color.WHITE);
-        lblNhanVien.setForeground(Color.BLACK);
-    }//GEN-LAST:event_btnNhanVienMouseEntered
-
-    private void btnNhanVienMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseExited
-        btnNhanVien.setBackground(new java.awt.Color(0, 102, 255));
-        lblNhanVien.setForeground(Color.WHITE);
-    }//GEN-LAST:event_btnNhanVienMouseExited
-
-    private void btnKhuyenMaiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhuyenMaiMouseEntered
-        btnKhuyenMai.setBackground(Color.WHITE);
-        lblKhuyenmai.setForeground(Color.BLACK);
-    }//GEN-LAST:event_btnKhuyenMaiMouseEntered
-
-    private void btnKhuyenMaiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhuyenMaiMouseExited
-        btnKhuyenMai.setBackground(new java.awt.Color(0, 102, 255));
-        lblKhuyenmai.setForeground(Color.WHITE);
-    }//GEN-LAST:event_btnKhuyenMaiMouseExited
 
     private void btnThongKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseEntered
         btnThongKe.setBackground(Color.WHITE);
@@ -736,7 +479,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
         int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn đăng xuất ?");
         if (chon == JOptionPane.YES_OPTION) {
-            QuanLySanPham.this.dispose();
+            QuanLySanPhamNV.this.dispose();
 
             new DangNhap().setVisible(true);
         } else {
@@ -771,20 +514,21 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLySanPhamNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLySanPhamNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLySanPhamNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLySanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLySanPhamNV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLySanPham(nhanVien).setVisible(true);
+                new QuanLySanPhamNV(nhanVien).setVisible(true);
             }
         });
     }
@@ -794,10 +538,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private javax.swing.JPanel btnDangXuat;
     private javax.swing.JPanel btnDoiMatKhau;
     private javax.swing.JPanel btnHoaDon;
-    private javax.swing.JPanel btnKhachHang;
-    private javax.swing.JPanel btnKhuyenMai;
-    private javax.swing.JPanel btnNhanVien;
-    private javax.swing.JPanel btnSanPham;
     private javax.swing.JPanel btnThongKe;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -809,10 +549,6 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private javax.swing.JLabel lblDangXuat;
     private javax.swing.JLabel lblDoiMatKhau;
     private javax.swing.JLabel lblHoaDon;
-    private javax.swing.JLabel lblKhachHang;
-    private javax.swing.JLabel lblKhuyenmai;
-    private javax.swing.JLabel lblNhanVien;
-    private javax.swing.JLabel lblSanPham;
     private javax.swing.JLabel lblThongKe;
     private javax.swing.JLabel lblTrangChu;
     // End of variables declaration//GEN-END:variables

@@ -4,7 +4,6 @@
  */
 package service;
 
-
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -21,20 +20,21 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
  * @author PC
  */
 public class ThongKeService {
+
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     String sql = null;
-    
-    public int SoKhachHang(){
+
+    public int SoKhachHang() {
         int count = 0;
         sql = "select count(*) as count from khachhang";
-        
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 count = rs.getInt("count");
             }
             return count;
@@ -43,16 +43,17 @@ public class ThongKeService {
             return 1;
         }
     }
-    public int KhachHangNam(int namm){
+
+    public int KhachHangNam(int namm) {
         int count = 0;
-            sql = "select count(*) as count from khachhang WHERE YEAR(ngaythanhtoan) like ?";
-        
+        sql = "select count(*) as count from khachhang WHERE YEAR(ngaythanhtoan) like ?";
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, namm);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 count = rs.getInt("count");
             }
             return count;
@@ -61,18 +62,16 @@ public class ThongKeService {
             return 1;
         }
     }
-    
- 
-   
-    public int HoaDonDaThanhToan(){
+
+    public int HoaDonDaThanhToan() {
         int countt = 0;
         sql = "select count(*) as countt from hoadon where TrangThai like '1'";
-        
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 countt = rs.getInt("countt");
             }
             return countt;
@@ -81,17 +80,18 @@ public class ThongKeService {
             return 1;
         }
     }
-    public int HoaDonNam(int namm){
+
+    public int HoaDonNam(int namm) {
         int counttt = 0;
         sql = "select count(*) as counttt from hoadon WHERE YEAR(ngaythanhtoan) like ?";
-        
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, namm);
             rs = ps.executeQuery();
-            
-            while (rs.next()) {                
+
+            while (rs.next()) {
                 counttt = rs.getInt("counttt");
             }
             return counttt;
@@ -100,18 +100,19 @@ public class ThongKeService {
             return 1;
         }
     }
-    public int HoaDonThang(int namm, int thang){
+
+    public int HoaDonThang(int namm, int thang) {
         int counttt = 0;
         sql = "select count(*) as counttt from hoadon WHERE YEAR(ngaythanhtoan) like ? and MONTH(ngaythanhtoan) like ?";
-        
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, namm);
             ps.setObject(2, thang);
             rs = ps.executeQuery();
-            
-            while (rs.next()) {                
+
+            while (rs.next()) {
                 counttt = rs.getInt("counttt");
             }
             return counttt;
@@ -120,15 +121,14 @@ public class ThongKeService {
             return 1;
         }
     }
-    
-    public int TimFromTo(String ngayy){
+
+    public int TimFromTo(String ngayyTu){
         int counnt = 0;
-        sql = "select sum(ThanhTien) as total_monthh from hoadon where NgayThanhToan like ?";
+        sql = "	SELECT SUM(ThanhTien) AS total_monthh FROM hoadon WHERE CONVERT(date, NgayThanhToan) like ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, ngayy);  
-            rs = ps.executeQuery();
+            ps.setObject(1, ngayyTu); 
             while (rs.next()) {                
                 counnt = rs.getInt("total_monthh");
             }
@@ -136,19 +136,19 @@ public class ThongKeService {
             
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;   
+            return 0;
         }
     }
-    
-    public int DemSoSp(){
+
+    public int DemSoSp() {
         int counttt = 0;
         sql = "select count(*) as dem from sanpham";
-        
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 counttt = rs.getInt("dem");
             }
             return counttt;
@@ -157,22 +157,21 @@ public class ThongKeService {
             return 1;
         }
     }
-    
-    
-    public List<ThongKe> getThongKe(){
-        List<ThongKe> list = new ArrayList<>();       
-           // ps.setObject(1, sl);
-        sql = " select masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong)  from ChiTietSanPham\n" +
-"	    join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham \n" +
-"	    group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia";
+
+    public List<ThongKe> getThongKe() {
+        List<ThongKe> list = new ArrayList<>();
+        // ps.setObject(1, sl);
+        sql = " select masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong)  from ChiTietSanPham\n"
+                + "	    join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham \n"
+                + "	    group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 ThongKe tke = new ThongKe(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), rs.getInt(9));
                 list.add(tke);
-                        
+
             }
             return list;
         } catch (Exception e) {
@@ -180,21 +179,20 @@ public class ThongKeService {
             return null;
         }
     }
-    
-    
-    public List<ThongKe1> getT5ThongKe(){
+
+    public List<ThongKe1> getT5ThongKe() {
         List<ThongKe1> list = new ArrayList<>();
-        sql = "select top 5 masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong) as tongsl  from ChiTietSanPham\n" +
-"		join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham\n" +
-"    group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia order by tongsl desc ";
+        sql = "select top 5 masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia,sum(hoadonchitiet.soluong) as tongsl  from ChiTietSanPham\n"
+                + "		join hoadonchitiet on chitietsanpham.id = hoadonchitiet.idchitietsanpham\n"
+                + "    group by masp, tensp, loaisanpham, kichthuoc, tenmau,chatlieu, thuonghieu, gia order by tongsl desc ";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 ThongKe1 tke = new ThongKe1(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), (int) rs.getDouble(9));
                 list.add(tke);
-                        
+
             }
             return list;
         } catch (Exception e) {
@@ -202,18 +200,16 @@ public class ThongKeService {
             return null;
         }
     }
-    
-    
 
-   public int DoanhThu(){
+    public int DoanhThu() {
         int total = 0;
         sql = "SELECT SUM(thanhtien) AS total FROM hoadon";
-        
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 total = rs.getInt("total");
             }
             return total;
@@ -222,74 +218,77 @@ public class ThongKeService {
             return 1;
         }
     }
-    public int DoanhThuNam(int nam){
+
+    public int DoanhThuNam(int nam) {
         int total = 0;
-        sql = "SELECT SUM(thanhtien) AS total_sales FROM hoadon WHERE YEAR(NgayThanhToan) like ?";                
+        sql = "SELECT SUM(thanhtien) AS total_sales FROM hoadon WHERE YEAR(NgayThanhToan) like ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, nam);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 total = rs.getInt("total_sales");
             }
             return total;
         } catch (Exception e) {
             e.printStackTrace();
-            return 1;   
+            return 1;
         }
     }
-    public int DoanhThuThangTrongNam(int thang, int namm){
+
+    public int DoanhThuThangTrongNam(int thang, int namm) {
         int ok = 0;
-        sql = "SELECT SUM(thanhtien) AS total_month FROM hoadon WHERE MONTH(NgayThanhToan) like ? and YEAR(NgayThanhToan) like ?";                
+        sql = "SELECT SUM(thanhtien) AS total_month FROM hoadon WHERE MONTH(NgayThanhToan) like ? and YEAR(NgayThanhToan) like ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, thang);
             ps.setObject(2, namm);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 ok = rs.getInt("total_month");
             }
             return ok;
         } catch (Exception e) {
             e.printStackTrace();
-            return 1;   
+            return 1;
         }
     }
-    public int DoanhThuNgayThangNam(int ngay, int thang, int namm){
+
+    public int DoanhThuNgayThangNam(int ngay, int thang, int namm) {
         int oke = 0;
-        sql = "SELECT SUM(thanhtien) AS total_days FROM hoadon WHERE DAY(Ngaythanhtoan) like ? and MONTH(Ngaythanhtoan) like ? and YEAR(Ngaythanhtoan) like ?";                
+        sql = "SELECT SUM(thanhtien) AS total_days FROM hoadon WHERE DAY(Ngaythanhtoan) like ? and MONTH(Ngaythanhtoan) like ? and YEAR(Ngaythanhtoan) like ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, ngay);
             ps.setObject(2, thang);
             ps.setObject(3, namm);
-            
+
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 oke = rs.getInt("total_days");
             }
             return oke;
         } catch (Exception e) {
             e.printStackTrace();
-            return 1;   
+            return 1;
         }
     }
-    
-    public int DoanhThuHomNay(LocalDate ngay){
+
+    public int DoanhThuHomNay(LocalDate ngay) {
         int tienhomnay = 0;
-        sql="select sum(ThanhTien) as tienhomnay from hoadon where  ngayThanhToan like ?";
+        sql = "select sum(ThanhTien) as tienhomnay from hoadon where  ngayThanhToan like ?";
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, ngay);
             rs = ps.executeQuery();
-            while (rs.next()){
-                               
+            while (rs.next()) {
+
                 tienhomnay = rs.getInt("tienhomnay");
-                
+
             }
             return tienhomnay;
         } catch (Exception e) {
@@ -297,17 +296,18 @@ public class ThongKeService {
             return 0;
         }
     }
-    public int HoaDonDaThanhToanHomNay(LocalDate ngay){
+
+    public int HoaDonDaThanhToanHomNay(LocalDate ngay) {
         int countt = 0;
         sql = "select count(*) as countt from hoadon where NgayThanhToan like ? and TrangThai like '1'";
-        
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, ngay    );
+            ps.setObject(1, ngay);
             rs = ps.executeQuery();
-            
-            while (rs.next()) {                
+
+            while (rs.next()) {
                 countt = rs.getInt("countt");
             }
             return countt;
@@ -316,18 +316,19 @@ public class ThongKeService {
             return 1;
         }
     }
-    public int SoKhachHangHomNay(LocalDate ngay){
+
+    public int SoKhachHangHomNay(LocalDate ngay) {
         int count = 0;
-        sql = "select count(DISTINCT hoadon.MaKhachHang) as count \n" +
-"	from hoadon\n" +
-"	join khachhang on hoadon.MaKhachHang = khachhang.MAKH where hoadon.Ngaythanhtoan like ?";
-        
+        sql = "select count(DISTINCT hoadon.MaKhachHang) as count \n"
+                + "	from hoadon\n"
+                + "	join khachhang on hoadon.MaKhachHang = khachhang.MAKH where hoadon.Ngaythanhtoan like ?";
+
         try {
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setObject(1, ngay);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 count = rs.getInt("count");
             }
             return count;

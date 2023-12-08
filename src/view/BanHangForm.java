@@ -8,13 +8,17 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import model.ChatLieu;
 import model.ChiTietSanPham;
@@ -26,10 +30,14 @@ import model.MauSac;
 import model.NhanVien;
 import model.ThuongHieu;
 import response.BanHangResponse;
+import response.HDCTResponse;
 import response.LayRaKhuyenMai;
 import response.LayRaNhanVien;
+import response.XemCTHDResponse;
 import service.BanHangService;
 import service.HoaDonBanHangResponse;
+import service.HoaDonService;
+import util.ExportPDFHoaDon;
 
 public class BanHangForm extends javax.swing.JPanel {
 
@@ -40,6 +48,7 @@ public class BanHangForm extends javax.swing.JPanel {
     DefaultTableModel model1 = new DefaultTableModel();
     DefaultTableModel model2 = new DefaultTableModel();
     BanHangService service = new BanHangService();
+    HoaDonService serviceXCT = new HoaDonService();
     int index = 0;
     int soLuongMua;
     private boolean selected;
@@ -61,7 +70,7 @@ public class BanHangForm extends javax.swing.JPanel {
         anDuLieu();
         tinhTongTien();
         layKhuyenMai();
-        
+
         DangNhap dialogDN = new DangNhap();
         this.setMANV(nv.getMaNV());
         //       showDataHoaDon(0);
@@ -86,45 +95,45 @@ public class BanHangForm extends javax.swing.JPanel {
                     if (clickCount == 2) {
                         // Xử lý sự kiện bấm 2 lần vào bảng ở đây
                         String soLuong = JOptionPane.showInputDialog("Mời nhập số lượng: ");
-                        if (soLuong != null){
-                            clickCount = 0;  
-                        if (Pattern.matches(regex, soLuong)) {
-                            clickCount = 0;                            
-                                soLuongMua = Integer.valueOf(soLuong);                           
+                        if (soLuong != null) {
+                            clickCount = 0;
+                            if (Pattern.matches(regex, soLuong)) {
+                                clickCount = 0;
+                                soLuongMua = Integer.valueOf(soLuong);
+                            } else {
+                                clickCount = 0;
+                                JOptionPane.showMessageDialog(null, "Dữ liệu không phù hợp !");
+                                return;
+                            }
+                            ChiTietSanPham ctsp = readFormAddSanPham();
+                            if (soLuongMua <= 0) {
+                                clickCount = 0; // Reset clickCount để chờ lần bấm tiếp theo
+                                JOptionPane.showMessageDialog(null, "Số lượng lớn hơn 0 !");
+                                return;
+                            } else if (soLuongMua > ctsp.getSoLuong()) {
+                                clickCount = 0; // Reset clickCount để chờ lần bấm tiếp theo
+                                JOptionPane.showMessageDialog(null, "Số lượng không được lớn hơn số lượng có !");
+                                return;
+                            } else if (soLuongMua <= ctsp.getSoLuong() && hd.getTrangThai() == 0 && soLuongMua >= 0) {
+                                clickCount = 0; // Reset clickCount để chờ lần bấm tiếp theo
+                                //ChiTietSanPham ctsp = readFormAddSanPham();
+                                Integer maHD = Integer.valueOf(txtIdHoaDon.getText());
+                                Integer maCTSP = Integer.valueOf(tblChiTietSanPham.getValueAt(index, 0) + "");
+
+                                service.addGioHang(maCTSP, soLuongMua, maHD);
+                                //service.addGioHang(maHD, maCTSP, donGia, soLuongMua);                    
+                                tinhTongTien();
+                                fillToTableChiTietSanPham(service.getAllCTSP());
+                                fillToTableGioHang(service.getAllGioHang(maHD));
+
+                                tinhTongTien();
+                            } else if (hd.getTrangThai() == 1) {
+                                clickCount = 0; // Reset clickCount để chờ lần bấm tiếp theo
+                                JOptionPane.showMessageDialog(null, "Hóa đơn đã thanh toán !");
+                                return;
+                            }
                         } else {
                             clickCount = 0;
-                            JOptionPane.showMessageDialog(null, "Dữ liệu không phù hợp !");
-                            return;
-                        }
-                        ChiTietSanPham ctsp = readFormAddSanPham();
-                        if (soLuongMua <= 0) {
-                            clickCount = 0; // Reset clickCount để chờ lần bấm tiếp theo
-                            JOptionPane.showMessageDialog(null, "Số lượng lớn hơn 0 !");
-                            return;
-                        } else if (soLuongMua > ctsp.getSoLuong()) {
-                            clickCount = 0; // Reset clickCount để chờ lần bấm tiếp theo
-                            JOptionPane.showMessageDialog(null, "Số lượng không được lớn hơn số lượng có !");
-                            return;
-                        } else if (soLuongMua <= ctsp.getSoLuong() && hd.getTrangThai() == 0 && soLuongMua >= 0) {
-                            clickCount = 0; // Reset clickCount để chờ lần bấm tiếp theo
-                            //ChiTietSanPham ctsp = readFormAddSanPham();
-                            Integer maHD = Integer.valueOf(txtIdHoaDon.getText());
-                            Integer maCTSP = Integer.valueOf(tblChiTietSanPham.getValueAt(index, 0) + "");
-
-                            service.addGioHang(maCTSP, soLuongMua, maHD);
-                            //service.addGioHang(maHD, maCTSP, donGia, soLuongMua);                    
-                            tinhTongTien();
-                            fillToTableChiTietSanPham(service.getAllCTSP());
-                            fillToTableGioHang(service.getAllGioHang(maHD));
-
-                            tinhTongTien();
-                        } else if (hd.getTrangThai() == 1) {
-                            clickCount = 0; // Reset clickCount để chờ lần bấm tiếp theo
-                            JOptionPane.showMessageDialog(null, "Hóa đơn đã thanh toán !");
-                            return;
-                        }
-                    } else {
-                            clickCount = 0; 
                         }
                     }
                 }
@@ -229,7 +238,7 @@ public class BanHangForm extends javax.swing.JPanel {
             txtTienKhachDua.enable();
             txtTienChuyenKhoan.enable();
             txtTienChuyenKhoan.setBackground(Color.WHITE);
-            txtTienKhachDua.setBackground(Color.WHITE);     
+            txtTienKhachDua.setBackground(Color.WHITE);
         }
     }
 
@@ -262,7 +271,7 @@ public class BanHangForm extends javax.swing.JPanel {
 
             tongTien = tongTien + thanhTien;
         }
-        txtTongTien.setText(String.valueOf(tongTien));       
+        txtTongTien.setText(String.valueOf(tongTien));
         Double tienCK = 0.0;
         Double tienDua = 0.0;
 
@@ -288,7 +297,7 @@ public class BanHangForm extends javax.swing.JPanel {
             }
         } else {
             tienGiamGia = 0.0;
-        }       
+        }
         txtGiamGia.setText(String.valueOf(tienGiamGia));
         tienThua = (tienDua + tienCK + tienGiamGia) - tongTien;
         txtTienThua.setText(String.valueOf(tienThua));
@@ -1072,8 +1081,8 @@ public class BanHangForm extends javax.swing.JPanel {
             Integer maHD = Integer.valueOf(tblHoaDon.getValueAt(index, 0) + "");
 
             System.out.println(maHD);
-            
-            showDataLocHoaDon( 0, maHD);
+
+            showDataLocHoaDon(0, maHD);
 
             tinhTongTien();
 
@@ -1175,8 +1184,9 @@ public class BanHangForm extends javax.swing.JPanel {
         Integer idKM = 0;
         if (tblHoaDon.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Mời chọn hóa đơn !");
-        } else {                      
+        } else {
             int id = Integer.valueOf(txtIdHoaDon.getText());
+            String idhd = txtMaHoaDon.getText();
             String makh = txtMaKhachHang.getText();
             String httt = (String) cboHinhThuc.getSelectedItem();
             int hinhThuc = 0;
@@ -1195,20 +1205,20 @@ public class BanHangForm extends javax.swing.JPanel {
             }
 
             tienThua = (tienDua + tienCK + tienGG) - tongTien;
-            
-            if(lrkm != null){
-                if(lrkm.getDonGiamToiThieu() < tongTien){
-                idKM = lrkm.getID();               
+
+            if (lrkm != null) {
+                if (lrkm.getDonGiamToiThieu() < tongTien) {
+                    idKM = lrkm.getID();
                 } else {
-                    idKM = null;  
+                    idKM = null;
                 }
             } else {
                 idKM = null;
             }
-            
+
             if (tienThua >= 0 && tongTien > 0 && !makh.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Thanh toán thành công !");
-                service.updateHoaDon(tienDua, tienCK, tienThua, tongTien, id, makh, hinhThuc, tienGG,idKM);
+                service.updateHoaDon(tienDua, tienCK, tienThua, tongTien, id, makh, hinhThuc, tienGG, idKM);
                 fillToTableHoaDon(service.LocHoaDon(1));
                 tblHoaDon.setRowSelectionInterval(0, 0);
                 lblKhachHang.setText("...");
@@ -1222,6 +1232,30 @@ public class BanHangForm extends javax.swing.JPanel {
                 txtTienKhachDua.setBackground(Color.GRAY);
                 rdoAll.setSelected(true);
                 clearForm();
+
+                int chon = JOptionPane.showConfirmDialog(this, "Bạn muốn in hóa đơn không ?");
+                if (chon == JOptionPane.YES_OPTION) {
+                    ArrayList<HDCTResponse> listCT = new ArrayList<>();
+                    XemCTHDResponse xemCT = serviceXCT.xemchitiet(idhd);
+                    listCT = serviceXCT.getAllHDCT(idhd);
+                    JFileChooser avatarChooser = new JFileChooser("D:\\");
+                    avatarChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //Giới hạn chỉ chọn đc thư mục
+                    FileNameExtensionFilter avatarFilter = new FileNameExtensionFilter("Danh sách hoá đơn", "xlsx");
+                    avatarChooser.setFileFilter(avatarFilter);
+                    avatarChooser.setAcceptAllFileFilterUsed(false);
+                    int selectFileCheck = avatarChooser.showOpenDialog(this);
+                    File selectedFile = avatarChooser.getSelectedFile();
+                    if (!(selectFileCheck == JFileChooser.APPROVE_OPTION)) {
+                        return;
+                    }
+
+                    String path = selectedFile.getAbsolutePath();
+
+                    ExportPDFHoaDon export = new ExportPDFHoaDon();
+                    export.exportBill(xemCT, listCT, path);
+
+                    JOptionPane.showMessageDialog(this, "In hóa đơn thành công");
+                }
             } else if (tongTien == 0) {
                 JOptionPane.showMessageDialog(this, "Không thể thanh toán");
             } else {
