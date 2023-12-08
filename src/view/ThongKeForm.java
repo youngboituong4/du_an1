@@ -811,7 +811,9 @@ public class ThongKeForm extends javax.swing.JPanel {
 
                     ngayy = formattedDate;
                     BarChartData.setValue(service.TimFromTo(ngayy), "Doanh thu", formattedDatee + "");
-
+                    
+                    HienThi();
+                    
                     currentDate = currentDate.plusDays(1);
 
                 }

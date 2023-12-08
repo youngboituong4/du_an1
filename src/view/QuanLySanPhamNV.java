@@ -38,7 +38,7 @@ public class QuanLySanPhamNV extends javax.swing.JFrame {
 
         nhanVien = nv;
 
-        view = new ThongKeForm();
+        view = new ThongKeFormNV();
         setView();
     }
 
@@ -77,7 +77,7 @@ public class QuanLySanPhamNV extends javax.swing.JFrame {
                 setView();
                 break;
             case "ThongKe":
-                view = new ThongKeForm();
+                view = new ThongKeFormNV();
                 setView();
                 break;
             case "DoiMatKhau":
