@@ -802,7 +802,7 @@ public class ThongKeForm extends javax.swing.JPanel {
                 LocalDate endDate = LocalDate.of(Integer.parseInt(year2), Integer.parseInt(month2), Integer.parseInt(date2));
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("MM/dd");
+                DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("dd/MM");
 
                 LocalDate currentDate = startDate;
                 while (!currentDate.isAfter(endDate)) {
